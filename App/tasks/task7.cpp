@@ -5,13 +5,20 @@
 #include <string>
 
 
+
+
 using namespace std;
 
 
-// как представлять графы
+
 
 
 const int inf = 1e9;
+
+
+int sum(int a, int b) {
+    return a + b;
+}
 
 class Graph {
 
@@ -24,22 +31,23 @@ class Graph {
        G: (D, 7), (F, 8)
     */
 
-    // множество вершин (по умолчанию называются буквами алфавита A, B, C и т. д.
+    // РЅР°Р·РІР°РЅРёСЏ РІРµСЂС€РёРЅ
     vector<char> vs;
     unordered_map<int, unordered_map<int, int>> graph;
 
 public:
-    // матрица смежности
+
+    // РїРѕСЃС‚СЂРѕРµРЅРёРµ РіСЂР°С„Р° РїСЂРё РїРѕРјРѕС‰Рё РјР°С‚СЂРёС†С‹ СЃРјРµР¶РЅРѕСЃС‚Рё
     Graph(const vector<vector<int>>& madj) : vs(madj.size()) {
         for (int i = 0; i < madj.size(); i++) {
 
-            vs[i] = (char)(i + 'A');
+            vs[i] = (char)(i + 'A');    // РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РІРµСЂС€РёРЅС‹ Р±СѓРґСѓС‚ РЅР°Р·С‹РІР°С‚СЊСЃСЏ Р·Р°РіР»Р°РІРЅС‹РјРё Р±СѓРєРІР°РјРё Р°РЅРіР»РёР№СЃРєРѕРіРѕ Р°Р»С„Р°РІРёС‚Р°
 
             unordered_map<int, int> neighbours;
 
             for (int j = 0; j < madj.size(); j++) {
 
-                if (i != j && madj[i][j] != inf) {   // чтобы не дублировать ребра тип I -- I
+                if (i != j && madj[i][j] != inf) {
                     neighbours[j] = madj[i][j];
                 }
             }
@@ -47,7 +55,8 @@ public:
         }
     }
 
-    // чтение из файла с матрицей смежности
+
+    // РїРѕСЃС‚СЂРѕРµРЅРёРµ РіСЂР°С„Р° РїСЂРё РїРѕРјРѕС‰Рё С„Р°Р№Р»Р° СЃ РјР°С‚СЂРёС†РµР№ СЃРјРµР¶РЅРѕСЃС‚Рё
     Graph(const string& file) {
 
     }
@@ -70,7 +79,7 @@ public:
 
 void test() {
     // A B C D E
-    // inf, т. е. все ребер меньше inf
+
     vector<vector<int>> madj = {
         {0, 3, inf, inf, -2},
         {3, 0, 5, inf, 4},
@@ -82,6 +91,6 @@ void test() {
     G.print();
 }
 
-int main() {
-    test();
-}
+// int main() {
+//     test();
+// }

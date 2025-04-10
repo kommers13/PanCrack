@@ -6,6 +6,8 @@
 
 #include "autogen/environment.h"
 
+#include <task7.h>
+
 int main(int argc, char *argv[])
 {
     set_qt_environment();
