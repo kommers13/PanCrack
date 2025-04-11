@@ -12,9 +12,11 @@ add_subdirectory(../tasks ${CMAKE_BINARY_DIR}/tasks)    # CMAKE_BINARY_DIR - э�
 message(STATUS "Binary directory of project \"Tests\": ${CMAKE_BINARY_DIR}")
 
 qt_add_executable(Tests
-    main_test.cpp)
+    main_test.cpp
 
-target_include_directories(Tests PUBLIC hpp_test)        # исходные файлы тестов
+    include/testgraph.h testgraph.cpp
+)
 
 target_link_libraries(Tests PRIVATE taskslib Qt6::Test Qt6::Widgets)
+
 

@@ -3,14 +3,12 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <test.hpp>
-#include <test1.hpp>
+#include "include/testgraph.h"
 
 
 int main(int argc, char* argv[]) {
     QApplication a(argc, argv);
-    QTest::qExec(new MyFirstTest, argc, argv);
-    QTest::qExec(new MyFirstTest1, argc, argv);
+    QTest::qExec(new TestGraph);
 }
 
 

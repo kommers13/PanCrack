@@ -1,16 +1,13 @@
-#include <task7.h>
+#ifndef MYNOTFIRSTTEST_H
+#define MYNOTFIRSTTEST_H
+
+#include <QObject>
 
 #include <QTest>
 
-class MyFirstTest: public QObject
+class MyNotFirstTest: public QObject
 {
     Q_OBJECT
-
-private:
-    bool myCondition()
-    {
-        return true;
-    }
 
 private slots:
     // void initTestCase() {
@@ -27,14 +24,10 @@ private slots:
     //     QVERIFY(sum(1, 2) != 2);
     // }
 
-    void testSum() {
-        QCOMPARE(sum(254, 666), 920);
-    }
-
+    void testSum();
     // void cleanupTestCase() {
     //     qDebug("Called after myFirstTest and mySecondTest.");
     // }
 };
 
-Q_DECLARE_METATYPE(MyFirstTest)
-#include "test.moc"
+#endif // MYNOTFIRSTTEST_H

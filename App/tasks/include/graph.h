@@ -1,0 +1,58 @@
+#ifndef __GRAPH__
+#define __GRAPH__
+
+#include <iostream>
+#include <unordered_set>
+#include <unordered_map>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <sstream>
+
+
+
+using namespace std;
+
+
+class Graph {
+
+    /* A: (B, 1), (C, -2)
+       B: (A, 1), (C, 3), (D, 5)
+       C: (B, 3), (A, -2)
+       D: (B, 5), (E, 10), (G, 7)
+       E: (D, 10), (F, 0)
+       F: (G, 8), (E, 0)
+       G: (D, 7), (F, 8)
+    */
+
+    // названия вершин
+    vector<char> vs;
+    unordered_map<int, unordered_map<int, int>> graph;
+
+    void create_from_madj(const vector<vector<int>>& madj);
+
+public:
+
+    // построение графа при помощи матрицы смежности
+    Graph(const vector<vector<int>>& madj);
+
+    // построение графа при помощи строкового потока с матрицей смежности
+    // ввод
+    /*
+
+    5
+    0 3 inf inf -2
+    3 0 5 inf 4
+    inf 5 0 10 inf
+    inf inf 10 0 6
+    -2 0 inf 6 0
+
+    */
+    Graph(istream& in);
+
+    void print();
+
+    unordered_map<int, unordered_map<int, int>> get_graph() const;
+};
+
+#endif // __GRAPH__

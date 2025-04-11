@@ -1,2 +1,4 @@
 ai
 build
+*.exe
+*.o
