@@ -28,8 +28,14 @@ class Graph {
     // названия вершин
     vector<char> vs;
     unordered_map<int, unordered_map<int, int>> graph;
+    // для некоторых задачи неориентированный граф может не работать
+    bool undirected;    // true - неориентированный, false- ориентированный
 
+    // создании графа из матрицы смежности
     void create_from_madj(const vector<vector<int>>& madj);
+
+    // проверка, является ли граф неориентированным
+    bool is_undirected(const vector<vector<int>>& madj);
 
 public:
 
@@ -53,6 +59,8 @@ public:
     void print();
 
     unordered_map<int, unordered_map<int, int>> get_graph() const;
+
+    bool get_undirected() const;
 };
 
 #endif // __GRAPH__

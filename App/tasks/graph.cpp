@@ -24,8 +24,21 @@ void Graph::create_from_madj(const vector<vector<int>>& madj) {
 }
 
 
+// проверка, является ли граф неориентированным
+bool Graph::is_undirected(const vector<vector<int>>& madj) {
+    for (int i = 0; i < madj.size(); i++) {
+        for (int j = 0; j < madj.size(); j++) {
+            if (madj[i][j] != madj[j][i]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 // построение графа при помощи матрицы смежности
 Graph::Graph(const vector<vector<int>>& madj) {
+    undirected = is_undirected(madj);
     create_from_madj(madj);
 }
 
@@ -47,6 +60,7 @@ Graph::Graph(istream& in) {
             }
         }
     }
+    undirected = is_undirected(madj);
     create_from_madj(madj);
 }
 
@@ -67,4 +81,8 @@ void Graph::print() {
 
 unordered_map<int, unordered_map<int, int>> Graph::get_graph() const {
     return graph;
+}
+
+bool Graph::get_undirected() const {
+    return undirected;
 }
