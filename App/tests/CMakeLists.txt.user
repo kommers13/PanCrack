@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 15.0.1, 2025-04-11T23:57:02. -->
+<!-- Written by QtCreator 15.0.1, 2025-04-12T00:27:29. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -73,6 +73,7 @@
    <value type="bool" key="AutoTest.ApplyFilter">false</value>
    <valuemap type="QVariantMap" key="AutoTest.CheckStates">
     <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:test_creating_graph_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:test_undirected_graph_data">Unchecked</value>
    </valuemap>
    <valuelist type="QVariantList" key="AutoTest.PathFilters"/>
    <value type="int" key="AutoTest.RunAfterBuild">0</value>
