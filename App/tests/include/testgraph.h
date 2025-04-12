@@ -17,6 +17,12 @@ private slots:
 
     void test_undirected_graph_data();
     void test_undirected_graph();
+
+    void test_add_vertex_data();
+    void test_add_vertex();
+
+    void test_add_edge_data();
+    void test_add_edge();
 };
 
 #endif // TESTGRAPH_H

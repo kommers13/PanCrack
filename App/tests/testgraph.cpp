@@ -71,6 +71,13 @@ void TestGraph::test_creating_graph_data() {
             {}
         }
     };
+
+    // TEST 4
+    string in4 = "0";
+        stringstream ss4(in4);
+    Graph g4(ss4);
+
+    uniunii ans4 = {};
     // END INIT DATA
 
     QTest::addColumn<Graph>("graph");   // object
@@ -79,9 +86,8 @@ void TestGraph::test_creating_graph_data() {
     QTest::newRow("graph 1") << g1 << ans1;
     QTest::newRow("graph 2") << g2 << ans2;
     QTest::newRow("graph 3") << g3 << ans3;
+    QTest::newRow("graph 4") << g4 << ans4;
 }
-
-
 void TestGraph::test_creating_graph() {
     QFETCH(Graph, graph);
     QFETCH(uniunii, ans);
@@ -130,6 +136,12 @@ void TestGraph::test_undirected_graph_data() {
     Graph g4(ss4);
     bool ans4 = true;
 
+    // TEST 5
+    string in5 = "0";
+        stringstream ss5(in5);
+    Graph g5(ss5);
+    bool ans5 = true;
+
     // END INIT DATA
 
     QTest::addColumn<Graph>("graph");
@@ -139,12 +151,238 @@ void TestGraph::test_undirected_graph_data() {
     QTest::newRow("und graph 2") << g2 << ans2;
     QTest::newRow("und graph 3") << g3 << ans3;
     QTest::newRow("und graph 4") << g4 << ans4;
+    QTest::newRow("und graph 5") << g5 << ans5;
 }
-
 void TestGraph::test_undirected_graph() {
     QFETCH(Graph, graph);
     QFETCH(bool, is_undirected);
     QCOMPARE(graph.get_undirected(), is_undirected);
+}
+
+
+void TestGraph::test_add_vertex_data() {
+    // INIT DATA
+    // TEST 1
+    string in1 = "4               \
+                 0   3   inf inf  \
+                 3   0   5   inf  \
+                 inf 5   0   10   \
+                 inf inf 10  0   ";
+    stringstream ss1(in1);
+    Graph g1(ss1);
+    g1.add_vertex();
+
+    uniunii ans1 = {
+        {0,
+            {{1, 3}}
+        },
+        {1,
+            {{0, 3}, {2, 5}}
+        },
+        {2,
+            {{1, 5}, {3, 10}}
+        },
+        {3,
+            {{2, 10}}
+        },
+        {4,
+         {}
+        }
+    };
+
+    // TEST 2
+    string in2 = "3 \
+        0   inf 1 \
+        inf 0   6 \
+        1   6   0 ";
+    stringstream ss2(in2);
+    Graph g2(ss2);
+
+    g2.add_vertex();
+
+    uniunii ans2 = {
+        {0,
+            {{2, 1}}
+        },
+        {1,
+            {{2, 6}}
+        },
+        {2,
+            {{0, 1}, {1, 6}}
+        },
+        {3,
+         {}
+        }
+    };
+
+    // TEST 3
+    string in3 = "2 \
+                  0   inf \
+                  inf 0";
+    stringstream ss3(in3);
+    Graph g3(ss3);
+
+    g3.add_vertex();
+
+    uniunii ans3 = {
+        {0,
+            {}
+        },
+        {1,
+            {}
+        },
+        {2,
+            {}
+        }
+    };
+    // TEST 4
+    string in4 = "0";
+    stringstream ss4(in4);
+    Graph g4(ss4);
+
+    g4.add_vertex();
+
+    uniunii ans4 = {
+        {0,
+         {}
+        }
+    };
+    // END INIT DATA
+
+    QTest::addColumn<Graph>("graph");   // object
+    QTest::addColumn<uniunii>("ans");   // result
+
+    QTest::newRow("vertex 1") << g1 << ans1;
+    QTest::newRow("vertex 2") << g2 << ans2;
+    QTest::newRow("vertex 3") << g3 << ans3;
+    QTest::newRow("vertex 4") << g4 << ans4;
+}
+void TestGraph::test_add_vertex() {
+    QFETCH(Graph, graph);
+    QFETCH(uniunii, ans);
+    QCOMPARE(graph.get_graph(), ans);
+}
+
+
+void TestGraph::test_add_edge_data() {
+    // TEST1
+    string s1 = "2 \
+                 0 1 \
+                 1 0 ";
+    stringstream ss1(s1);
+    Graph g1(ss1);
+
+    g1.add_edge(0, 1, 2);
+
+    uniunii ans1 = {
+        {0,
+         {{1, 2}}
+        },
+        {1,
+         {{0, 2}}
+        }
+    };
+
+    // TEST2
+    string s2 = "2 \
+                 0 1 \
+                 1 0 ";
+    stringstream ss2(s2);
+    Graph g2(ss2);
+
+    g2.add_edge(1, 0, 2);
+
+    uniunii ans2 = {
+        {0,
+            {{1, 2}}
+        },
+        {1,
+            {{0, 2}}
+        }
+    };
+
+    // TEST3
+    string s3 = "3 \
+        0   1 inf \
+        1   0 inf \
+        inf inf 0";
+        stringstream ss3(s3);
+    Graph g3(ss3);
+
+    g3.add_edge(2, 0, 100);
+    g3.add_edge(0, 2, 1203);
+
+    uniunii ans3 = {
+        {0,
+            {{1, 1}, {2, 1203}}
+        },
+        {1,
+            {{0, 1}}
+        },
+        {2,
+            {{0, 1203}}
+        }
+    };
+
+    // TEST 4
+    string s4 = "0";
+    stringstream ss4(s4);
+    Graph g4(ss4);
+
+    g4.add_vertex();
+    g4.add_vertex();
+    g4.add_edge(1, 0, 100);
+    g4.add_edge(0, 1, 1203);
+
+    uniunii ans4 = {
+        {0,
+            {{1, 1203}}
+        },
+        {1,
+            {{0, 1203}}
+        }
+    };
+
+    // TEST 5
+    string s5 = "3 \
+                0   inf 1 \
+                inf 0   6 \
+                1   6   0 ";
+    stringstream ss5(s5);
+    Graph g5(ss5);
+
+    g5.add_edge(1, 0, 100);
+    g5.add_edge(45, 435, 12);
+    g5.add_edge(0, 0, 45);
+
+    uniunii ans5 = {
+        {0,
+            {{2, 1}, {1, 100}}
+        },
+        {1,
+            {{2, 6}, {0, 100}}
+        },
+        {2,
+            {{0, 1}, {1, 6}}
+        }
+    };
+    // END INIT DATA
+
+
+    QTest::addColumn<Graph>("graph");
+    QTest::addColumn<uniunii>("ans");
+
+    QTest::newRow("edge 1") << g1 << ans1;
+    QTest::newRow("edge 2") << g2 << ans2;
+    QTest::newRow("edge 3") << g3 << ans3;
+    QTest::newRow("edge 4") << g4 << ans4;
+    QTest::newRow("edge 5") << g5 << ans5;
+
+}
+void TestGraph::test_add_edge() {
+    QFETCH(Graph, graph);
+    QFETCH(uniunii, ans);
+    QCOMPARE(graph.get_graph(), ans);
 }
 
 Q_DECLARE_METATYPE(TestGraph)

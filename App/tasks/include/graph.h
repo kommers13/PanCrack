@@ -54,13 +54,32 @@ public:
     -2 0 inf 6 0
 
     */
+    // istream является предком и stringstream и ifstream
     Graph(istream& in);
 
-    void print();
+    // добавить вершину
+    void add_vertex();
 
+    // удалить вершину по номеру
+    void delete_vertex(int num);
+
+
+    // добавить ребро
+    // v1, v2 - вершины, которые будут соединяться ребрами
+    // w - вес ребра
+    // нумерация вершин начинается с 0
+    void add_edge(int v1, int v2, int w);
+
+    // удалить ребро по вершинам, которые его соединяют
+    void delete_edge(int v1, int v2);
+
+    // геттеры
     unordered_map<int, unordered_map<int, int>> get_graph() const;
 
     bool get_undirected() const;
+
+    // вывод графа на консоль
+    void print();
 };
 
 #endif // __GRAPH__
