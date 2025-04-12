@@ -1,8 +1,8 @@
 #include "include/testgraph.h"
-#include <graph.h>
 
 
 typedef unordered_map<int, unordered_map<int, int>> uniunii;
+typedef unordered_set<tuple<int, int, int>, TupleHash> ustiiith;
 
 
 void TestGraph::test_creating_graph_data() {
@@ -14,7 +14,7 @@ void TestGraph::test_creating_graph_data() {
                  3   0   5   inf 4 \
                  inf 5   0   10  inf \
                  inf inf 10  0   6 \
-                 -2  0   inf 6   0";
+                 -2  4   inf 6   0";
     stringstream ss1(in1);
     Graph g1(ss1);
 
@@ -32,7 +32,7 @@ void TestGraph::test_creating_graph_data() {
                 {{2, 10}, {4, 6}}
             },
             {4,
-                {{0, -2}, {3, 6}, {1, 0}}
+                {{0, -2}, {3, 6}, {1, 4}}
             }
         };
 
@@ -383,6 +383,123 @@ void TestGraph::test_add_edge() {
     QFETCH(Graph, graph);
     QFETCH(uniunii, ans);
     QCOMPARE(graph.get_graph(), ans);
+}
+
+
+void TestGraph::test_get_edges_data() {
+    // TEST1
+    string s1 = "2 \
+        0 1 \
+        1 0 ";
+    stringstream ss1(s1);
+    Graph g1(ss1);
+
+    g1.add_edge(0, 1, 200);
+
+    ustiiith ans1 = {
+        make_tuple(1, 0, 200)
+    };
+
+    // TEST2
+    string s2 = "3 \
+        0 1 3 \
+        1 0 2 \
+        3 2 0";
+    stringstream ss2(s2);
+    Graph g2(ss2);
+
+    ustiiith ans2 = {
+        make_tuple(1, 0, 1),
+        make_tuple(2, 0, 3),
+        make_tuple(2, 1, 2),
+    };
+
+    // TEST3
+    string s3 = "4   \
+        0  1    3    -2  \
+        1  0    inf  2   \
+        3  inf  0    inf \
+        -2 2    inf  0";
+    stringstream ss3(s3);
+    Graph g3(ss3);
+
+    ustiiith ans3 = {
+        make_tuple(1, 0, 1),
+        make_tuple(2, 0, 3),
+        make_tuple(3, 0, -2),
+        make_tuple(3, 1, 2),
+    };
+    // END INIT DATA
+
+    QTest::addColumn<Graph>("graph");
+    QTest::addColumn<ustiiith>("ans");
+
+    QTest::newRow("get edges 1") << g1 << ans1;
+    QTest::newRow("get edges 2") << g2 << ans2;
+    QTest::newRow("get edges 3") << g3 << ans3;
+    // QTest::newRow("get edges 4") << g4 << ans4;
+    // QTest::newRow("get edges 5") << g5 << ans5;
+}
+void TestGraph::test_get_edges() {
+    QFETCH(Graph, graph);
+    QFETCH(ustiiith, ans);
+    QCOMPARE(graph.get_edges(), ans);
+}
+
+
+void TestGraph::test_equal_data() {
+    // TEST1
+    string s1 = "2 \
+        0 1 \
+        1 0 ";
+        stringstream ss1(s1);
+    Graph g1(ss1);
+
+    Graph ans1;
+    ans1.add_vertex();
+    ans1.add_vertex();
+    ans1.add_edge(0, 1, 1);
+
+    // TEST2
+    string s2 = "4   \
+                0  1    3    -2  \
+                1  0    inf  2   \
+                3  inf  0    inf \
+                -2 2    inf  0";
+    stringstream ss2(s2);
+    Graph g2(ss2);
+
+
+    Graph ans2;
+    ans2.add_vertex();
+    ans2.add_vertex();
+    ans2.add_vertex();
+    ans2.add_vertex();
+    ans2.add_edge(0, 2, 3);
+    ans2.add_edge(0, 1, 1);
+    ans2.add_edge(1, 3, 2);
+    ans2.add_edge(3, 0, -2);
+
+    // TEST3
+    string s3 = "1 \
+                 0";        // одна вершина в матрице
+    stringstream ss3(s3);
+    Graph g3(ss3);
+
+    Graph ans3;
+    ans3.add_vertex();
+    // END INIT DATA
+
+    QTest::addColumn<Graph>("graph");
+    QTest::addColumn<Graph>("my_graph");
+    QTest::newRow("equal 1") << g1 << ans1;
+    QTest::newRow("equal 2") << g2 << ans2;
+    QTest::newRow("equal 3") << g3 << ans3;
+}
+void TestGraph::test_equal() {
+    QFETCH(Graph, graph);
+    QFETCH(Graph, my_graph);
+    QCOMPARE(graph, my_graph);
 }
 
 Q_DECLARE_METATYPE(TestGraph)

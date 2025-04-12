@@ -8,10 +8,15 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <tuple>
 
 
 
 using namespace std;
+
+struct TupleHash {
+    size_t operator()(const std::tuple<int, int, int>& t) const;
+};
 
 
 class Graph {
@@ -28,8 +33,14 @@ class Graph {
     // названия вершин
     vector<char> vs;
     unordered_map<int, unordered_map<int, int>> graph;
-    // для некоторых задачи неориентированный граф может не работать
-    bool undirected;    // true - неориентированный, false- ориентированный
+    // для некоторых задачи ориентированный граф может не работать (в данном случае для всех)
+    bool undirected;    // true - неориентированный, false - ориентированный
+
+    // является ли граф связным
+    // true - DEBUG, пока считаем, что все графы - связные
+    bool connected = true;     // true - связный граф, false - несвязный граф
+
+private:
 
     // создании графа из матрицы смежности
     void create_from_madj(const vector<vector<int>>& madj);
@@ -37,7 +48,16 @@ class Graph {
     // проверка, является ли граф неориентированным
     bool is_undirected(const vector<vector<int>>& madj);
 
+    // проверка, является ли граф связным
+    bool is_connected(const vector<vector<int>>& madj);
+
 public:
+
+    // нулевой граф
+    Graph();
+
+    // граф с n вершинами без ребер
+    Graph(const int& n);
 
     // построение графа при помощи матрицы смежности
     Graph(const vector<vector<int>>& madj);
@@ -73,13 +93,19 @@ public:
     // удалить ребро по вершинам, которые его соединяют
     void delete_edge(int v1, int v2);
 
-    // геттеры
+    // GETTERS
     unordered_map<int, unordered_map<int, int>> get_graph() const;
 
     bool get_undirected() const;
 
+    // tuple<int, int, int> - v1, v2, w
+    unordered_set<tuple<int, int, int>, TupleHash> get_edges() const;
+
     // вывод графа на консоль
     void print();
+
+    // OPERATORS
+    bool operator==(const Graph& other) const;
 };
 
 #endif // __GRAPH__

@@ -2,3 +2,5 @@ ai
 build
 *.exe
 *.o
+*.drawio
+*.bkp

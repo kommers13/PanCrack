@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 15.0.1, 2025-04-12T12:56:38. -->
+<!-- Written by QtCreator 15.0.1, 2025-04-12T20:10:43. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -72,21 +72,40 @@
    </valuemap>
    <value type="bool" key="AutoTest.ApplyFilter">false</value>
    <valuemap type="QVariantMap" key="AutoTest.CheckStates">
-    <value type="Qt::CheckState" key="1@:Qt Test">Unchecked</value>
     <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/include/testgraph.h:TestGraph">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/include/testgraph.h:test_add_edge">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/include/testgraph.h:test_add_vertex">Unchecked</value>
     <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/include/testgraph.h:test_creating_graph">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/include/testgraph.h:test_get_edges">Unchecked</value>
     <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/include/testgraph.h:test_undirected_graph">Unchecked</value>
     <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/include/testtask10.h:TestTask10">Unchecked</value>
     <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/include/testtask10.h:test_sum">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:edge 1">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:edge 2">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:edge 3">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:edge 4">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:edge 5">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:get edges 1">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:get edges 2">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:get edges 3">Unchecked</value>
     <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:graph 1">Unchecked</value>
     <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:graph 2">Unchecked</value>
     <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:graph 3">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:graph 4">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:test_add_edge_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:test_add_vertex_data">Unchecked</value>
     <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:test_creating_graph_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:test_get_edges_data">Unchecked</value>
     <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:test_undirected_graph_data">Unchecked</value>
     <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:und graph 1">Unchecked</value>
     <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:und graph 2">Unchecked</value>
     <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:und graph 3">Unchecked</value>
     <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:und graph 4">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:und graph 5">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:vertex 1">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:vertex 2">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:vertex 3">Unchecked</value>
+    <value type="Qt::CheckState" key="1@D:/PanCrack/App/tests/testgraph.cpp:vertex 4">Unchecked</value>
    </valuemap>
    <valuelist type="QVariantList" key="AutoTest.PathFilters"/>
    <value type="int" key="AutoTest.RunAfterBuild">0</value>
@@ -119,15 +138,15 @@
     <value type="int" key="CMake.Configure.BaseEnvironment">2</value>
     <value type="bool" key="CMake.Configure.ClearSystemEnvironment">false</value>
     <valuelist type="QVariantList" key="CMake.Configure.UserEnvironmentChanges"/>
-    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
--DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
+    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_GENERATOR:STRING=Ninja
+-DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
 -DCMAKE_C_COMPILER:FILEPATH=%{Compiler:Executable:C}
 -DCMAKE_BUILD_TYPE:STRING=Debug
--DCMAKE_GENERATOR:STRING=Ninja
+-DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
+-DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}
 -DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}
--DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
--DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}
--DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}</value>
+-DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
+-DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}</value>
     <value type="int" key="EnableQmlDebugging">0</value>
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\PanCrack\App\tests\build\Desktop_Qt_6_8_2_MinGW_64_bit-Debug</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
@@ -177,15 +196,15 @@
     <value type="int" key="CMake.Configure.BaseEnvironment">2</value>
     <value type="bool" key="CMake.Configure.ClearSystemEnvironment">false</value>
     <valuelist type="QVariantList" key="CMake.Configure.UserEnvironmentChanges"/>
-    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
--DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
+    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_GENERATOR:STRING=Ninja
+-DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
 -DCMAKE_C_COMPILER:FILEPATH=%{Compiler:Executable:C}
 -DCMAKE_BUILD_TYPE:STRING=Release
--DCMAKE_GENERATOR:STRING=Ninja
+-DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
+-DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}
 -DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}
--DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
--DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}
--DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}</value>
+-DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
+-DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}</value>
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\PanCrack\App\tests\build\Desktop_Qt_6_8_2_MinGW_64_bit-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
@@ -232,15 +251,15 @@
     <value type="int" key="CMake.Configure.BaseEnvironment">2</value>
     <value type="bool" key="CMake.Configure.ClearSystemEnvironment">false</value>
     <valuelist type="QVariantList" key="CMake.Configure.UserEnvironmentChanges"/>
-    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
--DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
+    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_GENERATOR:STRING=Ninja
+-DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
 -DCMAKE_C_COMPILER:FILEPATH=%{Compiler:Executable:C}
 -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo
--DCMAKE_GENERATOR:STRING=Ninja
+-DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
+-DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}
 -DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}
--DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
--DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}
--DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}</value>
+-DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
+-DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}</value>
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\PanCrack\App\tests\build\Desktop_Qt_6_8_2_MinGW_64_bit-RelWithDebInfo</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
@@ -287,15 +306,15 @@
     <value type="int" key="CMake.Configure.BaseEnvironment">2</value>
     <value type="bool" key="CMake.Configure.ClearSystemEnvironment">false</value>
     <valuelist type="QVariantList" key="CMake.Configure.UserEnvironmentChanges"/>
-    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
--DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
+    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_GENERATOR:STRING=Ninja
+-DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
 -DCMAKE_C_COMPILER:FILEPATH=%{Compiler:Executable:C}
 -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo
--DCMAKE_GENERATOR:STRING=Ninja
+-DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
+-DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}
 -DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}
--DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
--DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}
--DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}</value>
+-DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
+-DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}</value>
     <value type="int" key="EnableQmlDebugging">0</value>
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\PanCrack\App\tests\build\Desktop_Qt_6_8_2_MinGW_64_bit-Profile</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
@@ -343,15 +362,15 @@
     <value type="int" key="CMake.Configure.BaseEnvironment">2</value>
     <value type="bool" key="CMake.Configure.ClearSystemEnvironment">false</value>
     <valuelist type="QVariantList" key="CMake.Configure.UserEnvironmentChanges"/>
-    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
--DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
+    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_GENERATOR:STRING=Ninja
+-DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
 -DCMAKE_C_COMPILER:FILEPATH=%{Compiler:Executable:C}
 -DCMAKE_BUILD_TYPE:STRING=MinSizeRel
--DCMAKE_GENERATOR:STRING=Ninja
+-DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
+-DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}
 -DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}
--DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
--DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}
--DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}</value>
+-DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
+-DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}</value>
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\PanCrack\App\tests\build\Desktop_Qt_6_8_2_MinGW_64_bit-MinSizeRel</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
