@@ -4,7 +4,7 @@
 #include <string>
 namespace task10
 {
-    std::string coding(std::string a);
+std::string coding(std::string a);
 }
 
 #endif // TASK1__H

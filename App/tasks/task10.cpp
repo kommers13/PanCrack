@@ -2,6 +2,6 @@
 
 std::string task10::coding(std::string a) {
 
-    return a;
+    return (a);
 
 }
