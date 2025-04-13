@@ -5,6 +5,7 @@
 
 #include <QTest>
 
+#include <graph.h>
 
 class TestGraph : public QObject
 {
@@ -23,6 +24,12 @@ private slots:
 
     void test_add_edge_data();
     void test_add_edge();
+
+    void test_get_edges_data();
+    void test_get_edges();
+
+    void test_equal_data();
+    void test_equal();
 };
 
 #endif // TESTGRAPH_H
