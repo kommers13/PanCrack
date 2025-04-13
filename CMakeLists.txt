@@ -16,7 +16,7 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     FORCE
 )
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Gui Qml Quick)
+find_package(Qt6 6.4.1 REQUIRED COMPONENTS Core Gui Qml Quick)
 qt_standard_project_setup()
 
 

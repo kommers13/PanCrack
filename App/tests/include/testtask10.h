@@ -12,7 +12,7 @@ class TestTask10 : public QObject
 
 private slots:
 
-    void test_sum();
+    void test_code();
     //void test_creating_graph();
 };
 
