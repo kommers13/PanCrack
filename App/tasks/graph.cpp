@@ -18,6 +18,14 @@ void Graph::create_from_madj(const vector<vector<int>>& madj) {
 
     undirected = is_undirected(madj);
 
+
+    // DEBUG
+    if (!undirected) {
+        throw domain_error("This is not undirected graph!");
+    }
+    // END DEBUG (remove on release)
+
+
     for (int i = 0; i < madj.size(); i++) {
 
         vs.push_back((char)(i + 'A'));    // по умолчанию вершины будут называться заглавными буквами английского алфавита
