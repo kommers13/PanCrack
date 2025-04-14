@@ -1,3 +1,6 @@
+cmake_minimum_required(VERSION 3.26)
+project(MyApp LANGUAGES C CXX)
+
 add_subdirectory(tasks)
 
 target_sources(${CMAKE_PROJECT_NAME} PUBLIC
