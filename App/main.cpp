@@ -6,7 +6,9 @@
 
 #include "autogen/environment.h"
 
-#include <graph.h>
+#include "include/signals.h"
+#include "include/commandparser.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -28,6 +30,16 @@ int main(int argc, char *argv[])
 
     if (engine.rootObjects().isEmpty())
         return -1;
+
+    // регистрация классов
+    qmlRegisterType<Signals>("signals", 1, 0, "Signals");
+
+
+    // связывание сигналов с слотами
+    Signals* all_signals = new Signals();
+    CommandParser* command_parser = new CommandParser();
+    QObject::connect(all_signals, &Signals::on_output_command,
+                     command_parser, &CommandParser::output_command);
 
     return app.exec();
 }

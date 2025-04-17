@@ -6,8 +6,8 @@
 #include <QGuiApplication>
 #include "qqmlextensionplugin.h"
 
-Q_IMPORT_QML_PLUGIN(PanCrackPlugin)
 Q_IMPORT_QML_PLUGIN(PanCrackContentPlugin)
+Q_IMPORT_QML_PLUGIN(PanCrackPlugin)
 
 const char mainQmlFile[] = "qrc:/qt/qml/PanCrackContent/App.qml";
 

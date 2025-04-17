@@ -58,9 +58,6 @@ void TestTask7::test_MST_data() {
     stringstream ss5(s5);
     Graph g5(ss5);
 
-    cout << "Inital graph\n";
-    g5.print();
-
     Graph ans5(8);
     ans5.add_edge(0, 1, 2);
     ans5.add_edge(1, 5, 1);
@@ -69,12 +66,6 @@ void TestTask7::test_MST_data() {
     ans5.add_edge(2, 7, 5);
     ans5.add_edge(6, 7, 3);
     ans5.add_edge(4, 5, 5);
-
-    cout << "Real\n";
-    task7::create_MST(g5).print();
-    qDebug() << "==========================";
-    cout << "MST expected\n";
-    ans5.print();
 
     // END INIT DATA
 

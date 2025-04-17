@@ -3,16 +3,89 @@
 
 import QtQuick
 import PanCrack
+import QtQuick.Timeline 1.0
 
 Window {
-    width: mainScreen.width
-    height: mainScreen.height
+    id: window
+
+    width: loader_screen01.width
+    height: loader_screen01.height
 
     visible: true
+    color: "#00ffffff"
     title: "PanCrack"
 
-    Screen01 {
-        id: mainScreen
+    Loader {
+        id: loader_screen01
+        width: 1920
+        height: 1080
+        source: "Screen01.ui.qml"
+    }
+
+    Loader {
+        id: loader_loading
+        width: 240
+        height: 130
+        source: "Loading.qml"
+    }
+
+    StateGroup {
+        id: stateGroup
+        state: "LoadingState"
+        states: [
+            State {
+                name: "LoadingState"
+
+                PropertyChanges {
+                    target: loader_screen01
+                    active: false
+                }
+
+                PropertyChanges {
+                    target: window
+                    width: 240
+                    height: 130
+                }
+            },
+            State {
+                name: "MainScreenState"
+
+                PropertyChanges {
+                    target: loader_screen01
+                    active: true
+                }
+
+                PropertyChanges {
+                    target: loader_loading
+                    active: false
+                }
+            }
+        ]
+    }
+
+    Timeline {
+        id: timeline
+        animations: [
+            TimelineAnimation {
+                id: timelineAnimation
+                running: false
+                loops: 1
+                duration: 1000
+                to: 1000
+                from: 0
+            }
+        ]
+        startFrame: 0
+        endFrame: 1000
+        enabled: false
+    }
+    Timer {
+        interval: 17000
+        running: true
+        onTriggered: {
+            stateGroup.state = "MainScreenState"
+            window.showFullScreen()
+        }
     }
 
 }
