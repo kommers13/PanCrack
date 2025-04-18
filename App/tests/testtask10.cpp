@@ -1,17 +1,31 @@
 #include "include/testtask10.h"
-#include <task10.h>
+
+
+void TestTask10::test_code_data() {
+    // INIT DATA
+
+    // TEST 1
+    std::string tree_n1 = "5";
+    std::string tree_n1_ans = "1221";
+
+    // TEST 2
+    std::string tree_n2 = "8";
+    std::string tree_n2_ans = "233124";
+    // END INIT DATA
+
+    QTest::addColumn<std::string>("tree");
+    QTest::addColumn<std::string>("code");
+
+    QTest::addRow("prufer 1") << tree_n1 << tree_n1_ans;
+    QTest::addRow("prufer 2") << tree_n2 << tree_n2_ans;
+}
 
 void TestTask10::test_code(){
 
-    std::string tree_n1_ans = "1221";
-    std::string tree_n1 = "5";
-    //std::string task10_ans1 = task10::input();
-    //QCOMPARE(task10_ans1, tree_n1_ans);
+    QFETCH(std::string, tree);
+    QFETCH(std::string, code);
+    QCOMPARE(task10::coding(tree), code);
 
-    std::string tree_n2 = "8";
-    std::string tree_n2_ans = "233124";
-    //std::string task10_ans2 = task10::input();
-    //QCOMPARE(task10_ans2, tree_n2_ans);
 }
 
 Q_DECLARE_METATYPE(TestTask10)

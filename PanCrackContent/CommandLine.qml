@@ -3,9 +3,9 @@ import QtQuick.Controls
 
 
 // plugs
-// import "plugs"
+import "plugs"
 // real
-import signals
+// import signals
 
 Item {
     id: root_commandLine

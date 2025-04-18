@@ -6,12 +6,15 @@
 #include <QTest>
 #include <string>
 
+#include <task10.h>
+
 class TestTask10 : public QObject
 {
     Q_OBJECT
 
 private slots:
 
+    void test_code_data();
     void test_code();
     //void test_creating_graph();
 };
