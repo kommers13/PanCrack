@@ -80,7 +80,8 @@ Window {
         enabled: false
     }
     Timer {
-        interval: 17000
+        interval: 1000
+        // interval: 17000
         running: true
         onTriggered: {
             stateGroup.state = "MainScreenState"

@@ -21,5 +21,6 @@ Rectangle {
         id: commandLine
         x: 65
         y: 80
+        clip: true
     }
 }

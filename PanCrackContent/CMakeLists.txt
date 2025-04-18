@@ -15,6 +15,7 @@ qt6_add_qml_module(PanCrackContent
         "Cursor.qml"
         "Screen01.ui.qml"
         "CommandSingleLine.qml"
+        "CommandSingleOutput.qml"
         "plugs/Signals.qml"
 )
 

@@ -8,6 +8,9 @@
 
 #include <QObject>
 #include <QString>
+#include <QQuickView>
+#include <QQuickItem>
+
 
 using namespace std;
 
