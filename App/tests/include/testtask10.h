@@ -2,9 +2,10 @@
 #define TESTTASK1__H
 
 #include <QObject>
-
 #include <QTest>
 #include <string>
+#include <graph.h>
+#include <task10.h>
 
 class TestTask10 : public QObject
 {

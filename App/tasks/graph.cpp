@@ -156,3 +156,30 @@ void Graph::print() {
 bool Graph::operator==(const Graph& other) const {
     return this->get_graph() == other.get_graph();
 }
+/* A: (B, 1), (C, -2)
+       B: (A, 1), (C, 3), (D, 5)
+       C: (B, 3), (A, -2)
+       D: (B, 5), (E, 10), (G, 7)
+       E: (D, 10), (F, 0)
+       F: (G, 8), (E, 0)
+       G: (D, 7), (F, 8)
+    */
+// является ли граф деревом
+bool Graph::is_tree() const{
+    if((this->cnt_edges()) != this->cnt_nodes() - 1) return false;
+    // для проверки свзяности и отсуствия циклов нужен DFS
+    return true;
+}
+
+int Graph::cnt_edges() const{
+    int cntedges = 0;
+    for(auto [point, way] : graph){
+        int cnt_point_ways = way.size();
+        cntedges += cnt_point_ways;
+    }
+    return cntedges / 2;
+}
+
+int Graph::cnt_nodes() const{
+    return graph.size();
+}
