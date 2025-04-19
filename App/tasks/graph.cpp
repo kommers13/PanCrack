@@ -161,6 +161,7 @@ void Graph::print() {
 
 
 // OPERATORS
+// сравнение графов
 bool Graph::operator==(const Graph& other) const {
     return this->get_graph() == other.get_graph();
 }

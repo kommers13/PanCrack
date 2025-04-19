@@ -30,8 +30,8 @@ Item {
             id: column
             x: 8
             y: 8
-            width: parent.width
-            height: parent.height
+            width: 834
+            height: 904
 
             signal submitInput() // подтверждение ввода
 
@@ -50,15 +50,28 @@ Item {
                 // (command_line.text.length > 9) - УСЛОВИЕ БУДЕТ ИЗМЕНЕНО
                 command_answer.isLineEmpty = (command_line.text.length > 9)
 
+                // column.childrenRect - возвращает кортеж (x, y, width, height),
+                // где x, y - это точка верхнего левого угла прямоугольника дочерних элементов
+                // width, height - ширина и высота соответственно
+                console.log(column.childrenRect.y, column.y)
+                if (column.childrenRect.height >= height - 29) {
+                    column.y -= 29
+
+                }
+
                 column.submitInput()
 
             }
 
             onSubmitInput: {
 
+                // создание новой одиночной строки ввода и вывода
+                // (CommandSingleLine и CommandSingleOutput)
                 let nextLineComponent = Qt.createComponent("CommandSingleLine.qml")
                 let nextOutputComponent = Qt.createComponent("CommandSingleOutput.qml")
                 if (nextLineComponent.status === Component.Ready) {
+
+
 
                     let nextLine = nextLineComponent.createObject(column, {
                                                                       focus: true,
@@ -68,10 +81,23 @@ Item {
 
                     let nextOutput = nextOutputComponent.createObject(column, {})
 
+
                     nextLine.accepted.connect( () => {
                                                   commandAccepted(nextLine,
                                                                   nextOutput)
                                               })
+                    nextLine.textChanged.connect( () => {
+                        // координаты относительно корневого элемента
+                        let gc = nextLine.mapToItem(root_commandLine, 0, 0)
+                        console.log(gc.y + nextLine.height, height)
+                        // если реальные координаты по "y" к одиночной строки ввода
+                        // превышают высоту колонны, то нужно сдвинуть наверх на одну
+                        // высоту строки, которая равна 29 пикселям (волшебная константа)
+                        if (gc.y + nextLine.height - 29 >= height) {
+                            console.log("FDSJKSLFD")
+                            column.y -= 29
+                        }
+                                                 })
                 }
             }
 

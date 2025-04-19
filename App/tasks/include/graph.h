@@ -32,6 +32,7 @@ class Graph {
 
     // названия вершин
     vector<char> vs;
+    // хранение графа в виде неотсортированного map-а
     unordered_map<int, unordered_map<int, int>> graph;
     // для некоторых задачи ориентированный граф может не работать (в данном случае для всех)
     bool undirected;    // true - неориентированный, false - ориентированный
@@ -91,6 +92,7 @@ public:
     void add_edge(int v1, int v2, int w);
 
     // удалить ребро по вершинам, которые его соединяют
+    // если ребро не существует, то выбросится исключение
     void delete_edge(int v1, int v2);
 
     // GETTERS
@@ -99,12 +101,14 @@ public:
     bool get_undirected() const;
 
     // tuple<int, int, int> - v1, v2, w
+    // множество все ребер графа
     unordered_set<tuple<int, int, int>, TupleHash> get_edges() const;
 
     // вывод графа на консоль
     void print();
 
     // OPERATORS
+    // сравнение графов
     bool operator==(const Graph& other) const;
 };
 
