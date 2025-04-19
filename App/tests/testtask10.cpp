@@ -1,4 +1,5 @@
 #include "include/testtask10.h"
+<<<<<<< HEAD
 typedef unordered_map<int, unordered_map<int, int>> uniunii;
 using namespace std;
 void TestTask10::test_code(){
@@ -70,6 +71,35 @@ void TestTask10::test_code(){
     Graph tree_n5(ss5);
     std::string task10_ans5 = task10::input(tree_n5);
     QCOMPARE(task10_ans5, tree_n5_ans);
+=======
+
+
+void TestTask10::test_code_data() {
+    // INIT DATA
+
+    // TEST 1
+    std::string tree_n1 = "5";
+    std::string tree_n1_ans = "1221";
+
+    // TEST 2
+    std::string tree_n2 = "8";
+    std::string tree_n2_ans = "233124";
+    // END INIT DATA
+
+    QTest::addColumn<std::string>("tree");
+    QTest::addColumn<std::string>("code");
+
+    QTest::addRow("prufer 1") << tree_n1 << tree_n1_ans;
+    QTest::addRow("prufer 2") << tree_n2 << tree_n2_ans;
+}
+
+void TestTask10::test_code(){
+
+    QFETCH(std::string, tree);
+    QFETCH(std::string, code);
+    QCOMPARE(task10::coding(tree), code);
+
+>>>>>>> origin/main
 }
 
 Q_DECLARE_METATYPE(TestTask10)
