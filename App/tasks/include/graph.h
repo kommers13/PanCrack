@@ -82,8 +82,7 @@ public:
     void add_vertex();
 
     // удалить вершину по номеру
-    void delete_vertex(int num);
-
+    void delete_vertex(int num);            // НЕ РЕАЛИЗОВАН
 
     // добавить ребро
     // v1, v2 - вершины, которые будут соединяться ребрами
@@ -93,7 +92,7 @@ public:
 
     // удалить ребро по вершинам, которые его соединяют
     // если ребро не существует, то выбросится исключение
-    void delete_edge(int v1, int v2);
+    void delete_edge(int v1, int v2);           // НЕ РЕАЛИЗОВАН
 
     // GETTERS
     unordered_map<int, unordered_map<int, int>> get_graph() const;
@@ -111,11 +110,14 @@ public:
     // сравнение графов
     bool operator==(const Graph& other) const;
 
-    bool is_tree() const;
+    // проверка, является ли граф деревом
+    bool is_tree() const;   // НЕ РЕАЛИЗОВАНО
 
-    int cnt_edges() const;
+    // количество ребер
+    int cnt_edges() const; // НЕ РЕАЛИЗОВАНО
 
-    int cnt_nodes() const;
+    // количество вершин
+    int cnt_vertexes() const; // НЕ РЕАЛИЗОВАНО
 
 };
 

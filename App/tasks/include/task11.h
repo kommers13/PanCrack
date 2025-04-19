@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <set>
 namespace task11 {
+
 Graph input(std::string s, std::string p);
 
 std::string output(std::string ans, string ps);
