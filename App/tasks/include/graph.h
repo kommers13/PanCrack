@@ -110,6 +110,13 @@ public:
     // OPERATORS
     // сравнение графов
     bool operator==(const Graph& other) const;
+
+    bool is_tree() const;
+
+    int cnt_edges() const;
+
+    int cnt_nodes() const;
+
 };
 
 #endif // __GRAPH__
