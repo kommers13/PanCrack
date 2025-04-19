@@ -3,10 +3,17 @@
 
 #include <string>
 #include <map>
+#include <unordered_map>
+#include <graph.h>
+#include <vector>
+#include <algorithm>
+#include <set>
 namespace task11 {
-std::string input();
-std::string output(std::string ans);
-std::map<int, std::pair<int, int>> decoding(std::string code);
+Graph input(std::string s, std::string p);
+
+std::string output(std::string ans, string ps);
+
+Graph decoding(std::string code, std::vector<int> p);
 
 }
 
