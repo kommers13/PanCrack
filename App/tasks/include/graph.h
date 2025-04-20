@@ -111,13 +111,13 @@ public:
     bool operator==(const Graph& other) const;
 
     // проверка, является ли граф деревом
-    bool is_tree() const;   // НЕ РЕАЛИЗОВАНО
+    bool is_tree() const;
 
     // количество ребер
-    int cnt_edges() const; // НЕ РЕАЛИЗОВАНО
+    int cnt_edges() const;
 
     // количество вершин
-    int cnt_vertexes() const; // НЕ РЕАЛИЗОВАНО
+    int cnt_vertexes() const;
 
 };
 

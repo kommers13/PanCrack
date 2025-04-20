@@ -9,13 +9,13 @@ qt6_add_qml_module(PanCrackContent
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
-        "App.qml"
-        "CommandSingleOutput.qml"
-        "Cursor.qml"
-        "CommandLine.qml"
         "Loading.qml"
-        "Screen01.ui.qml"
+        "Cursor.qml"
+        "CommandSingleOutput.qml"
         "CommandSingleLine.qml"
+        "CommandLine.qml"
+        "Screen01.ui.qml"
+        "App.qml"
         "plugs/Signals.qml"
 )
 

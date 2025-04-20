@@ -1,7 +1,7 @@
 #include "task11.h"
 using namespace std;
 
-Graph input(string code, string points){
+Graph task11::input(string code, string points){
     vector<int> vec_points;
     for(auto el : points){
         vec_points.push_back(int(el));
@@ -9,7 +9,7 @@ Graph input(string code, string points){
     Graph g = task11::decoding(code, vec_points);
     return g;
 }
-Graph decoding(string code, vector<int> points){
+Graph task11::decoding(string code, vector<int> points){
     Graph tree;
     std::vector<int> prufer(code.begin(), code.end());
     for (auto& c : prufer) {

@@ -175,7 +175,7 @@ bool Graph::operator==(const Graph& other) const {
     */
 // является ли граф деревом
 bool Graph::is_tree() const{
-    if((this->cnt_edges()) != this->cnt_nodes() - 1) return false;
+    if((this->cnt_edges()) != this->cnt_vertexes() - 1) return false;
     // для проверки свзяности и отсуствия циклов нужен DFS
     return true;
 }
@@ -189,6 +189,6 @@ int Graph::cnt_edges() const{
     return cntedges / 2;
 }
 
-int Graph::cnt_nodes() const{
+int Graph::cnt_vertexes() const{
     return graph.size();
 }

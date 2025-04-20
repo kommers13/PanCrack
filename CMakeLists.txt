@@ -15,20 +15,16 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     CACHE STRING "Import paths for Qt Creator's code model"
     FORCE
 )
-set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/PanCrackContent/img/game.ico")
 
 find_package(Qt6 6.4.1 REQUIRED COMPONENTS Core Gui Qml Quick)
 qt_standard_project_setup()
 
 
-qt_add_executable(${CMAKE_PROJECT_NAME}
-    App/include/signals.h App/signals.cpp
-    App/include/commandparser.h App/commandparser.cpp)
+qt_add_executable(${CMAKE_PROJECT_NAME})
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"
     FILES
         qtquickcontrols2.conf)
-
 
 include(qds)
 
