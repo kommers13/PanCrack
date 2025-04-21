@@ -47,20 +47,21 @@ Item {
                 // signals_id.on_output_command(command_line.text, command_answer)
 
                 // БАЛУЕМСЯ
-                if (command_line.text === "PanCrack>clear") {
-                    console.log("COMMAND CLEAR")
-                    for (let i = column.children.length - 1; i >= 1; i--) {
-                        if (column.children[i] !== column) {
-                            column.children[i].destroy()
-                        }
-                    }
-                }
+                // if (command_line.text === "PanCrack>clear") {
+                //     console.log("COMMAND CLEAR")
+                //     for (let i = column.children.length - 1; i >= 1; i--) {
+                //         if (column.children[i] !== column) {
+                //             column.children[i].destroy()
+                //         }
+                //     }
+                // }
                 // ЗАКОНЧИЛИ БАЛОВАТЬСЯ
+
                 // если сработало некое условие (строка ввода пустая
                 // или в выводе ничего нет), то строка вывода будет нулевой
                 // иначе в ней будет какая-то информация
                 // (command_line.text.length > 9) - УСЛОВИЕ БУДЕТ ИЗМЕНЕНО
-                command_answer.isLineEmpty = (command_line.text.length > 9)
+                command_answer.text = (command_line.text.length > 9 ? "SYNOPSIS" : "")
 
                 // column.childrenRect - возвращает кортеж (x, y, width, height),
                 // где x, y - это точка верхнего левого угла прямоугольника дочерних элементов
@@ -73,8 +74,9 @@ Item {
                 // console.log("gci.y + command_line.height = command_line.bottom", gci.y + command_line.height)
                 // console.log("<gca.y> + command_answer.height = command_answer.bottom", gca.y + command_answer.height)
                 // console.log("DIFFERENCE: ", command_ans_real_bottom, height, command_ans_real_bottom - height)
-                if (command_ans_real_bottom >= height) {
-                    column.y -= (command_ans_real_bottom - height + 25) // 25 - magic constant is height of one command line
+                if (command_ans_real_bottom >= column.height) {
+                    // нам нужно поднять на столько, на сколько вылезло за пределы экраны, и плюсом к тому на одну высоту строки
+                    column.y -= (command_ans_real_bottom - column.height + 25) // 25 - magic constant is height of one command line
                 }
 
                 column.submitInput()
@@ -100,7 +102,7 @@ Item {
                                                                       width: column.width,
                                                                       })
 
-
+                    console.log(nextOutput.height)
 
 
                     nextLine.accepted.connect( () => {
@@ -110,14 +112,16 @@ Item {
                     nextLine.textChanged.connect( () => {
                                                      // координаты относительно корневого элемента
                                                      let gc = nextLine.mapToItem(root_commandLine, 0, 0)
+                                                     let nextLine_real_bottom = gc.y + nextLine.height
                                                      console.log(gc.y + nextLine.height, height)
                                                      // если реальные координаты по "y" к одиночной строки ввода
                                                      // превышают высоту колонны, то нужно сдвинуть наверх на одну
                                                      // высоту строки, которая равна 25 пикселям (волшебная константа)
-                                                     if (gc.y + nextLine.height - 25 >= column.height) {
+                                                     if (nextLine_real_bottom >= column.height) {
                                                          console.log(commandSingleLine.contentHeight)
                                                          console.log("FDSJKSLFD")
-                                                         column.y -= 25
+                                                         // здесь нам нужно поднять только на высоту, которая вылезла за пределы экрана
+                                                         column.y -= (nextLine_real_bottom - column.height)
                                                      }
                                                  })
                 }
