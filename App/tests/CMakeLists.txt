@@ -17,8 +17,6 @@ qt_add_executable(Tests
     include/testtask10.h testtask10.cpp
     include/testtask7.h testtask7.cpp
     include/testtask11.h testtask11.cpp
-
-
 )
 
 target_link_libraries(Tests PRIVATE taskslib Qt6::Test Qt6::Widgets)

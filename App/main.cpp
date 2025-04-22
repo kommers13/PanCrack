@@ -36,10 +36,12 @@ int main(int argc, char *argv[])
 
 
     // связывание сигналов с слотами
-    Signals* all_signals = new Signals();
-    CommandParser* command_parser = new CommandParser();
-    QObject::connect(all_signals, &Signals::on_output_command,
-                     command_parser, &CommandParser::output_command);
+    Signals* all_signals = engine.rootObjects().first()->findChild<Signals*>("signals_id_");
+    qDebug() << all_signals;
+    CommandParser* command_parser;
+    // ПРОБЛЕМА С ЗАПУСКОМ ПОЧЕМУ-ТО
+    // QObject::connect(all_signals, &Signals::on_output_command,
+    //                   command_parser, &CommandParser::output_command);
 
     return app.exec();
 }

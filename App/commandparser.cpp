@@ -1,5 +1,5 @@
-#include "include/commandparser.h"
 #include <QDebug>
+#include "include/commandparser.h"
 
 CommandParser::CommandParser() : command(""), arguments(), options() {}
 
@@ -21,11 +21,5 @@ tuple<string,
 
 void CommandParser::output_command(const QString& input, QObject* text_field) {
     qDebug() << input;
-    // создание элемента
-    QQuickView commandSingleLine;
-    commandSingleLine.setSource(
-        QUrl::fromLocalFile("CommandSingleLine.qml")
-    );
-    QObject* object = commandSingleLine.rootObject();
 
 }

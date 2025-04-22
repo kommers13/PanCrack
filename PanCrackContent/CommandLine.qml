@@ -3,9 +3,9 @@ import QtQuick.Controls
 
 
 // plugs
-import "plugs"
+// import "plugs"
 // real
-// import signals
+import signals
 
 Item {
     id: root_commandLine
@@ -30,7 +30,7 @@ Item {
         Column {
             id: column
             x: 8
-            y: 8
+            y: 25
             width: 834
             height: 904
             spacing: 0
@@ -41,21 +41,13 @@ Item {
             function commandAccepted(command_line, command_answer) {
 
                 command_line.readOnly = true
+                command_line.enabled = false
                 command_line.cursorDelegate = null
+
+                command_answer.enabled = false
 
                 // передаем информацию для того, чтобы обработать команду
                 // signals_id.on_output_command(command_line.text, command_answer)
-
-                // БАЛУЕМСЯ
-                // if (command_line.text === "PanCrack>clear") {
-                //     console.log("COMMAND CLEAR")
-                //     for (let i = column.children.length - 1; i >= 1; i--) {
-                //         if (column.children[i] !== column) {
-                //             column.children[i].destroy()
-                //         }
-                //     }
-                // }
-                // ЗАКОНЧИЛИ БАЛОВАТЬСЯ
 
                 // если сработало некое условие (строка ввода пустая
                 // или в выводе ничего нет), то строка вывода будет нулевой
@@ -75,12 +67,25 @@ Item {
                 // console.log("<gca.y> + command_answer.height = command_answer.bottom", gca.y + command_answer.height)
                 // console.log("DIFFERENCE: ", command_ans_real_bottom, height, command_ans_real_bottom - height)
                 if (command_ans_real_bottom >= column.height) {
-                    // нам нужно поднять на столько, на сколько вылезло за пределы экраны, и плюсом к тому на одну высоту строки
+                    // нам нужно поднять на столько, на сколько вылезло за пределы экрана, и плюсом к тому на одну высоту строки
                     column.y -= (command_ans_real_bottom - column.height + 25) // 25 - magic constant is height of one command line
                 }
 
-                column.submitInput()
+                // Команда CLEAR (только эту команду мы выполняем после всего, она РЕДАКТИРУЕТ консоль)
+                if (command_line.text === "PanCrack>clear") {
+                    console.log("COMMAND CLEAR")
+                    for (let i = column.children.length - 1; i >= 1; i--) {
+                        if (column.children[i] !== column) {
+                            column.children[i].destroy()
+                        }
+                    }
+                    // поднимаемся до конца наверх
+                    column.y = 25       // начальное значение column.y
+                }
+                // Команда CLEAR end
 
+
+                column.submitInput()        // создаем следующие элементы после потверждения ввода здесь
             }
 
             onSubmitInput: {
@@ -125,6 +130,28 @@ Item {
                                                      }
                                                  })
                 }
+            }
+            Keys.onPressed: (event) => {
+                if (event.key === Qt.Key_Up) {
+                    // когда консоль движется вниз, она движется вверх, и ее координата "y" уменьшается
+                    if (column.y + 25 <= 25) {   // magic const 8 - origin y
+                        column.y += 25
+                    }
+                }
+                else if (event.key === Qt.Key_Down) {
+                    // нужно запретить спускаться ниже крайнего ребенка "column"
+                    // крайним ребенком всегда будет CommandSingleLine
+                    // console.log("RCB: ", root_commandLine.y + root_commandLine.height)
+                    let gc = column.children[children.length - 1].mapToItem(root_commandLine, 0, 0)
+                    // console.log("LOWER CHILD BOTTOM: ", gc.y + 25)
+                    // console.log("COLUMN Y: ", column.y)
+                    // console.log("COLUMN HEIGHT: ", column.height)
+                    // console.log("COLUMN BOTTOM: ", column.y + column.height)
+                    if (gc.y > root_commandLine.y + root_commandLine.height) {
+                         column.y -= 25
+                     }
+                }
+
             }
 
             CommandSingleLine {
