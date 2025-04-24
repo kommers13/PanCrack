@@ -10,7 +10,7 @@ public:
     explicit Signals(QObject *parent = nullptr);
 
 signals:
-    void on_output_command(const QString& command, QObject* text_field);
+    void output_command(const QString& command, QObject* text_field);
 };
 
 #endif // SIGNALS_H

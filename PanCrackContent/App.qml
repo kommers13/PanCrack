@@ -38,7 +38,8 @@ Window {
 
                 PropertyChanges {
                     target: loader_screen01
-                    active: false
+                    visible: false
+                    active: true
                 }
 
                 PropertyChanges {
@@ -57,6 +58,7 @@ Window {
 
                 PropertyChanges {
                     target: loader_loading
+                    visible: false
                     active: false
                 }
             }

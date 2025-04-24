@@ -24,6 +24,10 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
 
+
+    // регистрация классов (ПЕРЕД ЗАГРУЗКОЙ QML-контента)
+    qmlRegisterType<Signals>("signals", 1, 0, "Signals");
+
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
     engine.addImportPath(":/");
     engine.load(url);
@@ -31,17 +35,14 @@ int main(int argc, char *argv[])
     if (engine.rootObjects().isEmpty())
         return -1;
 
-    // регистрация классов
-    qmlRegisterType<Signals>("signals", 1, 0, "Signals");
-
 
     // связывание сигналов с слотами
     Signals* all_signals = engine.rootObjects().first()->findChild<Signals*>("signals_id_");
-    qDebug() << all_signals;
-    CommandParser* command_parser;
+    CommandParser* command_parser = new CommandParser();
+    // qDebug() << all_signals;
     // ПРОБЛЕМА С ЗАПУСКОМ ПОЧЕМУ-ТО
-    // QObject::connect(all_signals, &Signals::on_output_command,
-    //                   command_parser, &CommandParser::output_command);
+    QObject::connect(all_signals, &Signals::output_command,
+                      command_parser, &CommandParser::output_command);
 
     return app.exec();
 }

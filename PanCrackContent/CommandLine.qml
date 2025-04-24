@@ -107,7 +107,7 @@ Item {
                                                                       width: column.width,
                                                                       })
 
-                    console.log(nextOutput.height)
+                    // console.log(nextOutput.height)
 
 
                     nextLine.accepted.connect( () => {
@@ -118,7 +118,7 @@ Item {
                                                      // координаты относительно корневого элемента
                                                      let gc = nextLine.mapToItem(root_commandLine, 0, 0)
                                                      let nextLine_real_bottom = gc.y + nextLine.height
-                                                     console.log(gc.y + nextLine.height, height)
+                                                     // console.log(gc.y + nextLine.height, height)
                                                      // если реальные координаты по "y" к одиночной строки ввода
                                                      // превышают высоту колонны, то нужно сдвинуть наверх на одну
                                                      // высоту строки, которая равна 25 пикселям (волшебная константа)
