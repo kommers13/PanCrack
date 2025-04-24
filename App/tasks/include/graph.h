@@ -46,11 +46,21 @@ private:
     // создании графа из матрицы смежности
     void create_from_madj(const vector<vector<int>>& madj);
 
+    // создание графа из матрицы смежности из строкового потока
+    void construct_from_string_madj(istream& in);   // НЕ РЕАЛИЗОВАН
+
+    // создание графа из матрицы инцидентности из строкового потока
+    void construct_from_string_incm(istream& in);   // НЕ РЕАЛИЗОВАН
+
+    // создание графа из списков смежности из строкового потока
+    void construct_from_string_ladj(istream& in);   // НЕ РЕАЛИЗОВАН
+
+
     // проверка, является ли граф неориентированным
     bool is_undirected(const vector<vector<int>>& madj);
 
     // проверка, является ли граф связным
-    bool is_connected(const vector<vector<int>>& madj);
+    bool is_connected(const vector<vector<int>>& madj); // В АЛГОРИТМЫ
 
 public:
 
@@ -63,6 +73,7 @@ public:
     // построение графа при помощи матрицы смежности
     Graph(const vector<vector<int>>& madj);
 
+    // type = 0
     // построение графа при помощи строкового потока с матрицей смежности
     // ввод
     /*
@@ -75,8 +86,24 @@ public:
     -2 0 inf 6 0
 
     */
+
+    // type = 1
+    // построение графа при помощи строкового потока с матрицей инцидентности
+    /*
+
+
+
+    */
+
+    // type = 2
+    // построение графа при помощи строкового потока со списками смежности
+    /*
+
+
+    */
+
     // istream является предком и stringstream и ifstream
-    Graph(istream& in);
+    Graph(const int& type, istream& in);
 
     // добавить вершину
     void add_vertex();
@@ -94,30 +121,36 @@ public:
     // если ребро не существует, то выбросится исключение
     void delete_edge(int v1, int v2);           // НЕ РЕАЛИЗОВАН
 
+    // проверка, является ли граф деревом
+    bool is_tree() const;       // НЕ РЕАЛИЗОВАН
+
     // GETTERS
     unordered_map<int, unordered_map<int, int>> get_graph() const;
 
+    // является ли граф неориентированным или нет
     bool get_undirected() const;
 
     // tuple<int, int, int> - v1, v2, w
-    // множество все ребер графа
+    // множество всех ребер графа
     unordered_set<tuple<int, int, int>, TupleHash> get_edges() const;
 
-    // вывод графа на консоль
-    void print();
+    // количество ребер
+    int get_cnt_edges() const;
+
+    // количество вершин
+    int get_cnt_vertexes() const;
+
+    // степень вершины v (номер вершины) графа
+    // если такой вершины нет, возникнет исключение
+    int get_cnt_degree(int v) const;            // НЕ РЕАЛИЗОВАН
+
 
     // OPERATORS
     // сравнение графов
     bool operator==(const Graph& other) const;
 
-    // проверка, является ли граф деревом
-    bool is_tree() const;
-
-    // количество ребер
-    int cnt_edges() const;
-
-    // количество вершин
-    int cnt_vertexes() const;
+    // вывод графа на консоль
+    void print();
 
 };
 

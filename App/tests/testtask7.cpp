@@ -12,7 +12,7 @@ void TestTask7::test_MST_data() {
                 2 0 -2 \
                 3 -2 0";
     stringstream ss1(s1);
-    Graph g1(ss1);
+    Graph g1(0, ss1);
 
     Graph ans1(3);  // граф с 3 вершинами без ребер
     ans1.add_edge(0, 1, 2);
@@ -24,7 +24,7 @@ void TestTask7::test_MST_data() {
                 1   0  -3 \
                 inf -3 0";
                 stringstream ss2(s2);
-    Graph g2(ss2);
+    Graph g2(0, ss2);
 
     Graph ans2(3);  // граф с 3 вершинами без ребер
     ans2.add_edge(0, 1, 1);
@@ -33,7 +33,7 @@ void TestTask7::test_MST_data() {
     // TEST3
     string s3 = "0";
     stringstream ss3(s3);
-    Graph g3(ss3);
+    Graph g3(0, ss3);
 
     Graph ans3;
 
@@ -41,7 +41,7 @@ void TestTask7::test_MST_data() {
     string s4 = "1 \
                  0";
     stringstream ss4(s4);
-    Graph g4(ss4);
+    Graph g4(0, ss4);
 
     Graph ans4(1);
 
@@ -56,7 +56,7 @@ void TestTask7::test_MST_data() {
                  inf 7   6   inf inf 7   0   3    \
                  inf inf 5   6   inf inf 3   0";
     stringstream ss5(s5);
-    Graph g5(ss5);
+    Graph g5(0, ss5);
 
     Graph ans5(8);
     ans5.add_edge(0, 1, 2);

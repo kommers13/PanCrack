@@ -16,7 +16,7 @@ void TestTask11::test_code(){
         inf 1 inf inf inf \
         inf 1 inf inf inf ";
     stringstream ss1(in1);
-    Graph tree_n1_ans(ss1);
+    Graph tree_n1_ans(0, ss1);
     Graph task11_ans1 = task11::input(tree_n1, "01234");
     QCOMPARE(task11_ans1, tree_n1_ans);
 
@@ -31,7 +31,7 @@ void TestTask11::test_code(){
         inf 1 inf inf inf inf inf inf \
         inf 1 inf inf inf inf inf inf";
     stringstream ss2(in2);
-    Graph tree_n2_ans(ss2);
+    Graph tree_n2_ans(0, ss2);
     Graph task11_ans2 = task11::input(tree_n2, "01234567");
     QCOMPARE(task11_ans2, tree_n2_ans);
     /*
@@ -44,7 +44,7 @@ void TestTask11::test_code(){
         inf 1 inf inf inf inf inf \
         inf inf 1 inf inf inf inf \
         inf inf 1 inf inf inf inf";
-    stringstream ss3(in3);
+    stringstream ss3(0, in3);
     Graph tree_n3(ss3);
     std::string task10_ans3 = task10::input(tree_n3);
     QCOMPARE(task10_ans3, tree_n3_ans);
@@ -59,7 +59,7 @@ void TestTask11::test_code(){
         inf inf inf inf 1 inf inf inf \
         inf inf inf inf 1 inf inf inf 1 \
         inf inf inf inf inf inf 1 inf";
-    stringstream ss4(in4);
+    stringstream ss4(0, in4);
     Graph tree_n4(ss4);
     std::string task10_ans4 = task10::input(tree_n4);
     QCOMPARE(task10_ans4, tree_n4_ans);
@@ -72,7 +72,7 @@ void TestTask11::test_code(){
         inf inf inf inf 1";
 
     stringstream ss5(in5);
-    Graph tree_n5_ans(ss5);
+    Graph tree_n5_ans(0, ss5);
     Graph task11_ans5 = task11::input(tree_n5, "01234");
     QCOMPARE(task11_ans5, tree_n5_ans);
 

@@ -42,6 +42,36 @@ void Graph::create_from_madj(const vector<vector<int>>& madj) {
     }
 }
 
+// создание графа из матрицы смежности из строкового потока
+void Graph::construct_from_string_madj(istream& in) {
+    int n;
+    in >> n;
+    vector<vector<int>> madj(n, vector<int>(n));
+    string buffer;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            in >> buffer;
+            if (buffer == "inf") {
+                madj[i][j] = inf;
+            }
+            else {
+                madj[i][j] = stoi(buffer);
+            }
+        }
+    }
+    create_from_madj(madj);
+}
+
+// создание графа из матрицы инцидентности из строкового потока
+void Graph::construct_from_string_incm(istream& in) {
+
+}   // НЕ РЕАЛИЗОВАН
+
+// создание графа из списков смежности из строкового потока
+void Graph::construct_from_string_ladj(istream& in) {
+
+}   // НЕ РЕАЛИЗОВАН
+
 
 // проверка, является ли граф неориентированным
 bool Graph::is_undirected(const vector<vector<int>>& madj) {
@@ -72,24 +102,22 @@ Graph::Graph(const vector<vector<int>>& madj) : graph() {
 }
 
 
-// построение графа при помощи строкового потока с матрицей смежности
-Graph::Graph(istream& in) : graph() {
-    int n;
-    in >> n;
-    vector<vector<int>> madj(n, vector<int>(n));
-    string buffer;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            in >> buffer;
-            if (buffer == "inf") {
-                madj[i][j] = inf;
-            }
-            else {
-                madj[i][j] = stoi(buffer);
-            }
+// построение графа при помощи строкового потока
+Graph::Graph(const int& type, istream& in) : graph() {
+    switch (type) {
+        case 0: {
+            construct_from_string_madj(in);
+            break;
+        }
+        case 1: {
+            // construct_from_string_incm(in);
+            break;
+        }
+        case 2: {
+            // construct_from_string_ladj(in);
+            break;
         }
     }
-    create_from_madj(madj);
 }
 
 // добавление вершины
@@ -118,6 +146,34 @@ void Graph::add_edge(int v1, int v2, int w) {
         // exception
     }
 
+}
+
+/* A:  (B, 1), (C, -2)
+       B: (A, 1), (C, 3), (D, 5)
+       C: (B, 3), (A, -2)
+       D: (B, 5), (E, 10), (G, 7)
+       E: (D, 10), (F, 0)
+       F: (G, 8), (E, 0)
+       G: (D, 7), (F, 8)
+    */
+// является ли граф деревом
+bool Graph::is_tree() const {
+    if ( (this->get_cnt_edges()) != this->get_cnt_vertexes() - 1) return false;
+    // для проверки свзяности и отсуствия циклов нужен DFS
+    return true;
+}
+
+int Graph::get_cnt_edges() const{
+    int cntedges = 0;
+    for(auto [point, way] : graph){
+        int cnt_point_ways = way.size();
+        cntedges += cnt_point_ways;
+    }
+    return cntedges / 2;
+}
+
+int Graph::get_cnt_vertexes() const{
+    return graph.size();
 }
 
 // GETTERS
@@ -164,31 +220,4 @@ void Graph::print() {
 // сравнение графов
 bool Graph::operator==(const Graph& other) const {
     return this->get_graph() == other.get_graph();
-}
-/* A: (B, 1), (C, -2)
-       B: (A, 1), (C, 3), (D, 5)
-       C: (B, 3), (A, -2)
-       D: (B, 5), (E, 10), (G, 7)
-       E: (D, 10), (F, 0)
-       F: (G, 8), (E, 0)
-       G: (D, 7), (F, 8)
-    */
-// является ли граф деревом
-bool Graph::is_tree() const{
-    if((this->cnt_edges()) != this->cnt_vertexes() - 1) return false;
-    // для проверки свзяности и отсуствия циклов нужен DFS
-    return true;
-}
-
-int Graph::cnt_edges() const{
-    int cntedges = 0;
-    for(auto [point, way] : graph){
-        int cnt_point_ways = way.size();
-        cntedges += cnt_point_ways;
-    }
-    return cntedges / 2;
-}
-
-int Graph::cnt_vertexes() const{
-    return graph.size();
 }

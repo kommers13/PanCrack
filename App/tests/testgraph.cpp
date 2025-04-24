@@ -16,7 +16,7 @@ void TestGraph::test_creating_graph_data() {
                  inf inf 10  0   6 \
                  -2  4   inf 6   0";
     stringstream ss1(in1);
-    Graph g1(ss1);
+    Graph g1(0, ss1);
 
     uniunii ans1 = {
             {0,
@@ -42,7 +42,7 @@ void TestGraph::test_creating_graph_data() {
         inf 0   6 \
         1   6   0 ";
     stringstream ss2(in2);
-    Graph g2(ss2);
+    Graph g2(0, ss2);
 
     uniunii ans2 = {
             {0,
@@ -61,7 +61,7 @@ void TestGraph::test_creating_graph_data() {
                   0   inf \
                   inf 0";
         stringstream ss3(in3);
-    Graph g3(ss3);
+    Graph g3(0, ss3);
 
     uniunii ans3 = {
         {0,
@@ -75,7 +75,7 @@ void TestGraph::test_creating_graph_data() {
     // TEST 4
     string in4 = "0";
         stringstream ss4(in4);
-    Graph g4(ss4);
+    Graph g4(0, ss4);
 
     uniunii ans4 = {};
     // END INIT DATA
@@ -116,7 +116,7 @@ void TestGraph::test_undirected_graph_data() {
                  inf inf 10  0   6 \
                  2  4   inf 6   0";
     stringstream ss2(in2);
-    Graph g2(ss2);
+    Graph g2(0, ss2);
     bool ans2 = true;
 
     // TEST 3
@@ -133,13 +133,13 @@ void TestGraph::test_undirected_graph_data() {
                   0   1 \
                   1  0   ";
     stringstream ss4(in4);
-    Graph g4(ss4);
+    Graph g4(0, ss4);
     bool ans4 = true;
 
     // TEST 5
     string in5 = "0";
         stringstream ss5(in5);
-    Graph g5(ss5);
+    Graph g5(0, ss5);
     bool ans5 = true;
 
     // END INIT DATA
@@ -169,7 +169,7 @@ void TestGraph::test_add_vertex_data() {
                  inf 5   0   10   \
                  inf inf 10  0   ";
     stringstream ss1(in1);
-    Graph g1(ss1);
+    Graph g1(0, ss1);
     g1.add_vertex();
 
     uniunii ans1 = {
@@ -196,7 +196,7 @@ void TestGraph::test_add_vertex_data() {
         inf 0   6 \
         1   6   0 ";
     stringstream ss2(in2);
-    Graph g2(ss2);
+    Graph g2(0, ss2);
 
     g2.add_vertex();
 
@@ -220,7 +220,7 @@ void TestGraph::test_add_vertex_data() {
                   0   inf \
                   inf 0";
     stringstream ss3(in3);
-    Graph g3(ss3);
+    Graph g3(0, ss3);
 
     g3.add_vertex();
 
@@ -238,7 +238,7 @@ void TestGraph::test_add_vertex_data() {
     // TEST 4
     string in4 = "0";
     stringstream ss4(in4);
-    Graph g4(ss4);
+    Graph g4(0, ss4);
 
     g4.add_vertex();
 
@@ -270,7 +270,7 @@ void TestGraph::test_add_edge_data() {
                  0 1 \
                  1 0 ";
     stringstream ss1(s1);
-    Graph g1(ss1);
+    Graph g1(0, ss1);
 
     g1.add_edge(0, 1, 2);
 
@@ -288,7 +288,7 @@ void TestGraph::test_add_edge_data() {
                  0 1 \
                  1 0 ";
     stringstream ss2(s2);
-    Graph g2(ss2);
+    Graph g2(0, ss2);
 
     g2.add_edge(1, 0, 2);
 
@@ -307,7 +307,7 @@ void TestGraph::test_add_edge_data() {
         1   0 inf \
         inf inf 0";
         stringstream ss3(s3);
-    Graph g3(ss3);
+    Graph g3(0, ss3);
 
     g3.add_edge(2, 0, 100);
     g3.add_edge(0, 2, 1203);
@@ -327,7 +327,7 @@ void TestGraph::test_add_edge_data() {
     // TEST 4
     string s4 = "0";
     stringstream ss4(s4);
-    Graph g4(ss4);
+    Graph g4(0, ss4);
 
     g4.add_vertex();
     g4.add_vertex();
@@ -349,7 +349,7 @@ void TestGraph::test_add_edge_data() {
                 inf 0   6 \
                 1   6   0 ";
     stringstream ss5(s5);
-    Graph g5(ss5);
+    Graph g5(0, ss5);
 
     g5.add_edge(1, 0, 100);
     g5.add_edge(45, 435, 12);
@@ -392,7 +392,7 @@ void TestGraph::test_get_edges_data() {
         0 1 \
         1 0 ";
     stringstream ss1(s1);
-    Graph g1(ss1);
+    Graph g1(0, ss1);
 
     g1.add_edge(0, 1, 200);
 
@@ -406,7 +406,7 @@ void TestGraph::test_get_edges_data() {
         1 0 2 \
         3 2 0";
     stringstream ss2(s2);
-    Graph g2(ss2);
+    Graph g2(0, ss2);
 
     ustiiith ans2 = {
         make_tuple(1, 0, 1),
@@ -421,7 +421,7 @@ void TestGraph::test_get_edges_data() {
         3  inf  0    inf \
         -2 2    inf  0";
     stringstream ss3(s3);
-    Graph g3(ss3);
+    Graph g3(0, ss3);
 
     ustiiith ans3 = {
         make_tuple(1, 0, 1),
@@ -453,7 +453,7 @@ void TestGraph::test_equal_data() {
         0 1 \
         1 0 ";
         stringstream ss1(s1);
-    Graph g1(ss1);
+    Graph g1(0, ss1);
 
     Graph ans1;
     ans1.add_vertex();
@@ -467,7 +467,7 @@ void TestGraph::test_equal_data() {
                 3  inf  0    inf \
                 -2 2    inf  0";
     stringstream ss2(s2);
-    Graph g2(ss2);
+    Graph g2(0, ss2);
 
 
     Graph ans2;
@@ -484,7 +484,7 @@ void TestGraph::test_equal_data() {
     string s3 = "1 \
                  0";        // одна вершина в матрице
     stringstream ss3(s3);
-    Graph g3(ss3);
+    Graph g3(0, ss3);
 
     Graph ans3;
     ans3.add_vertex();
