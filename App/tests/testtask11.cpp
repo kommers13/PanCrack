@@ -1,11 +1,6 @@
 #include "include/testtask11.h"
-
-
 typedef unordered_map<int, unordered_map<int, int>> uniunii;
-
 using namespace std;
-
-
 void TestTask11::test_code(){
 
     string tree_n1 = "0110";
