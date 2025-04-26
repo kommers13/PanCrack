@@ -3,9 +3,9 @@ import QtQuick.Controls
 
 
 // plugs
-import "plugs"
+// import "plugs"
 // real
-// import signals
+import signals
 
 Item {
     id: root_commandLine
@@ -47,13 +47,13 @@ Item {
                 command_answer.enabled = false
 
                 // передаем информацию для того, чтобы обработать команду
-                // signals_id.on_output_command(command_line.text, command_answer)
+                // signals_id.on_output_command(command_line.text)
 
                 // если сработало некое условие (строка ввода пустая
                 // или в выводе ничего нет), то строка вывода будет нулевой
                 // иначе в ней будет какая-то информация
                 // (command_line.text.length > 9) - УСЛОВИЕ БУДЕТ ИЗМЕНЕНО
-                command_answer.text = (command_line.text.length > 9 ? "SYNOPSIS" : "")
+                signals_id.output_command(command_line.text, command_answer)
 
                 // column.childrenRect - возвращает кортеж (x, y, width, height),
                 // где x, y - это точка верхнего левого угла прямоугольника дочерних элементов
@@ -73,7 +73,7 @@ Item {
 
                 // Команда CLEAR (только эту команду мы выполняем после всего, она РЕДАКТИРУЕТ консоль)
                 if (command_line.text === "PanCrack>clear") {
-                    console.log("COMMAND CLEAR")
+                    // console.log("COMMAND CLEAR")
                     for (let i = column.children.length - 1; i >= 1; i--) {
                         if (column.children[i] !== column) {
                             column.children[i].destroy()
@@ -123,8 +123,8 @@ Item {
                                                      // превышают высоту колонны, то нужно сдвинуть наверх на одну
                                                      // высоту строки, которая равна 25 пикселям (волшебная константа)
                                                      if (nextLine_real_bottom >= column.height) {
-                                                         console.log(commandSingleLine.contentHeight)
-                                                         console.log("FDSJKSLFD")
+                                                         // console.log(commandSingleLine.contentHeight)
+                                                         // console.log("FDSJKSLFD")
                                                          // здесь нам нужно поднять только на высоту, которая вылезла за пределы экрана
                                                          column.y -= (nextLine_real_bottom - column.height)
                                                      }
@@ -143,12 +143,12 @@ Item {
                     // крайним ребенком всегда будет CommandSingleLine
                     // console.log("RCB: ", root_commandLine.y + root_commandLine.height)
                     let gc = column.children[children.length - 1].mapToItem(root_commandLine, 0, 0)
-                    console.log("LOWER CHILD BOTTOM: ", gc.y + 25)
-                    console.log("COLUMN Y: ", column.y)
-                    console.log("COLUMN HEIGHT: ", column.height)
-                    console.log("COLUMN BOTTOM: ", column.y + column.height)
-                    console.log("ROOT COMMAND LINE Y: ", root_commandLine.y)
-                    console.log(gc.y > root_commandLine.y + root_commandLine.height)
+                    // console.log("LOWER CHILD BOTTOM: ", gc.y + 25)
+                    // console.log("COLUMN Y: ", column.y)
+                    // console.log("COLUMN HEIGHT: ", column.height)
+                    // console.log("COLUMN BOTTOM: ", column.y + column.height)
+                    // console.log("ROOT COMMAND LINE Y: ", root_commandLine.y)
+                    // console.log(gc.y > root_commandLine.y + root_commandLine.height)
                     // gc.y > root_commandLine.y + root_commandLine.height
                     if (gc.y > 0 + root_commandLine.height) {
                          column.y -= 25

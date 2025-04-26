@@ -8,6 +8,7 @@
 
 #include "include/signals.h"
 #include "include/commandparser.h"
+#include "include/listcommands.h"
 
 
 int main(int argc, char *argv[])
@@ -38,11 +39,16 @@ int main(int argc, char *argv[])
 
     // связывание сигналов с слотами
     Signals* all_signals = engine.rootObjects().first()->findChild<Signals*>("signals_id_");
-    CommandParser* command_parser = new CommandParser();
+    // commands name and their helping description
+    vector<pair<string, string>> coms_and_hlps = {{"clear", "no help, it is just clear"}};
+    // конструктор для класса CommandParser
+    CommandParser* command_parser = new CommandParser(coms_and_hlps);
     // qDebug() << all_signals;
     // ПРОБЛЕМА С ЗАПУСКОМ ПОЧЕМУ-ТО
     QObject::connect(all_signals, &Signals::output_command,
-                      command_parser, &CommandParser::output_command);
+                      command_parser, &CommandParser::on_output_command);
+
+    qDebug() << commands_list;
 
     return app.exec();
 }

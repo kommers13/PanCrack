@@ -19,6 +19,9 @@ class CommandParser : public QObject
 
     Q_OBJECT
 
+
+    // список доступных команд
+    vector<pair<string, string>> commands_and_help;
     // Команда, например, create, show, prufer
     string command;
     // Аргументы команды, например, GRAPH_NAME (for create), 11232122 (for prufer)
@@ -40,7 +43,7 @@ public:
     */
 
     // Конструктор парсера команд
-    CommandParser();
+    CommandParser(const vector<pair<string, string>>& coms_and_hlp);
 
     // преобразованная команды
     // string - команда
@@ -52,7 +55,7 @@ public slots:
     // вставка результата команды в консоль
     // input - сырая строка от пользователя
     // output - компонент, в который будет вставлен ответ в виде текста
-    void output_command(const QString& input, QObject* text_field);
+    void on_output_command(const QString& input, QObject* answer_field);
 
 };
 

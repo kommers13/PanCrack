@@ -23,6 +23,7 @@ qt_standard_project_setup()
 qt_add_executable(${CMAKE_PROJECT_NAME}
     App/include/signals.h App/signals.cpp
     App/include/commandparser.h App/commandparser.cpp
+    App/include/listcommands.h
 )
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"

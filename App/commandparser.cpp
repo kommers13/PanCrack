@@ -1,7 +1,9 @@
 #include <QDebug>
 #include "include/commandparser.h"
 
-CommandParser::CommandParser() : command(""), arguments(), options() {}
+CommandParser::CommandParser(const vector<pair<string, string>>& coms_and_hlp)
+    : command(""), arguments(vector<string>()), options(vector<string>()),
+    commands_and_help(coms_and_hlp) {}
 
 
 
@@ -19,7 +21,15 @@ tuple<string,
     return make_tuple(command, arguments, options);
 }
 
-void CommandParser::output_command(const QString& input, QObject* text_field) {
+void CommandParser::on_output_command(const QString& input, QObject* answer_field) {
     qDebug() << input;
+
+    // ...
+
+    // command, arguments, options
+    auto parsed_command = this->process_command(input.toStdString());
+
+    string output = "answer";
+    answer_field->setProperty("text", QVariant(output.c_str()));
 
 }
