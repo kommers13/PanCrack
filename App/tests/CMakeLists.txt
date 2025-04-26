@@ -14,11 +14,11 @@ message(STATUS "Binary directory of project \"Tests\": ${CMAKE_BINARY_DIR}")
 qt_add_executable(Tests
     main_test.cpp
     include/testgraph.h testgraph.cpp
-    #include/testtask10.h testtask10.cpp
+    include/testtask10.h testtask10.cpp
     include/testtask7.h testtask7.cpp
-    #include/testtask11.h testtask11.cpp
+    include/testtask11.h testtask11.cpp
     include/testtask1.h testtask1.cpp
-    #include/testtask2.h testtask2.cpp
+    include/testtask2.h testtask2.cpp
 
 
 

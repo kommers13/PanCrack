@@ -11,7 +11,9 @@
 
 int main(int argc, char* argv[]) {
     QApplication a(argc, argv);
-    QTest::qExec(new TestGraph);
+    QStringList args;
+    // args << " " << "-o" << "testlog.xml,xml";
+    QTest::qExec(new TestGraph, args);
     //QTest::qExec(new TestTask10);
     QTest::qExec(new TestTask7);
     QTest::qExec(new TestTask1);

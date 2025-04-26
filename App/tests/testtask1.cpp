@@ -63,6 +63,29 @@ void TestTask1::test_DFS() {
         qDebug() << result;
         QVERIFY(result == "3 4" || result == "4 3"); // Только компонента с вершинами 3 и 4
     }
+    // Тест 6
+    {
+        qDebug() << "6 тест";
+        std::string in = "4 \
+                          0   1   inf inf \
+                          1   0   4   inf   \
+                          inf 4   0   5   \
+                          inf inf 5   0 ";
+        std::stringstream ss(in);
+        Graph g(ss);
+        std::string result = task1::print_DFS(g, 1);
+        QCOMPARE(result, "1 2 3 4");
+    }
+    // Тест 6
+    {
+        qDebug() << "7 тест";
+        std::string in = "1\
+                          0";
+        std::stringstream ss(in);
+        Graph g(ss);
+        std::string result = task1::print_DFS(g, 1);
+        QCOMPARE(result, "1");
+    }
 }
 
 //#include "testtask1.moc"
