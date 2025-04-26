@@ -14,9 +14,13 @@ class TestTask10 : public QObject
 
 private slots:
 
-    //void test_code_data();
-    void test_code();
-    //void test_creating_graph();
+    void lection_test();
+    void very_hard_test();
+    void typical_test();
+    void eight_test();
+    void list_test();
+    void trivial_test();
+    void star_test();
 };
 
 #endif // TESTTASK1__H
