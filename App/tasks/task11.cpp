@@ -11,9 +11,9 @@ Graph task11::input(string code, string points){
 }
 Graph task11::decoding(string code, vector<int> points){
     Graph tree;
-    std::vector<int> prufer(code.begin(), code.end());
-    for (auto& c : prufer) {
-        c -= '0';
+    vector<int> prufer;
+    for (auto& c : code) {
+        prufer.push_back(c -'0');
     }
     while (!prufer.empty()) {
         // 1. Берём первый элемент кода Прюфера
@@ -28,7 +28,6 @@ Graph task11::decoding(string code, vector<int> points){
             }
         }
         if (v == -1) {
-            // Если все вершины есть в коде, берём минимальную
             v = *min_element(points.begin(), points.end());
         }
         // Добавляем ребро в граф

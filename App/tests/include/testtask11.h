@@ -12,7 +12,8 @@ class TestTask11 : public QObject
     Q_OBJECT
 private slots:
     //void test_code_data();
-    void test_code();
+    void lection_test();
+    void hard_test();
 
 };
 
