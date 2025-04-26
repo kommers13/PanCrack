@@ -87,7 +87,7 @@ Window {
         running: true
         onTriggered: {
             stateGroup.state = "MainScreenState"
-            // window.showFullScreen()
+            window.showFullScreen()
         }
     }
 

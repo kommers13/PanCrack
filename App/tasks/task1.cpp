@@ -7,7 +7,7 @@ namespace task1 {
 std::vector<int> DFS(const Graph& g, int start_vertex) {
     std::vector<int> traversal_order;
     auto graph = g.get_graph();
-    int vertex_count = g.cnt_vertexes();
+    int vertex_count = g.get_cnt_vertexes();
 
     // Проверка на корректность вершины
     if (start_vertex < 1 || start_vertex > vertex_count) {
