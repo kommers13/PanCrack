@@ -9,6 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include <tuple>
+#include <algorithm>
 
 
 
@@ -54,6 +55,16 @@ private:
 
 public:
 
+    const std::unordered_map<int, int>& get_raw_neighbors(int vertex) const {
+        return graph.at(vertex);
+    }
+
+    // Объявление без реализации
+    std::vector<int> get_sorted_neighbors(int vertex) const;
+
+    bool has_vertex(int vertex) const;
+    size_t vertex_count() const;
+
     // нулевой граф
     Graph();
 
@@ -62,6 +73,7 @@ public:
 
     // построение графа при помощи матрицы смежности
     Graph(const vector<vector<int>>& madj);
+
 
     // построение графа при помощи строкового потока с матрицей смежности
     // ввод
