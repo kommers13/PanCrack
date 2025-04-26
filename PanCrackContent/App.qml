@@ -24,8 +24,8 @@ Window {
 
     Loader {
         id: loader_loading
-        width: 240
-        height: 130
+        width: 360
+        height: 180
         source: "Loading.qml"
     }
 
@@ -44,8 +44,8 @@ Window {
 
                 PropertyChanges {
                     target: window
-                    width: 240
-                    height: 130
+                    width: 360
+                    height: 180
                 }
             },
             State {
@@ -82,8 +82,8 @@ Window {
         enabled: false
     }
     Timer {
-        interval: 1000
-        // interval: 17000
+        // interval: 1000
+        interval: 17000
         running: true
         onTriggered: {
             stateGroup.state = "MainScreenState"
