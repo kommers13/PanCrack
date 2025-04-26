@@ -9,6 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include <tuple>
+#include <algorithm>
 
 
 
@@ -63,6 +64,16 @@ private:
     bool is_connected(const vector<vector<int>>& madj); // В АЛГОРИТМЫ
 
 public:
+
+    const std::unordered_map<int, int>& get_raw_neighbors(int vertex) const {
+        return graph.at(vertex);
+    }
+
+    // Объявление без реализации
+    std::vector<int> get_sorted_neighbors(int vertex) const;
+
+    bool has_vertex(int vertex) const;
+    size_t vertex_count() const;
 
     // нулевой граф
     Graph();

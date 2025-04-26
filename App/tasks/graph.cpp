@@ -227,3 +227,21 @@ unordered_map<int, int> Graph::operator[](const int& v) const {
     }
     return this->get_graph()[v];
 }
+
+
+std::vector<int> Graph::get_sorted_neighbors(int vertex) const {
+    std::vector<int> neighbors;
+    for (const auto& pair : graph.at(vertex)) {
+        neighbors.push_back(pair.first);
+    }
+    std::sort(neighbors.begin(), neighbors.end());
+    return neighbors;
+}
+
+bool Graph::has_vertex(int vertex) const {
+    return graph.find(vertex) != graph.end();
+}
+
+size_t Graph::vertex_count() const {
+    return graph.size();
+}

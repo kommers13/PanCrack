@@ -15,10 +15,11 @@ qt_add_executable(Tests
     main_test.cpp
     include/testgraph.h testgraph.cpp
     include/testtask0.h testtask0.cpp
+    include/testtask1.h testtask1.cpp
+    include/testtask2.h testtask2.cpp
     include/testtask7.h testtask7.cpp
     include/testtask10.h testtask10.cpp
     include/testtask11.h testtask11.cpp
-
 )
 
 target_link_libraries(Tests PRIVATE taskslib Qt6::Test Qt6::Widgets)
