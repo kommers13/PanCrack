@@ -14,7 +14,7 @@ Graph input(std::string s, std::string p);
 
 std::string output(std::string ans, string ps);
 
-Graph decoding(std::string code, std::vector<int> p);
+Graph decoding(std::string code, std::string points);
 
 }
 

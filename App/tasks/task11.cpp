@@ -2,45 +2,49 @@
 using namespace std;
 
 Graph task11::input(string code, string points){
-    vector<int> vec_points;
-    for(auto el : points){
-        vec_points.push_back(int(el));
-    }
-    Graph g = task11::decoding(code, vec_points);
-    return g;
+    return (task11::decoding(code, points));
 }
-Graph task11::decoding(string code, vector<int> points){
+Graph task11::decoding(string code, string n){
     Graph tree;
+    // Вектор кода прюфера
     vector<int> prufer;
-    for (auto& c : code) {
-        prufer.push_back(c -'0');
+
+    for(char& el : code) {
+        prufer.push_back(el - '0');
     }
+
+    multiset<int> prufer_set(prufer.begin(), prufer.end());
+    set<int> all_nodes;
+    // Инициализация всех вершин
+    for (int i = 0; i < stoi(n); ++i) {
+        all_nodes.insert(i);
+    }
+
     while (!prufer.empty()) {
-        // 1. Берём первый элемент кода Прюфера
         int u = prufer.front();
-        // 2. Находим минимальную вершину, отсутствующую в коде
+        // Находим минимальную вершину, не входящую в код Прюфера
         int v = -1;
-        set<int>pruferSet(prufer.begin(), prufer.end());
-        for (int point : points) {
-            if (pruferSet.find(point) == pruferSet.end()) {
-                v = point;
+        for (int node : all_nodes) {
+            if (prufer_set.count(node) == 0) {
+                v = node;
                 break;
             }
         }
-        if (v == -1) {
-            v = *min_element(points.begin(), points.end());
-        }
-        // Добавляем ребро в граф
+        // Добавляем ребро
         tree.add_edge(u, v, 0);
-
-        // Удаляем использованные элементы
+        //cout << u << " " << v << '\n';
+        // Обновляем структуры данных
         prufer.erase(prufer.begin());
-        points.erase(remove(points.begin(), points.end(), v), points.end());
+        prufer_set.erase(prufer_set.find(u));
+        all_nodes.erase(v);
     }
 
     // Добавляем последнее ребро между оставшимися вершинами
-    if (points.size() == 2) {
-        tree.add_edge(points[0], points[1], 0);
+    if (all_nodes.size() == 2) {
+        auto it = all_nodes.begin();
+        int u = *it++;
+        int v = *it;
+        tree.add_edge(u, v, 0);
     }
 
     return tree;

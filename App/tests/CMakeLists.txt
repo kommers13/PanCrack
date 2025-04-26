@@ -14,9 +14,11 @@ message(STATUS "Binary directory of project \"Tests\": ${CMAKE_BINARY_DIR}")
 qt_add_executable(Tests
     main_test.cpp
     include/testgraph.h testgraph.cpp
-    include/testtask10.h testtask10.cpp
+    include/testtask0.h testtask0.cpp
     include/testtask7.h testtask7.cpp
+    include/testtask10.h testtask10.cpp
     include/testtask11.h testtask11.cpp
+
 )
 
 target_link_libraries(Tests PRIVATE taskslib Qt6::Test Qt6::Widgets)
