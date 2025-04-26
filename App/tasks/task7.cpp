@@ -5,70 +5,51 @@
 const int inf = 1e9;
 
 struct Comparator {
-    bool operator()(const tuple<int, int, int>& a, const tuple<int, int, int>& b) {
+    bool operator()(const pair<int, int>& a, const pair<int, int>& b) {
         // priorities (weights)
-        return get<2>(a) > get<2>(b);
+        // first - vertex
+        // second - priority
+        return a.second > b.second;
     }
 };
 
-// считаем, что граф g является связным и неориентированным, и ненулевым
+// считаем, что граф g является связным и неориентированным
 Graph task7::create_MST(const Graph& g) {
     int sizev = g.get_cnt_vertexes();
-
-    // (vertex <----> minimum vertex) and weight
-    // unordered_map<int, pair<int, int>> v_mv_w;
-    vector<tuple<int, int, int>> v_mv_w;
-
-    // vertex, dependent vertex, priority (weight) (по неубыванию)
-    priority_queue<tuple<int, int, int>,
-                   vector<tuple<int, int, int>>,
-                   Comparator> v_p;
-    // запихиваем (shove) все вершины в приоритетную очередь
-    // первую вершину (индекс 0) запихиваем в очередь с приоритетом 0
-    // все остальные вершины идут с приоритетом inf
-    v_p.push(make_tuple(0, inf, inf));
-    for (int i = 1; i < sizev; i++) {
-        v_p.push(make_tuple(i, inf, inf));
+    if (sizev == 0) {
+        return g;
     }
-    unordered_set<int> checked;     // проверенные вершины
-    // проделываем действия, пока проверены НЕ ВСЕ вершины
-    while (checked.size() < sizev) {
-        // он должен брать первую непроверенную вершину в приоритетной очереди
-        auto vp = v_p.top(); // vertex, dependent vertex, priority
-        int current_v = get<0>(vp);
-        // если вершина уже была проверена, то удаляем ее и продолжаем на новой итерации
-        if (checked.count(current_v) > 0) {
-            v_p.pop();
-            continue;
-        }
-        // запихиваем в очередь всех соседей
+    // мы должны брать ребра только с вершин, которые уже присоединены к дереву
+    priority_queue<pair<int, int>,
+                   vector<pair<int, int>>,
+                   Comparator> v_p;     // vertex, priority
+    // предки вершин (индекс - предок, значение - потомок)
+    vector<int> parent(sizev);
+    // минимальные веса для вершин (индекс - вершина, значение - вес (приоритет))
+    vector<int> min_weight(sizev, inf);
+    // проверенные вершины
+    vector<bool> checked(sizev, 0);
+
+    parent[0] = -1; // у начальной вершины нет предков
+    min_weight[0] = 0;
+    v_p.push(make_pair(0, 0));
+
+    while (!v_p.empty()) {
+        int current_v = v_p.top().first;
+        v_p.pop();
+        checked[current_v] = true;
+        // проходимся по всем соседям
         for (auto [neighbour, weight]: g[current_v]) {
-            // если сосед проверен, то идем на следующую итерацию
-            if (checked.count(neighbour) > 0) {
-                continue;
+            if (!checked[neighbour] && weight < min_weight[neighbour]) {
+                parent[neighbour] = current_v;
+                min_weight[neighbour] = weight;
+                v_p.push(make_pair(neighbour, weight));
             }
-            // if (v_mv_w.find(current_v) == v_mv_w.end()) {
-            //     v_mv_w[current_v] = make_pair(neighbour, weight);
-            // }
-            // else {
-            //     if (v_mv_w[current_v].second > weight) {
-            //         v_mv_w[current_v] = make_pair(neighbour, weight);
-            //     }
-            // }
-            v_p.push(make_tuple(current_v, neighbour, weight));
         }
-        // cout << v_mv_w[current_v].second << '\n';
-        checked.insert(current_v);
-        v_mv_w.push_back(v_p.top());
-        v_p.pop();  // удаляем первый элемент из очереди, так как он уже проверен
     }
     Graph MST(sizev);
-    for (auto t: v_mv_w) {
-        int v1 = get<0>(t);
-        int v2 = get<1>(t);
-        int w = get<2>(t);
-        cout << (char)(v1 + 'A') << ' ' << (char)(v2 + 'A') << ' ' << w << '\n';
-        MST.add_edge(v1, v2, w);
+    for (int i = 1; i < sizev; i++) {
+        MST.add_edge(i, parent[i], min_weight[i]);
     }
     MST.print();
     return MST;
