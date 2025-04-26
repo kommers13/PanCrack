@@ -148,22 +148,12 @@ void Graph::add_edge(int v1, int v2, int w) {
 
 }
 
-/* A:  (B, 1), (C, -2)
-       B: (A, 1), (C, 3), (D, 5)
-       C: (B, 3), (A, -2)
-       D: (B, 5), (E, 10), (G, 7)
-       E: (D, 10), (F, 0)
-       F: (G, 8), (E, 0)
-       G: (D, 7), (F, 8)
-    */
-// является ли граф деревом
 bool Graph::is_tree() const {
-    if ( (this->get_cnt_edges()) != this->get_cnt_vertexes() - 1) return false;
-    // для проверки свзяности и отсуствия циклов нужен DFS
-    return true;
+    return 0;
 }
 
-int Graph::get_cnt_edges() const{
+// GETTERS
+int Graph::get_cnt_edges() const {
     int cntedges = 0;
     for(auto [point, way] : graph){
         int cnt_point_ways = way.size();
@@ -172,11 +162,16 @@ int Graph::get_cnt_edges() const{
     return cntedges / 2;
 }
 
-int Graph::get_cnt_vertexes() const{
+int Graph::get_cnt_vertexes() const {
     return graph.size();
 }
 
-// GETTERS
+// степень вершины v (номер вершины) графа
+// если такой вершины нет, возникнет исключение
+int Graph::get_v_degree(int v) const {
+    return (*this)[v].size();
+}
+
 unordered_map<int, unordered_map<int, int>> Graph::get_graph() const {
     return graph;
 }
@@ -220,4 +215,15 @@ void Graph::print() {
 // сравнение графов
 bool Graph::operator==(const Graph& other) const {
     return this->get_graph() == other.get_graph();
+}
+
+// вернуть все смежные вершины и веса
+// в виде unordered_map
+// если такой вершины не существует, то будет исключение
+unordered_map<int, int> Graph::operator[](const int& v) const {
+    if (this->get_cnt_vertexes() <= v) {
+        // ИСКЛЮЧЕНИЕ
+        throw domain_error("No such vertex");
+    }
+    return this->get_graph()[v];
 }

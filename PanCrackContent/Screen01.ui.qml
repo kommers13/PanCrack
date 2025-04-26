@@ -19,7 +19,7 @@ Rectangle {
 
     CommandLine {
         id: commandLine
-        x: 65
+        x: 86
         y: 80
         clip: true
     }

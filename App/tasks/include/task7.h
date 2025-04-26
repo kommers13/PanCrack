@@ -3,6 +3,12 @@
 
 #include <graph.h>
 
+#include <map>
+#include <unordered_set>
+#include <set>
+#include <unordered_map>
+#include <utility>
+#include <queue>
 #include <algorithm>
 
 /*
@@ -11,6 +17,7 @@
 Выходные данные: минимальное остовное дерево
 */
 
+using namespace std;
 
 namespace task7 {
 

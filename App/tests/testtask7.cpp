@@ -8,9 +8,9 @@ void TestTask7::test_MST_data() {
     // INIT DATA
     // TEST 1
     string s1 = "3 \
-                0 2 3 \
-                2 0 -2 \
-                3 -2 0";
+                 0 2 3 \
+                 2 0 -2 \
+                 3 -2 0";
     stringstream ss1(s1);
     Graph g1(0, ss1);
 
@@ -46,7 +46,7 @@ void TestTask7::test_MST_data() {
     Graph ans4(1);
 
     // TEST5 (PANTELEEV TEST)
-    string s5 = "8                         \
+    string s5 = "8                                 \
                  0   2   inf inf 6   3   inf inf    \
                  2   0   4   inf inf 1   7   inf \
                  inf 4   0   1   inf inf 6   5   \
@@ -67,6 +67,26 @@ void TestTask7::test_MST_data() {
     ans5.add_edge(6, 7, 3);
     ans5.add_edge(4, 5, 5);
 
+    // TEST6
+    string s6 = "7                          \
+        0   1    inf -2  inf inf inf         \
+        1   0    -5  inf 4   inf inf           \
+        inf -5   0   3   inf 0   inf          \
+        -2  inf  3   0   7   inf inf         \
+        inf 4    inf 7   0   6   -7        \
+        inf inf  0   inf 6   0   10         \
+        inf inf  inf inf -7  10   0     ";
+        stringstream ss6(s6);
+    Graph g6(0, ss6);
+
+    Graph ans6(7);
+    ans6.add_edge(0, 1, 1);
+    ans6.add_edge(0, 3, -2);
+    ans6.add_edge(1, 2, -5);
+    ans6.add_edge(1, 4, 4);
+    ans6.add_edge(2, 5, 0);
+    ans6.add_edge(4, 6, -7);
+
     // END INIT DATA
 
 
@@ -78,6 +98,7 @@ void TestTask7::test_MST_data() {
     QTest::newRow("MST 3") << g3 << ans3;
     QTest::newRow("MST 4") << g4 << ans4;
     QTest::newRow("MST 5") << g5 << ans5;
+    QTest::newRow("MST 6") << g6 << ans6;
 
 
 }
@@ -86,3 +107,6 @@ void TestTask7::test_MST() {
     QFETCH(Graph, MST);
     QCOMPARE(task7::create_MST(graph), MST);
 }
+
+Q_DECLARE_METATYPE(TestTask7)
+#include "testtask7.moc"

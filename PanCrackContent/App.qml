@@ -12,7 +12,7 @@ Window {
     height: loader_screen01.height
 
     visible: true
-    color: "#00ffffff"
+    color: "#00ffff"
     title: "PanCrack"
 
     Loader {
@@ -87,7 +87,7 @@ Window {
         running: true
         onTriggered: {
             stateGroup.state = "MainScreenState"
-            window.showFullScreen()
+            // window.showFullScreen()
         }
     }
 

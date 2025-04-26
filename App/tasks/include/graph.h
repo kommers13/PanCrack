@@ -99,6 +99,11 @@ public:
     // построение графа при помощи строкового потока со списками смежности
     /*
 
+    0: (1, 3), (4, -2)
+    1: (0, 3), (2, 5), (4, 4)
+    2: (1, 5), (3, 10)
+    3: (2, 10), (4, 6)
+    4: (0, -2), (1, 0), (3, 6)
 
     */
 
@@ -122,7 +127,7 @@ public:
     void delete_edge(int v1, int v2);           // НЕ РЕАЛИЗОВАН
 
     // проверка, является ли граф деревом
-    bool is_tree() const;       // НЕ РЕАЛИЗОВАН
+    bool is_tree() const;       // НЕ РЕАЛИЗОВАН    // В АЛГОРИТМЫ
 
     // GETTERS
     unordered_map<int, unordered_map<int, int>> get_graph() const;
@@ -142,12 +147,16 @@ public:
 
     // степень вершины v (номер вершины) графа
     // если такой вершины нет, возникнет исключение
-    int get_cnt_degree(int v) const;            // НЕ РЕАЛИЗОВАН
-
+    int get_v_degree(int v) const;
 
     // OPERATORS
     // сравнение графов
     bool operator==(const Graph& other) const;
+
+    // вернуть все смежные вершины и веса
+    // в виде unordered_map
+    // если такой вершины не существует, то будет исключение
+    unordered_map<int, int> operator[](const int& v) const;
 
     // вывод графа на консоль
     void print();

@@ -3,9 +3,9 @@ import QtQuick.Controls
 
 
 // plugs
-// import "plugs"
+import "plugs"
 // real
-import signals
+// import signals
 
 Item {
     id: root_commandLine
@@ -143,15 +143,17 @@ Item {
                     // крайним ребенком всегда будет CommandSingleLine
                     // console.log("RCB: ", root_commandLine.y + root_commandLine.height)
                     let gc = column.children[children.length - 1].mapToItem(root_commandLine, 0, 0)
-                    // console.log("LOWER CHILD BOTTOM: ", gc.y + 25)
-                    // console.log("COLUMN Y: ", column.y)
-                    // console.log("COLUMN HEIGHT: ", column.height)
-                    // console.log("COLUMN BOTTOM: ", column.y + column.height)
-                    if (gc.y > root_commandLine.y + root_commandLine.height) {
+                    console.log("LOWER CHILD BOTTOM: ", gc.y + 25)
+                    console.log("COLUMN Y: ", column.y)
+                    console.log("COLUMN HEIGHT: ", column.height)
+                    console.log("COLUMN BOTTOM: ", column.y + column.height)
+                    console.log("ROOT COMMAND LINE Y: ", root_commandLine.y)
+                    console.log(gc.y > root_commandLine.y + root_commandLine.height)
+                    // gc.y > root_commandLine.y + root_commandLine.height
+                    if (gc.y > 0 + root_commandLine.height) {
                          column.y -= 25
                      }
                 }
-
             }
 
             CommandSingleLine {

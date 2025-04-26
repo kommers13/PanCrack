@@ -502,5 +502,57 @@ void TestGraph::test_equal() {
     QCOMPARE(graph, my_graph);
 }
 
+void TestGraph::test_get_degree_data() {
+    // TEST1
+    string s1 = "2 \
+        0 1 \
+        1 0 ";
+        stringstream ss1(s1);
+    Graph g1(0, ss1);
+
+    int ans1 = 1;
+
+    // TEST2
+    string s2 = "4   \
+                0  1    3    -2  \
+                1  0    inf  2   \
+                3  inf  0    inf \
+                -2 2    inf  0";
+                stringstream ss2(s2);
+    Graph g2(0, ss2);
+
+
+    int ans2 = 3;
+
+    // TEST3
+    string s3 = "1 \
+        0";        // одна вершина в матрице
+        stringstream ss3(s3);
+    Graph g3(0, ss3);
+
+    int ans3 = 0;
+
+    // TEST4
+    string s4 = "0";
+    stringstream ss4(s4);
+    Graph g4(0, ss4);
+
+    int ans4 = 0;
+    // END INIT DATA
+
+    QTest::addColumn<Graph>("graph");
+    QTest::addColumn<int>("degree");
+    QTest::newRow("degree 1") << g1 << ans1;
+    QTest::newRow("degree 2") << g2 << ans2;
+    QTest::newRow("degree 3") << g3 << ans3;
+    // QTest::newRow("degree 4") << g4 << ans4; // ИСКЛЮЧЕНИЕ, ВСЕ НОРМАЛЬНО
+
+}
+void TestGraph::test_get_degree() {
+    QFETCH(Graph, graph);
+    QFETCH(int, degree);
+    QCOMPARE(graph.get_v_degree(0), degree);
+}
+
 Q_DECLARE_METATYPE(TestGraph)
 #include "testgraph.moc"

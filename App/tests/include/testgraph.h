@@ -7,6 +7,8 @@
 
 #include <graph.h>
 
+#include <exception>
+
 class TestGraph : public QObject
 {
     Q_OBJECT
@@ -28,8 +30,12 @@ private slots:
     void test_get_edges_data();
     void test_get_edges();
 
+    void test_get_degree_data();
+    void test_get_degree();
+
     void test_equal_data();
     void test_equal();
+
 };
 
 #endif // TESTGRAPH_H
