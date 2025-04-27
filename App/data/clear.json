@@ -1,0 +1,5 @@
+{
+  "name": "clear",
+  "description": "NAME\n\tCLEAR - clear the terminal screen\nSYNOPSIS\n\tCLEAR\nDESCRIPTION\n\tCLEAR just returns screen to original state. CLEAR doesn`t have any options\n",
+  "options": []
+}

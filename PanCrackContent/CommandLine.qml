@@ -134,7 +134,7 @@ Item {
             Keys.onPressed: (event) => {
                 if (event.key === Qt.Key_Up) {
                     // когда консоль движется вниз, она движется вверх, и ее координата "y" уменьшается
-                    if (column.y + 25 <= 25) {   // magic const 8 - origin y
+                    if (column.y + 25 <= 25) {   // magic const 25 - origin y
                         column.y += 25
                     }
                 }

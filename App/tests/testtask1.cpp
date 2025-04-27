@@ -8,7 +8,7 @@ void TestTask1::test_DFS() {
         qDebug() << "1 тест";
         std::string in = "3\ninf 1 1\n1 inf inf\n1 inf inf";
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
         std::string result = task1::print_DFS(g, 1); // Начинаем с вершины 1
         qDebug() << result;
         QVERIFY(result == "1 3 2" || result == "1 2 3"); // Варианты для 1-based
@@ -19,7 +19,7 @@ void TestTask1::test_DFS() {
         qDebug() << "2 тест";
         std::string in = "5\ninf 1 1 inf inf\n1 inf inf 1 1\n1 inf inf inf inf\ninf 1 inf inf inf\ninf 1 inf inf inf";
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
         std::string result = task1::print_DFS(g, 1); // Начинаем с вершины 1
         qDebug() << result;
 
@@ -31,7 +31,7 @@ void TestTask1::test_DFS() {
         qDebug() << "3 тест";
         std::string in = "3\n0 1 0\n1 0 1\n0 1 0";
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
         std::string result = task1::print_DFS(g, 0); // Вершина 0 не существует
         QCOMPARE(result, "");
         result = task1::print_DFS(g, 4); // Вершина 4 не существует (максимум 3)
@@ -55,7 +55,7 @@ void TestTask1::test_DFS() {
         qDebug() << "5 тест";
         std::string in = "4\ninf 1 inf inf\n1 inf inf inf\ninf inf inf 1\ninf inf 1 inf"; // Две компоненты связности
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
         std::string result = task1::print_DFS(g, 1); // Обход начиная с вершины 1
         qDebug() << result;
         QVERIFY(result == "1 2" || result == "2 1"); // Только компонента с вершинами 1 и 2
@@ -72,7 +72,7 @@ void TestTask1::test_DFS() {
                           inf 4   0   5   \
                           inf inf 5   0 ";
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
         std::string result = task1::print_DFS(g, 1);
         QCOMPARE(result, "1 2 3 4");
     }
@@ -82,7 +82,7 @@ void TestTask1::test_DFS() {
         std::string in = "1\
                           0";
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
         std::string result = task1::print_DFS(g, 1);
         QCOMPARE(result, "1");
     }

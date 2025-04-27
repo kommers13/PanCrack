@@ -3,21 +3,23 @@
 
 #include <vector>
 #include <string>
+#include <unordered_map>
+#include <tuple>
+#include <fstream>
+#include "json.hpp"
 
+using json = nlohmann::json;
 using namespace std;
 
-// вектор пар, где пара - это две строки: имя команды и ее описание
-// (то описание, которое вызывается командой <command> --help)
+namespace list_commands {
 
-const vector<pair<string, string>> commands_list = {
+// name - key, description, options - value
+unordered_map<string, pair<string, vector<string>>> get_all();
 
-{"clear", "NAME\n"
-          "\tCLEAR - clear the terminal screen\n"
-          "SYNOPSIS\n"
-          "\tCLEAR\n"
-          "DESCRIPTION\n"
-          "\tCLEAR just returns screen to original state. CLEAR doesn`t have any options\n"}
+// возвращает данные команды по ее имени из JSON-файла
+// name, description, options
+tuple<string, string, vector<string>> get(const string& command_name);
 
-};
+}
 
 #endif // LISTCOMMANDS_H

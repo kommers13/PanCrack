@@ -48,7 +48,8 @@ int main(int argc, char *argv[])
     QObject::connect(all_signals, &Signals::output_command,
                       command_parser, &CommandParser::on_output_command);
 
-    qDebug() << commands_list;
+    auto command_data = list_commands::get("clear");
+    qDebug() << get<0>(command_data);
 
     return app.exec();
 }

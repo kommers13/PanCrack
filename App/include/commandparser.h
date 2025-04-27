@@ -49,7 +49,7 @@ public:
     // string - команда
     // vector<string> - вектор аргументов
     // vector<string> - вектор опций
-    tuple<string, vector<string>, vector<string>> process_command(const string& input);
+    tuple<string, vector<string>, vector<string>> process_command(string input);
 
 public slots:
     // вставка результата команды в консоль
