@@ -5,38 +5,35 @@
 namespace task1 {
 
 std::vector<int> DFS(const Graph& g, int start_vertex) {
-    std::vector<int> traversal_order;
-    auto graph = g.get_graph();
-    int vertex_count = g.cnt_vertexes();
-
-    // Проверка на корректность вершины
-    if (start_vertex < 1 || start_vertex > vertex_count) {
-        return traversal_order;
+    std::vector<int> traversal;
+    if (start_vertex < 1 || start_vertex > g.vertex_count()) {
+        return traversal;
     }
 
-    std::vector<bool> visited(vertex_count + 1, false); // Индексация с 1
+    std::vector<bool> visited(g.vertex_count() + 1, false); // 1-based
     std::stack<int> stack;
-
-    int internal_start = start_vertex - 1;
-    stack.push(internal_start);
-    visited[internal_start] = true;
+    stack.push(start_vertex);
 
     while (!stack.empty()) {
         int current = stack.top();
         stack.pop();
-        traversal_order.push_back(current + 1); // Возвращаем 1-based
 
-        auto neighbors = graph.at(current);
-        for (const auto& neighbor : neighbors) {
-            int neighbor_vertex = neighbor.first;
-            if (!visited[neighbor_vertex]) {
-                visited[neighbor_vertex] = true;
-                stack.push(neighbor_vertex);
+        if (visited[current]) continue;
+        visited[current] = true;
+        traversal.push_back(current);
+
+        // Получаем отсортированных соседей (0-based)
+        auto neighbors = g.get_sorted_neighbors(current - 1);
+        // Добавляем в стек в обратном порядке
+        for (auto it = neighbors.rbegin(); it != neighbors.rend(); ++it) {
+            int neighbor = *it + 1; // переводим в 1-based
+            if (!visited[neighbor]) {
+                stack.push(neighbor);
             }
         }
     }
 
-    return traversal_order;
+    return traversal;
 }
 
 std::string print_DFS(const Graph& g, int start_vertex) {

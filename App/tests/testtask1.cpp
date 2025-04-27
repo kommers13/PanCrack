@@ -63,6 +63,28 @@ void TestTask1::test_DFS() {
         qDebug() << result;
         QVERIFY(result == "3 4" || result == "4 3"); // Только компонента с вершинами 3 и 4
     }
+    // Тест 6: Граф из 10 вершин (1-based)
+    {
+        qDebug() << "6 тест";
+        std::string in = "10 \
+            inf 1 1 inf inf inf inf inf inf inf \
+            1 inf 1 1 inf inf inf inf inf inf \
+            1 1 inf inf 1 inf inf inf inf inf \
+            inf 1 inf inf 1 1 inf inf inf inf \
+            inf inf 1 1 inf 1 1 inf inf inf \
+            inf inf inf 1 1 inf inf 1 inf inf \
+            inf inf inf inf 1 inf inf inf 1 1 \
+            inf inf inf inf inf 1 inf inf 1 inf \
+            inf inf inf inf inf inf 1 1 inf 1 \
+            inf inf inf inf inf inf 1 inf 1 inf";
+
+
+        std::stringstream ss(in);
+        Graph g(ss);
+        std::string result = task1::print_DFS(g, 5); // Начинаем с вершины 5
+        qDebug() << result;
+        QVERIFY(result == "5 3 1 2 4 6 8 9 7 10" || result == "5 3 1 2 4 6 8 9 10 7");
+    }
 }
 
 //#include "testtask1.moc"
