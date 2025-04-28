@@ -10,7 +10,7 @@ size_t TupleHash::operator()(const tuple<int, int, int>& t) const {
     return h1 ^ (h2 << 1) ^ (h3 << 2);
 }
 
-const int inf = 1e9;
+//const int inf = 1e9;
 
 
 // построение графа при помощи матрицы смежности

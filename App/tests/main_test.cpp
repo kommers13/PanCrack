@@ -10,6 +10,7 @@
 #include "include/testtask2.h"
 #include "include/testtask5.h"
 #include "include/testtask6.h"
+#include "include/testtask8.h"
 
 
 int main(int argc, char* argv[]) {
@@ -21,6 +22,7 @@ int main(int argc, char* argv[]) {
     QTest::qExec(new TestTask2);
     QTest::qExec(new TestTask5);
     QTest::qExec(new TestTask6);
+    QTest::qExec(new TestTask8);
 }
 
 

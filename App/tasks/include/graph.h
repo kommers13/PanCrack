@@ -11,7 +11,7 @@
 #include <tuple>
 #include <algorithm>
 
-
+static const int inf = 1e9;
 
 using namespace std;
 
