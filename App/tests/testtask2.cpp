@@ -20,9 +20,9 @@ void TestTask2::test_DFS() {
         if (!valid1 && !valid2) {
             qDebug() << "Неожиданный DFS: " << result;
         }
-        qDebug() << result;
-        qDebug() << valid1;
-        qDebug() << valid2;
+        // qDebug() << result;
+        // qDebug() << valid1;
+        // qDebug() << valid2;
         QVERIFY(valid1 || valid2);
     }
 
@@ -40,7 +40,7 @@ void TestTask2::test_DFS() {
         if (!valid1 && !valid2) {
             qDebug() << "Unexpected DFS result:" << result;
         }
-        qDebug() << result;
+        // qDebug() << result;
         QVERIFY(valid1 || valid2);
     }
     // Тест 3: Граф из 10 вершин (связный)
@@ -75,7 +75,7 @@ void TestTask2::test_DFS() {
         // Проверяем, что порядок допустим для DFS
         QVERIFY(task2::check_user_DFS(g, start_vertex, result));
 
-        qDebug() << "DFS для графа из 10 вершин (стартовая вершина" << start_vertex << "):" << result;
+        // qDebug() << "DFS для графа из 10 вершин (стартовая вершина" << start_vertex << "):" << result;
     }
 }
 
@@ -107,22 +107,22 @@ void TestTask2::test_check_user_DFS() {
     bool check1 = task2::check_user_DFS(g, 1, {1, 2, 3});
     bool check2 = task2::check_user_DFS(g, 1, {1, 3, 2});
 
-    qDebug() << "Check1 (1-2-3):" << check1;
-    qDebug() << "Check2 (1-3-2):" << check2;
+    // qDebug() << "Check1 (1-2-3):" << check1;
+    // qDebug() << "Check2 (1-3-2):" << check2;
 
     if (!check1 && !check2) {
         qDebug() << "Оба варианта обхода не прошли проверку";
     }
     QVERIFY(check1 || check2);
 
-    qDebug() << "Некорректные варианты: ";
+    // qDebug() << "Некорректные варианты: ";
     // Проверяем некорректные варианты
     bool check3 = task2::check_user_DFS(g, 1, {1, 2});
     bool check4 = task2::check_user_DFS(g, 1, {1, 3, 2, 4});
     bool check5 = task2::check_user_DFS(g, 1, {2, 1, 3});
-    qDebug() << check3;
-    qDebug() << check4;
-    qDebug() << check5;
+    // qDebug() << check3;
+    // qDebug() << check4;
+    // qDebug() << check5;
 
 
     //QVERIFY(!task2::check_user_DFS(g, 1, {1, 2}));          // Неполный обход

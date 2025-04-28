@@ -5,6 +5,8 @@
 #include <graph.h>
 #include <map>
 #include <unordered_map>
+
+
 namespace task10 {
 
 std::string coding(Graph a);

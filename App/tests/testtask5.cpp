@@ -10,7 +10,7 @@ void TestTask5::test_connected_components() {
         std::stringstream ss(in);
         Graph g(ss);
         std::string result = task5::print_connected_components(g);
-        qDebug() << result;
+        // qDebug() << result;
         QVERIFY(result.find(""/*"Number of connected components: 1"*/) != std::string::npos);
     }
 
@@ -21,7 +21,7 @@ void TestTask5::test_connected_components() {
         std::stringstream ss(in);
         Graph g(ss);
         std::string result = task5::print_connected_components(g);
-        qDebug() << result;
+        // qDebug() << result;
         QVERIFY(result.find(""/*"Number of connected components: 2"*/) != std::string::npos);
     }
 
@@ -32,7 +32,7 @@ void TestTask5::test_connected_components() {
         std::stringstream ss(in);
         Graph g(ss);
         std::string result = task5::print_connected_components(g);
-        qDebug() << result;
+        // qDebug() << result;
         QVERIFY(result.find(""/*"Number of connected components: 3"*/) != std::string::npos);
     }
 
@@ -49,7 +49,7 @@ void TestTask5::test_connected_components() {
         std::stringstream ss(in);
         Graph g(ss);
         std::string result = task5::print_connected_components(g);
-        qDebug() << result;
+        // qDebug() << result;
         QVERIFY(result.find(""/*"Number of connected components: 3"*/) != std::string::npos);
     }
     // Test 5: Неккоректные данные
@@ -65,7 +65,7 @@ void TestTask5::test_connected_components() {
             std::stringstream ss(in);
         Graph g(ss);
         std::string result = task5::print_connected_components(g);
-        qDebug() << result;
+        // qDebug() << result;
         QVERIFY(result.find(""/*"Number of connected components: 3"*/) != std::string::npos);
     }
 }

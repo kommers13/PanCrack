@@ -16,15 +16,15 @@ void TestTask8::test_dijkstra() {
         std::stringstream ss(in);
         Graph g(ss);
 
-        qDebug() << "Input matrix:";
+        // qDebug() << "Input matrix:";
         std::istringstream temp(in);
         std::string line;
         while (std::getline(temp, line)) {
-            qDebug() << line.c_str();
+            // qDebug() << line.c_str();
         }
 
         std::string result = task8::print_shortest_path(g, 0, 3);
-        qDebug() << "Result:\n" << result.c_str();
+        // qDebug() << "Result:\n" << result.c_str();
 
         QVERIFY2(result.find("Distance: 4") != std::string::npos, "Distance should be 4");
         QVERIFY2(result.find("1 → 2 → 3 → 4") != std::string::npos, "Path should be 1→2→3→4");
@@ -40,15 +40,15 @@ void TestTask8::test_dijkstra() {
         std::stringstream ss(in);
         Graph g(ss);
 
-        qDebug() << "Input matrix:";
+        // qDebug() << "Input matrix:";
         std::istringstream temp(in);
         std::string line;
         while (std::getline(temp, line)) {
-            qDebug() << line.c_str();
+            // qDebug() << line.c_str();
         }
 
         std::string result = task8::print_shortest_path(g, 0, 2);
-        qDebug() << "Result:\n" << result.c_str();
+        // qDebug() << "Result:\n" << result.c_str();
 
         QVERIFY2(result.find("No path exists") != std::string::npos, "Should detect no path");
     }
@@ -63,15 +63,15 @@ void TestTask8::test_dijkstra() {
         std::stringstream ss(in);
         Graph g(ss);
 
-        qDebug() << "Input matrix:";
+        // qDebug() << "Input matrix:";
         std::istringstream temp(in);
         std::string line;
         while (std::getline(temp, line)) {
-            qDebug() << line.c_str();
+            // qDebug() << line.c_str();
         }
 
         std::string result = task8::print_shortest_path(g, 0, 2);
-        qDebug() << "Result:\n" << result.c_str();
+        // qDebug() << "Result:\n" << result.c_str();
 
         QVERIFY2(result.find("Distance: 2") != std::string::npos, "Distance should be 2");
         QVERIFY2(result.find("1 → 3") != std::string::npos, "Path should be direct 1→3");

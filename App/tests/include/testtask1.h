@@ -8,7 +8,7 @@ class TestTask1 : public QObject
 {
     Q_OBJECT
 private slots:
-            void test_DFS();
+    void test_DFS();
 };
 
 #endif // TESTTASK1_H

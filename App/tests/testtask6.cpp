@@ -5,8 +5,8 @@
 void TestTask6::test_graph_generation() {
     qDebug() << "=== Тест генерации графа ===";
     Graph g = task6::generate_random_graph(5);
-    qDebug() << "Сгенерирован граф с" << g.vertex_count() << "вершинами";
-    qDebug() << "Матрица смежности:\n" << task6::graph_to_string(g).c_str();
+    // qDebug() << "Сгенерирован граф с" << g.vertex_count() << "вершинами";
+    // qDebug() << "Матрица смежности:\n" << task6::graph_to_string(g).c_str();
     QVERIFY(g.vertex_count() == 5);
     qDebug() << "Тест пройден успешно\n";
 }
@@ -22,7 +22,7 @@ void TestTask6::test_answer_checking() {
         g.add_edge(2, 3, 1);
 
         auto [result1, msg1] = task6::check_answer(g, 2);
-        qDebug() << msg1.c_str();
+        // qDebug() << msg1.c_str();
         QVERIFY(result1);
     }
 
@@ -34,7 +34,7 @@ void TestTask6::test_answer_checking() {
         g.add_edge(2, 3, 1);
 
         auto [result2, msg2] = task6::check_answer(g, 1);
-        qDebug() << msg2.c_str();
+        // qDebug() << msg2.c_str();
         QVERIFY(!result2);
     }
 
@@ -44,7 +44,7 @@ void TestTask6::test_answer_checking() {
         Graph g(4); // Граф без рёбер
 
         auto [result3, msg3] = task6::check_answer(g, 4);
-        qDebug() << msg3.c_str();
+        // qDebug() << msg3.c_str();
         QVERIFY(result3);
     }
 
@@ -57,7 +57,7 @@ void TestTask6::test_answer_checking() {
         g.add_edge(1, 2, 1);
 
         auto [result4, msg4] = task6::check_answer(g, 1);
-        qDebug() << msg4.c_str();
+        // qDebug() << msg4.c_str();
         QVERIFY(result4);
     }
 
@@ -67,7 +67,7 @@ void TestTask6::test_answer_checking() {
         Graph g(4); // Граф без рёбер
 
         auto [result5, msg5] = task6::check_answer(g, 3);
-        qDebug() << msg5.c_str();
+        // qDebug() << msg5.c_str();
         QVERIFY(!result5); // Исправлено: ожидается FAIL при неверном ответе
     }
 
@@ -81,7 +81,7 @@ void TestTask6::test_answer_checking() {
         // Вершины 4 и 5 изолированы
 
         auto [result6, msg6] = task6::check_answer(g, 2);
-        qDebug() << msg6.c_str();
+        // qDebug() << msg6.c_str();
         QVERIFY(!result6);
     }
 
@@ -94,7 +94,7 @@ void TestTask6::test_answer_checking() {
         g.add_edge(3, 4, 1);
 
         auto [result7, msg7] = task6::check_answer(g, 1);
-        qDebug() << msg7.c_str();
+        // qDebug() << msg7.c_str();
         QVERIFY(!result7);
     }
 
@@ -107,7 +107,7 @@ void TestTask6::test_answer_checking() {
         g.add_edge(0, 3, 1);
 
         auto [result8, msg8] = task6::check_answer(g, 2);
-        qDebug() << msg8.c_str();
+        // qDebug() << msg8.c_str();
         QVERIFY(!result8);
     }
 
@@ -121,7 +121,7 @@ void TestTask6::test_answer_checking() {
         g.add_edge(6, 7, 1);
 
         auto [result9, msg9] = task6::check_answer(g, 3);
-        qDebug() << msg9.c_str();
+        // qDebug() << msg9.c_str();
         QVERIFY(!result9);
     }
 }
