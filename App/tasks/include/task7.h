@@ -21,6 +21,8 @@ using namespace std;
 
 namespace task7 {
 
+const int inf = 1e9;
+
 // считаем, что все графы, которые подаются на вход, связные неориентированные
 Graph create_MST(const Graph& g);
 

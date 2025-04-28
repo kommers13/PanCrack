@@ -1,8 +1,6 @@
 #ifndef TESTTASK2_H
 #define TESTTASK2_H
 
-namespace task2 {
-
 #include <QObject>
 #include <QTest>
 #include <vector>

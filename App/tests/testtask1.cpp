@@ -80,7 +80,7 @@ void TestTask1::test_DFS() {
 
 
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
         std::string result = task1::print_DFS(g, 5); // Начинаем с вершины 5
         // qDebug() << result;
         QVERIFY(result == "5 3 1 2 4 6 8 9 7 10" || result == "5 3 1 2 4 6 8 9 10 7");

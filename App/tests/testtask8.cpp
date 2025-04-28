@@ -14,7 +14,7 @@ void TestTask8::test_dijkstra() {
                          4 2 inf 1 \
                          inf 5 1 inf";
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
 
         // qDebug() << "Input matrix:";
         std::istringstream temp(in);
@@ -38,7 +38,7 @@ void TestTask8::test_dijkstra() {
                          "1 inf inf\n"
                          "inf inf inf";
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
 
         // qDebug() << "Input matrix:";
         std::istringstream temp(in);
@@ -61,7 +61,7 @@ void TestTask8::test_dijkstra() {
                          "5 inf 1\n"
                          "2 1 inf";
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
 
         // qDebug() << "Input matrix:";
         std::istringstream temp(in);

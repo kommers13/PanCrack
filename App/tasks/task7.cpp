@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-const int inf = 1e9;
-
 struct Comparator {
     bool operator()(const pair<int, int>& a, const pair<int, int>& b) {
         // priorities (weights)
@@ -26,7 +24,7 @@ Graph task7::create_MST(const Graph& g) {
     // предки вершин (индекс - предок, значение - потомок)
     vector<int> parent(sizev);
     // минимальные веса для вершин (индекс - вершина, значение - вес (приоритет))
-    vector<int> min_weight(sizev, inf);
+    vector<int> min_weight(sizev, task7::inf);
     // проверенные вершины
     vector<bool> checked(sizev, 0);
 
@@ -51,7 +49,7 @@ Graph task7::create_MST(const Graph& g) {
     for (int i = 1; i < sizev; i++) {
         MST.add_edge(i, parent[i], min_weight[i]);
     }
-    MST.print();
+    // MST.print();
     return MST;
 
 }

@@ -11,7 +11,7 @@ void TestTask2::test_DFS() {
         qDebug() << "тест 1";
         std::string in = "3\ninf 1 1\n1 inf inf\n1 inf inf";
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
         auto result = task2::DFS(g, 1);
 
         // Ожидаемый результат: 1 -> 3 -> 2 или 1 -> 2 -> 3
@@ -31,7 +31,7 @@ void TestTask2::test_DFS() {
         qDebug() << "тест 2";
         std::string in = "4\ninf 1 inf inf\n1 inf inf inf\ninf inf inf 1\ninf inf 1 inf";
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
         auto result = task2::DFS(g, 1);
 
         // Ожидаемый результат: только вершины 1 и 2 в любом порядке
@@ -60,7 +60,7 @@ void TestTask2::test_DFS() {
             "inf inf inf inf inf inf 1 inf 1 inf";
 
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
         int start_vertex = 5; // Начинаем с вершины 5 (1-based)
         auto result = task2::DFS(g, start_vertex);
 
@@ -100,7 +100,7 @@ void TestTask2::test_generate_random_graph() {
 void TestTask2::test_check_user_DFS() {
     std::string in = "3\ninf 1 1\n1 inf inf\n1 inf inf";
     std::stringstream ss(in);
-    Graph g(ss);
+    Graph g(0, ss);
 
     qDebug() << "Корректные варианты: ";
     // Проверяем оба возможных корректных варианта

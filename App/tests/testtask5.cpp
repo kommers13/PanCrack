@@ -8,7 +8,7 @@ void TestTask5::test_connected_components() {
         qDebug() << "тест 1";
         std::string in = "3\ninf 1 1\n1 inf 1\n1 1 inf";
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
         std::string result = task5::print_connected_components(g);
         // qDebug() << result;
         QVERIFY(result.find(""/*"Number of connected components: 1"*/) != std::string::npos);
@@ -19,7 +19,7 @@ void TestTask5::test_connected_components() {
         qDebug() << "тест 2";
         std::string in = "4\ninf 1 inf inf\n1 inf inf inf\ninf inf inf 1\ninf inf 1 inf";
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
         std::string result = task5::print_connected_components(g);
         // qDebug() << result;
         QVERIFY(result.find(""/*"Number of connected components: 2"*/) != std::string::npos);
@@ -30,7 +30,7 @@ void TestTask5::test_connected_components() {
         qDebug() << "тест 3";
         std::string in = "3\ninf inf inf\ninf inf inf\ninf inf inf";
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
         std::string result = task5::print_connected_components(g);
         // qDebug() << result;
         QVERIFY(result.find(""/*"Number of connected components: 3"*/) != std::string::npos);
@@ -47,7 +47,7 @@ void TestTask5::test_connected_components() {
                          inf inf inf inf inf 1\
                          inf inf inf inf 1 inf";
         std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
         std::string result = task5::print_connected_components(g);
         // qDebug() << result;
         QVERIFY(result.find(""/*"Number of connected components: 3"*/) != std::string::npos);
@@ -63,7 +63,7 @@ void TestTask5::test_connected_components() {
             inf inf inf inf inf 1\
             inf inf inf inf 1 inf";
             std::stringstream ss(in);
-        Graph g(ss);
+        Graph g(0, ss);
         std::string result = task5::print_connected_components(g);
         // qDebug() << result;
         QVERIFY(result.find(""/*"Number of connected components: 3"*/) != std::string::npos);
