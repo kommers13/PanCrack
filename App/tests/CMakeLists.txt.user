@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 16.0.1, 2025-04-28T16:21:03. -->
+<!-- Written by QtCreator 16.0.1, 2025-04-28T17:31:35. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -73,6 +73,57 @@
    <value type="bool" key="AutoTest.ApplyFilter">false</value>
    <valuemap type="QVariantMap" key="AutoTest.CheckStates">
     <value type="Qt::CheckState" key="1@:Qt Test">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testgraph.h:TestGraph">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testgraph.h:test_add_edge">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testgraph.h:test_add_vertex">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testgraph.h:test_creating_graph">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testgraph.h:test_equal">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testgraph.h:test_get_edges">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testgraph.h:test_undirected_graph">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask1.h:TestTask1">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask1.h:test_DFS">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask2.h:TestTask2">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask2.h:test_DFS">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask2.h:test_check_user_DFS">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask2.h:test_generate_random_graph">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask5.h:TestTask5">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask5.h:test_connected_components">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask7.h:TestTask7">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask7.h:test_MST">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:edge 1">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:edge 2">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:edge 3">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:edge 4">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:edge 5">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:equal 1">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:equal 2">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:equal 3">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:get edges 1">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:get edges 2">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:get edges 3">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:graph 1">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:graph 2">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:graph 3">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:graph 4">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:test_add_edge_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:test_add_vertex_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:test_creating_graph_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:test_equal_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:test_get_edges_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:test_undirected_graph_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:und graph 2">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:und graph 4">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:und graph 5">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:vertex 1">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:vertex 2">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:vertex 3">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:vertex 4">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testtask7.cpp:MST 1">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testtask7.cpp:MST 2">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testtask7.cpp:MST 3">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testtask7.cpp:MST 4">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testtask7.cpp:MST 5">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testtask7.cpp:test_MST_data">Unchecked</value>
    </valuemap>
    <valuelist type="QVariantList" key="AutoTest.PathFilters"/>
    <value type="int" key="AutoTest.RunAfterBuild">0</value>
