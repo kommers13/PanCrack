@@ -17,7 +17,10 @@ qt_add_executable(Tests
     include/testtask0.h testtask0.cpp
     include/testtask1.h testtask1.cpp
     include/testtask2.h testtask2.cpp
+    include/testtask5.h testtask5.cpp
+    include/testtask6.h testtask6.cpp
     include/testtask7.h testtask7.cpp
+    include/testtask8.h testtask8.cpp
     include/testtask10.h testtask10.cpp
     include/testtask11.h testtask11.cpp
 )
