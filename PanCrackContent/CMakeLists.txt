@@ -10,12 +10,12 @@ qt6_add_qml_module(PanCrackContent
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
         "Cursor.qml"
-        "App.qml"
+        "CommandSingleOutput.qml"
         "Loading.qml"
-        "GraphDraw.qml"
         "CommandSingleLine.qml"
         "Screen01.ui.qml"
-        "CommandSingleOutput.qml"
+        "GraphDraw.qml"
+        "App.qml"
         "CommandLine.qml"
         "plugs/Signals.qml"
     RESOURCES
