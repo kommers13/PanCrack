@@ -15,12 +15,9 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     CACHE STRING "Import paths for Qt Creator's code model"
     FORCE
 )
-SET(DATA_FILES ${CMAKE_CURRENT_SOURCE_DIR}/App/data/clear.json)
-
 
 find_package(Qt6 6.4.1 REQUIRED COMPONENTS Core Gui Qml Quick)
 qt_standard_project_setup()
-
 
 qt_add_executable(${CMAKE_PROJECT_NAME}
     App/include/signals.h App/signals.cpp
@@ -34,9 +31,10 @@ qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
         qtquickcontrols2.conf)
 
 
-file(COPY ${DATA_FILES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
-
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/data)
+
+# копирование json-файлов в директорию для сборки
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/cominf.cmake)
 
 include(qds)
 

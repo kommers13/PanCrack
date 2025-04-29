@@ -3,9 +3,9 @@ import QtQuick.Controls
 
 
 // plugs
-import "plugs"
+// import "plugs"
 // real
-// import signals
+import signals
 
 Item {
     id: root_commandLine
@@ -53,7 +53,10 @@ Item {
                 // или в выводе ничего нет), то строка вывода будет нулевой
                 // иначе в ней будет какая-то информация
                 // (command_line.text.length > 9) - УСЛОВИЕ БУДЕТ ИЗМЕНЕНО
-                // signals_id.output_command(command_line.text, command_answer)
+
+                let command = signals_id.get_command(command_line.text)
+                let answer = signals_id.output_command(command_line.text)
+                command_answer.text = answer
 
                 // column.childrenRect - возвращает кортеж (x, y, width, height),
                 // где x, y - это точка верхнего левого угла прямоугольника дочерних элементов

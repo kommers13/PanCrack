@@ -39,17 +39,18 @@ int main(int argc, char *argv[])
 
     // связывание сигналов с слотами
     Signals* all_signals = engine.rootObjects().first()->findChild<Signals*>("signals_id_");
-    // commands name and their helping description
-    vector<pair<string, string>> coms_and_hlps = {{"clear", "no help, it is just clear"}};
-    // конструктор для класса CommandParser
-    CommandParser* command_parser = new CommandParser(coms_and_hlps);
-    // qDebug() << all_signals;
-    // ПРОБЛЕМА С ЗАПУСКОМ ПОЧЕМУ-ТО
+
+    // получает описание команд из JSON-файлов
+    ListCommands* list_commands = new ListCommands;
+
+    // класс CommandParser, предоставляющий функциональность парсера вводимых строк
+    CommandParser* command_parser = new CommandParser(list_commands);
+
+    // соединения сигнала, который вызывает обработчик строки ввода от пользователя
     QObject::connect(all_signals, &Signals::output_command,
                       command_parser, &CommandParser::on_output_command);
 
-    auto command_data = list_commands::get("clear");
-    qDebug() << get<0>(command_data);
+    auto command_data = list_commands->get("clear");
 
     return app.exec();
 }

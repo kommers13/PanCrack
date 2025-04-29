@@ -11,6 +11,8 @@
 #include <QQuickView>
 #include <QQuickItem>
 
+#include "listcommands.h"
+
 
 using namespace std;
 
@@ -20,42 +22,45 @@ class CommandParser : public QObject
     Q_OBJECT
 
 
-    // список доступных команд
-    vector<pair<string, string>> commands_and_help;
-    // Команда, например, create, show, prufer
-    string command;
-    // Аргументы команды, например, GRAPH_NAME (for create), 11232122 (for prufer)
-    vector<string> arguments;
-    // Опции команды, например, --matrix_of_adjancency (-madj), --all (-a), --code (-c)
-    vector<string> options;   // массив опций
+    // класс, который предоставляет информацию о командах
+    ListCommands* list_commands;
 
-public:
 
     /*
     Шаблон любой команды:
-    <command> <arguments> [<options>]
+    <command> [<arguments>...] [<options>...]
     <command> - имя команды (одно слово)
-    <arguments> - обязательные аргументы (может быть несколько, один или ни одного)
+    <arguments> - аргументы (может быть несколько, один или ни одного)
     <options> - опции команды (может быть несколько, одно или ни одного)
     Парсинг происходит следующим образом: первое слово - это команда, все слова после него без
     дефисов - это позиционные или непозиционные аргументы, все слова с двумя дефисами
     или одним - это непозиционные опции
     */
 
-    // Конструктор парсера команд
-    CommandParser(const vector<pair<string, string>>& coms_and_hlp);
 
     // преобразованная команды
-    // string - команда
-    // vector<string> - вектор аргументов
-    // vector<string> - вектор опций
-    tuple<string, vector<string>, vector<string>> process_command(string input);
+    // string -
+
+    // vector<string> - вектор опций (они всегда полные, т. е. из -h будет --help,
+    // а если --help, то опция изменятся не будет)
+    tuple<string,    // имя команды
+          vector<string>, // вектор аргументов
+          vector<string>  // вектор опций (они всегда полные, т. е. из -h будет --help,
+                          // а если --help, то опция изменятся не будет)
+          > process_command(string input);
+
+public:
+
+    // Конструктор CommandParser, который принимает в качестве параметра объект ListCommands
+    // эти объекты создаются в единственном экземпляре, и они не являются пространствами имен,
+    // потому что их методы могут быть задействованы в качестве слотов
+    CommandParser(ListCommands* _list_commands);
 
 public slots:
     // вставка результата команды в консоль
     // input - сырая строка от пользователя
-    // output - компонент, в который будет вставлен ответ в виде текста
-    void on_output_command(const QString& input, QObject* answer_field);
+    // возвращается строка ответа команды
+    QString on_output_command(const QString& input);
 
 };
 
