@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
     QTest::qExec(new TestTask5);
     QTest::qExec(new TestTask6);
     QTest::qExec(new TestTask7);
-    // QTest::qExec(new TestTask8);
+    QTest::qExec(new TestTask8);
     //QTest::qExec(new TestTask10);
 }
 
