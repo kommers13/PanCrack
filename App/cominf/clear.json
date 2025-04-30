@@ -1,0 +1,5 @@
+{
+  "name": "clear",
+  "description": "NAME\n\tCLEAR - clear the terminal screen\nSYNOPSIS\n\tCLEAR [--help]\nDESCRIPTION\n\tCLEAR just returns screen to original state.\n\t--help, -h - option that shows this text.",
+  "options": [ {"-h": "--help"} ]
+}
