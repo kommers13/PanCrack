@@ -23,7 +23,9 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
     App/include/signals.h App/signals.cpp
     App/include/commandparser.h App/commandparser.cpp
     App/include/listcommands.h App/listcommands.cpp
-    App/include/json.hpp
+    App/include/json.hpp # библиотека для обработки JSON
+    # команды
+    App/include/commands/clearcommand.h App/commands/clearcommand.cpp
 )
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"

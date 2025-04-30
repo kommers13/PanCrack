@@ -11,7 +11,12 @@
 #include <QQuickView>
 #include <QQuickItem>
 
+#include "signals.h"
 #include "listcommands.h"
+
+// заголовчные файлы для команд
+#include "commands/clearcommand.h"
+
 
 
 using namespace std;
@@ -21,9 +26,8 @@ class CommandParser : public QObject
 
     Q_OBJECT
 
-
-    // класс, который предоставляет информацию о командах
-    ListCommands* list_commands;
+    // класс, который предоставляет доступ к сигналам
+    Signals* my_signals;
 
 
     /*
@@ -49,12 +53,18 @@ class CommandParser : public QObject
                           // а если --help, то опция изменятся не будет)
           > process_command(string input);
 
+    // выбор команд
+    // в качестве параметров передаем спаршенную команду для выполнения
+    // возвращается результат выполнения команды
+    string execute_command(const string& command,
+                            const vector<string>& args,
+                            const vector<string>& opts);
+
 public:
 
-    // Конструктор CommandParser, который принимает в качестве параметра объект ListCommands
-    // эти объекты создаются в единственном экземпляре, и они не являются пространствами имен,
-    // потому что их методы могут быть задействованы в качестве слотов
-    CommandParser(ListCommands* _list_commands);
+    // Конструктор CommandParser принимает один параметр - это указатель на объект Signals,
+    // который дает доступ с сигналам
+    CommandParser(Signals* _my_signals);
 
 public slots:
     // вставка результата команды в консоль

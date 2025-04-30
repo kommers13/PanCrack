@@ -21,13 +21,14 @@ string rtrim(string s) {
     return s.substr(0, i + 1);
 }
 
+// trimming of both sides
 string trim(string s) {
     return rtrim(ltrim(s));
 }
 
 
-CommandParser::CommandParser(ListCommands* _list_commands) :
-    list_commands(_list_commands) {}
+CommandParser::CommandParser(Signals* _my_signals) :
+    my_signals(_my_signals) {}
 
 
 tuple<string,
@@ -85,6 +86,18 @@ tuple<string,
     return make_tuple(command, arguments, options);
 }
 
+// сюда передается спаршенная команда, которая ТОЧНО существует,
+// т. е. она должна выполнится ХОТЬ КАК
+string CommandParser::execute_command(const string& command,
+                                       const vector<string>& args,
+                                       const vector<string>& opts) {
+    if (command == "clear") {
+        // данная команда нуждается в вызове JS-функции через испускание сигнала
+        return ClearCommand::execute(command, args, opts, my_signals);
+    }
+    return "YOU ARE BOBER FROM CommandParser::execute_command. It is placed in App/commandsparser.cpp";
+}
+
 
 QString CommandParser::on_output_command(const QString& input) {
     // command, arguments, options
@@ -96,16 +109,24 @@ QString CommandParser::on_output_command(const QString& input) {
     vector<string> args = get<1>(parsed_command);
     vector<string> opts = get<2>(parsed_command);
 
-    qDebug() << "command: " << command;
-    qDebug() << "args: " << args;
-    qDebug() << "opts: " << opts;
+    // qDebug() << "command: " << command;
+    // qDebug() << "args: " << args;
+    // qDebug() << "opts: " << opts;
+
+    // если строка пустая, то возвращаем пустую строку
+    if (command.size() == 0) {
+        return QString();
+    }
 
     // если такой команды не существует, то сообщаем об этом
-    if (!list_commands->exist_command(command)) {
+    if (!list_commands::exist_command(command)) {
         output = "Command \"" + command + "\" doesn`t exist";
         return QString(output.c_str());
     }
 
+    // запускаем команду
+    output = execute_command(command, args, opts);
+
     // функция с определенными аргументами возвращает строку в output
-    return QString("Empty");
+    return QString(output.c_str());
 }

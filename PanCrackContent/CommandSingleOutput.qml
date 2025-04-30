@@ -7,7 +7,7 @@ TextEdit {
     readOnly: true
     height: 1
     wrapMode: TextArea.Wrap
-    textFormat: TextArea.MarkdownText
+    // textFormat: TextArea.MarkdownText
     font.family: "AcPlus IBM EGA 9x14"
     color: "#3ffffc"
     selectionColor: "#4d633d"

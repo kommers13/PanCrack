@@ -2,6 +2,9 @@ import QtQuick
 import QtQuick.Controls
 
 
+// js
+import "js/console_utils.js" as ConsoleUtils
+
 // plugs
 // import "plugs"
 // real
@@ -13,9 +16,20 @@ Item {
     height: 920
 
     Signals {
+        property bool isCleared: false;
         id: signals_id
         objectName: "signals_id_"
+        // этот компонент зарегистрирован из C++
+        // он дает возможность испускать сигналы из C++ и ловить их в этом же классе и обрабатывать,
+        // но испускать сигналы из QML мы можем откуда угодно
+        // этот компонент еще будет обрабатывать сигналы, испущенные из C++ кодом, который отвечает за команды консоли
+        // здесь мы просто вызываем функции, чтобы они сделали свое дело, но не имели никаких понятий о том,
+        // что нам пришлось сделать, чтобы вызвать их
+        onClearCommand: {
+            isCleared = true
+        }
     }
+
 
     Rectangle {
         id: rect_console
@@ -54,8 +68,9 @@ Item {
                 // иначе в ней будет какая-то информация
                 // (command_line.text.length > 9) - УСЛОВИЕ БУДЕТ ИЗМЕНЕНО
 
-                let command = signals_id.get_command(command_line.text)
+                // МЕСТО ВХОДА ВВОДА ПОЛЬЗОВАТЕЛЯ В C++ КОД
                 let answer = signals_id.output_command(command_line.text)
+                // ДАННАЯ ФУНКЦИЯ ВОЗВРАЩАЕТ ОТВЕТ КОМАНДЫ И ИСПОЛНЯЕТ ТО, ЧТО ПРОСИТ КОМАНДА
                 command_answer.text = answer
 
                 // column.childrenRect - возвращает кортеж (x, y, width, height),
@@ -74,20 +89,16 @@ Item {
                     column.y -= (command_ans_real_bottom - column.height + 25) // 25 - magic constant is height of one command line
                 }
 
-                // Команда CLEAR (только эту команду мы выполняем после всего, она РЕДАКТИРУЕТ консоль)
-                if (command_line.text === "PanCrack>clear") {
-                    // console.log("COMMAND CLEAR")
-                    for (let i = column.children.length - 1; i >= 1; i--) {
-                        if (column.children[i] !== column) {
-                            column.children[i].destroy()
-                        }
-                    }
-                    // поднимаемся до конца наверх
-                    column.y = 25       // начальное значение column.y
+                // CLEAR LIMPED FIX
+                // это единственное, что можно было придумать, не меняя логики программы с корнем
+                if (signals_id.isCleared) {
+                    // column_id - id колонны, которую мы очищаем
+                    ConsoleUtils.clear(column)
+                    signals_id.isCleared = false
                 }
-                // Команда CLEAR end
+                // CLEAR LIMPED FIX END
 
-
+                // console.log("AFTER COLUMN.Y", column.y)
                 column.submitInput()        // создаем следующие элементы после потверждения ввода здесь
             }
 
