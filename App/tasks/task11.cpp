@@ -2,15 +2,24 @@
 using namespace std;
 
 Graph task11::input(string code, string points){
-    return (task11::decoding(code, points));
+    Graph g =(task11::decoding(code, points));
+    return g;
 }
 Graph task11::decoding(string code, string n){
-    Graph tree;
+    string c_size = "";
+    for(const auto& el : code){
+        if(el != ' ')
+            c_size += el;
+    }
+    int sz = c_size.size()+1;
+    Graph tree(sz);
     // Вектор кода прюфера
     vector<int> prufer;
 
-    for(char& el : code) {
-        prufer.push_back(el - '0');
+    stringstream ss(code);
+    int num;
+    while (ss >> num) {
+        prufer.push_back(num);
     }
 
     multiset<int> prufer_set(prufer.begin(), prufer.end());
@@ -31,11 +40,14 @@ Graph task11::decoding(string code, string n){
             }
         }
         // Добавляем ребро
-        tree.add_edge(u, v, 0);
+        tree.add_edge(u, v, 1);
         //cout << u << " " << v << '\n';
         // Обновляем структуры данных
         prufer.erase(prufer.begin());
-        prufer_set.erase(prufer_set.find(u));
+        auto it = prufer_set.find(u);
+        if (it != prufer_set.end()) {
+            prufer_set.erase(it);
+        }
         all_nodes.erase(v);
     }
 
