@@ -1,5 +1,5 @@
 {
   "name": "clear",
-  "description": "NAME\n\tCLEAR - clear the terminal screen\nSYNOPSIS\n\tCLEAR [--help]\nDESCRIPTION\n\tCLEAR just returns screen to original state.\n\t--help, -h - option that shows this text.",
+  "description": "<font color=\"green\">NAME</font><br><div style=\"margin-left: 2em;\"><b>CLEAR</b> - clear the terminal screen</div><br><font color=\"green\">SYNOPSIS</font><br><div style=\"margin-left: 2em;\"><b>CLEAR</b> [--help]</div><br><font color=\"green\">DESCRIPTION</font><br><div style=\"margin-left: 2em;\"><b>CLEAR</b> just returns screen to original state.<br><i>--help, -h</i> - option that shows this text.</div>",
   "options": [ {"-h": "--help"} ]
 }

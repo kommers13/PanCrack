@@ -95,7 +95,7 @@ string CommandParser::execute_command(const string& command,
         // данная команда нуждается в вызове JS-функции через испускание сигнала
         return ClearCommand::execute(command, args, opts, my_signals);
     }
-    return "YOU ARE BOBER FROM CommandParser::execute_command. It is placed in App/commandsparser.cpp";
+    return "I don`t know how this happened, we need to check CommandParser::execute_command";
 }
 
 
