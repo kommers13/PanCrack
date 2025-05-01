@@ -4,15 +4,15 @@
 
 #include <graph.h>
 #include <vector>
-#include <string>
 #include <utility>
-
-extern const int inf;
 
 namespace task8 {
 
-std::pair<int, std::vector<int>> dijkstra(const Graph& g, int start, int end);
-std::string print_shortest_path(const Graph& g, int start, int end);
+extern const int inf;
+
+// Функция для поиска кратчайшего пути (1-based вершины)
+// Возвращает пару: расстояние и вектор вершин пути
+std::pair<int, std::vector<int>> find_shortest_path(const Graph& g, int start, int end);
 
 } // namespace task8
 
