@@ -19,7 +19,10 @@ qt6_add_qml_module(PanCrackContent
         "Loading.qml"
         "plugs/Signals.qml"
     RESOURCES
+        "img/logo1.png"
         "img/logo.png"
+        "js/console_utils.js"
+        "ai/assets/logo1.png"
 )
 
 
