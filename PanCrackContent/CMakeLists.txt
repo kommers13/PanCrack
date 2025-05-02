@@ -22,6 +22,7 @@ qt6_add_qml_module(PanCrackContent
         "img/logo.png"
         "img/logo1.png"
         "js/console_utils.js"
+        "js/draw_utils.js"
         "ai/assets/logo1.png"
 )
 

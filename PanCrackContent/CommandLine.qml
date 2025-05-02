@@ -4,11 +4,12 @@ import QtQuick.Controls
 
 // js
 import "js/console_utils.js" as ConsoleUtils
+import "js/draw_utils.js" as DrawingUtils
 
 // plugs
-// import "plugs"
+import "plugs"
 // real
-import signals
+// import signals
 
 Item {
     id: root_commandLine
@@ -25,9 +26,13 @@ Item {
         // этот компонент еще будет обрабатывать сигналы, испущенные из C++ кодом, который отвечает за команды консоли
         // здесь мы просто вызываем функции, чтобы они сделали свое дело, но не имели никаких понятий о том,
         // что нам пришлось сделать, чтобы вызвать их
-        onClearCommand: {
-            isCleared = true
-        }
+        // UNCOMMENT
+        // onClearCommand: {
+        //     isCleared = true
+        // }
+        // onGraphDraw: (graph) => {
+        //     DrawingUtils.draw_graph(graph, canvas_graphdraw)
+        // }
     }
 
 
@@ -69,9 +74,10 @@ Item {
                 // (command_line.text.length > 9) - УСЛОВИЕ БУДЕТ ИЗМЕНЕНО
 
                 // МЕСТО ВХОДА ВВОДА ПОЛЬЗОВАТЕЛЯ В C++ КОД
-                let answer = signals_id.output_command(command_line.text)
+                // UNCOMMENT
+                // let answer = signals_id.output_command(command_line.text)
                 // ДАННАЯ ФУНКЦИЯ ВОЗВРАЩАЕТ ОТВЕТ КОМАНДЫ И ИСПОЛНЯЕТ ТО, ЧТО ПРОСИТ КОМАНДА
-                command_answer.text = answer
+                // command_answer.text = answer
 
                 // column.childrenRect - возвращает кортеж (x, y, width, height),
                 // где x, y - это точка верхнего левого угла прямоугольника дочерних элементов
@@ -89,14 +95,15 @@ Item {
                     column.y -= (command_ans_real_bottom - column.height + 25) // 25 - magic constant is height of one command line
                 }
 
-                // CLEAR LIMPED FIX
-                // это единственное, что можно было придумать, не меняя логики программы с корнем
-                if (signals_id.isCleared) {
-                    // column_id - id колонны, которую мы очищаем
-                    ConsoleUtils.clear(column)
-                    signals_id.isCleared = false
-                }
-                // CLEAR LIMPED FIX END
+                // UNCOMMENT
+                // // CLEAR LIMPED FIX
+                // // это единственное, что можно было придумать, не меняя логики программы с корнем
+                // if (signals_id.isCleared) {
+                //     // column_id - id колонны, которую мы очищаем
+                //     ConsoleUtils.clear(column)
+                //     signals_id.isCleared = false
+                // }
+                // // CLEAR LIMPED FIX END
 
                 // console.log("AFTER COLUMN.Y", column.y)
                 column.submitInput()        // создаем следующие элементы после потверждения ввода здесь

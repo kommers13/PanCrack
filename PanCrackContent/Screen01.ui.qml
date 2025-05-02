@@ -23,4 +23,10 @@ Rectangle {
         y: 80
         clip: true
     }
+
+    GraphDraw {
+        id: graphDraw
+        x: parent.width - 86 - graphDraw.width
+        y: 80
+    }
 }
