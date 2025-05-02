@@ -20,6 +20,24 @@ class ClearCommand
 
 public:
 
+
+    /*
+
+    NAME
+
+        CLEAR - clear the terminal screen
+
+    SYNOPSIS
+
+        CLEAR [-h]
+
+    DESCRIPTION
+
+        CLEAR just returns screen to original state.
+        -h, --help - option that shows this text.
+
+    */
+
     // функция возвращает строку результат команды
     // в данном случае, кроме основных имени команды, аргументов и опций, нам понадобился
     // указатель на Signals, так как будет вызываться реализация функция в JS

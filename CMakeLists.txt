@@ -26,6 +26,7 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
     App/include/json.hpp # библиотека для обработки JSON
     # команды
     App/include/commands/clearcommand.h App/commands/clearcommand.cpp
+    App/include/commands/createcommand.h App/commands/createcommand.cpp
 )
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"

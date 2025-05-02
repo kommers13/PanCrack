@@ -85,7 +85,7 @@ void TestTask2::test_generate_random_graph() {
         Graph g = task2::generate_random_graph(vertices);
 
         // Проверяем количество вершин
-        QCOMPARE(g.vertex_count(), static_cast<size_t>(vertices));
+        QCOMPARE(g.get_cnt_vertexes(), static_cast<size_t>(vertices));
 
         // Проверяем связность через DFS
         auto traversal = task2::DFS(g, 1); // Начинаем с вершины 1 (1-based)

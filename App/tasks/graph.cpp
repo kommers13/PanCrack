@@ -16,16 +16,6 @@ size_t TupleHash::operator()(const tuple<int, int, int>& t) const {
 // построение графа при помощи матрицы смежности
 void Graph::create_from_madj(const vector<vector<int>>& madj) {
 
-    undirected = is_undirected(madj);
-
-
-    // DEBUG
-    if (!undirected) {
-        throw domain_error("This is not undirected graph!");
-    }
-    // END DEBUG (remove on release)
-
-
     for (int i = 0; i < madj.size(); i++) {
 
         vs.push_back((char)(i + 'A'));    // по умолчанию вершины будут называться заглавными буквами английского алфавита
@@ -46,6 +36,9 @@ void Graph::create_from_madj(const vector<vector<int>>& madj) {
 void Graph::construct_from_string_madj(istream& in) {
     int n;
     in >> n;
+    if (n < 0) {
+        n = 0;
+    }
     vector<vector<int>> madj(n, vector<int>(n));
     string buffer;
     for (int i = 0; i < n; i++) {
@@ -55,7 +48,7 @@ void Graph::construct_from_string_madj(istream& in) {
                 madj[i][j] = inf;
             }
             else {
-                madj[i][j] = stoi(buffer);
+                madj[i][j] = stoi(buffer);  // обработка исключения
             }
         }
     }
@@ -63,6 +56,7 @@ void Graph::construct_from_string_madj(istream& in) {
 }
 
 // создание графа из матрицы инцидентности из строкового потока
+// это просто прямоугольная матрица из inf и чисел
 void Graph::construct_from_string_incm(istream& in) {
 
 }   // НЕ РЕАЛИЗОВАН
@@ -74,13 +68,21 @@ void Graph::construct_from_string_ladj(istream& in) {
 
 
 // проверка, является ли граф неориентированным
-bool Graph::is_undirected(const vector<vector<int>>& madj) {
-    for (int i = 0; i < madj.size(); i++) {
-        for (int j = 0; j < madj.size(); j++) {
-            if (madj[i][j] != madj[j][i]) {
-                return false;
+// он проверяет атрбиут graph на то, чтобы он был НЕОРИЕНТИРОВАННЫМ
+bool Graph::is_undirected() {
+    // проверенные вершины
+    unordered_set<int> checked;
+    for (const auto [v, neighbours]: graph) {
+        for (const auto [u, w]: neighbours) {
+            // если вершина u еще не проверена
+            if (checked.find(u) == checked.end()) {
+                // если из v в u вес не равен из u в v, то граф ориентированный
+                if (graph[v][u] != graph[u][v]) {
+                    return false;
+                }
             }
         }
+        checked.insert(v);
     }
     return true;
 }
@@ -99,6 +101,14 @@ Graph::Graph(const int& n) {
 // построение графа при помощи матрицы смежности
 Graph::Graph(const vector<vector<int>>& madj) : graph() {
     create_from_madj(madj);
+
+    undirected = is_undirected();
+
+    // DEBUG
+    if (!undirected) {
+        throw domain_error("This is not undirected graph!");
+    }
+    // END DEBUG (remove on release)
 }
 
 
@@ -118,6 +128,13 @@ Graph::Graph(const int& type, istream& in) : graph() {
             break;
         }
     }
+    undirected = is_undirected();
+
+    // DEBUG
+    if (!undirected) {
+        throw domain_error("This is not undirected graph!");
+    }
+    // END DEBUG (remove on release)
 }
 
 // добавление вершины
@@ -148,6 +165,7 @@ void Graph::add_edge(int v1, int v2, int w) {
 
 }
 
+// в АЛГОРИТМЫ
 bool Graph::is_tree() const {
     return 0;
 }
@@ -162,7 +180,7 @@ int Graph::get_cnt_edges() const {
     return cntedges / 2;
 }
 
-int Graph::get_cnt_vertexes() const {
+size_t Graph::get_cnt_vertexes() const {
     return graph.size();
 }
 
@@ -229,19 +247,15 @@ unordered_map<int, int> Graph::operator[](const int& v) const {
 }
 
 
-std::vector<int> Graph::get_sorted_neighbors(int vertex) const {
-    std::vector<int> neighbors;
+vector<int> Graph::get_sorted_neighbors(int vertex) const {
+    vector<int> neighbors;
     for (const auto& pair : graph.at(vertex)) {
         neighbors.push_back(pair.first);
     }
-    std::sort(neighbors.begin(), neighbors.end());
+    sort(neighbors.begin(), neighbors.end());
     return neighbors;
 }
 
 bool Graph::has_vertex(int vertex) const {
     return graph.find(vertex) != graph.end();
-}
-
-size_t Graph::vertex_count() const {
-    return graph.size();
 }

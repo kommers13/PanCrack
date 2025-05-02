@@ -78,6 +78,17 @@ void TestGraph::test_creating_graph_data() {
     Graph g4(0, ss4);
 
     uniunii ans4 = {};
+
+    // TEST 5 (ERROR)
+    string in5 = "-4 \
+                 0 1 1 1 \
+                 1 0 1 1 \
+                 1 1 0 1 \
+                 1 1 1 0";
+    stringstream ss5(in5);
+    Graph g5(0, ss5);
+
+    uniunii ans5 = {};
     // END INIT DATA
 
     QTest::addColumn<Graph>("graph");   // object
@@ -87,11 +98,120 @@ void TestGraph::test_creating_graph_data() {
     QTest::newRow("graph 2") << g2 << ans2;
     QTest::newRow("graph 3") << g3 << ans3;
     QTest::newRow("graph 4") << g4 << ans4;
+    QTest::newRow("graph 5") << g5 << ans5;
 }
 void TestGraph::test_creating_graph() {
     QFETCH(Graph, graph);
     QFETCH(uniunii, ans);
     QCOMPARE(graph.get_graph(), ans);
+}
+
+
+void TestGraph::test_creating_graph_inc_data() {
+    // INIT DATA
+    // TEST 1
+    string in1 = "5 6\
+        3   -2   inf inf inf inf \
+        3   inf  5   4   inf inf \
+        inf inf  5   inf 10  inf \
+        inf inf  inf inf 10  6 \
+        inf -2   inf 4   inf 6";
+    stringstream ss1(in1);
+    Graph g1(1, ss1);
+    Graph ans1;
+    ans1.add_edge(0, 1, 3);
+    ans1.add_edge(0, 4, -2);
+    ans1.add_edge(1, 2, 5);
+    ans1.add_edge(1, 4, 4);
+    ans1.add_edge(2, 3, 10);
+    ans1.add_edge(3, 4, 6);
+
+    // TEST 2
+    string in2 = "3   2 \
+                  1   inf \
+                  inf 6 \
+                  1   6";
+    stringstream ss2(in2);
+    Graph g2(1, ss2);
+    Graph ans2;
+    ans2.add_edge(0, 2, 1);
+    ans2.add_edge(1, 2, 6);
+
+    // TEST 3
+    string in3 = "0 0";
+    stringstream ss3(in3);
+    Graph g3(1, ss3);
+    Graph ans3;
+
+    // TEST 4 (ERROR) два ребра там, где 0 вершин
+    // максимальное количество ребер в графе с n вершинами равно n * (n - 1) / 2
+    string in4 = "0 2";
+    stringstream ss4(in4);
+    Graph g4(1, ss4);
+    Graph ans4;
+
+    // TEST 5 (ERROR)
+    // отрицательное количество вершин
+    string in5 = "-4  4 \
+                  2   3 \
+                  2   3 \
+                  inf inf \
+                  inf inf";
+    stringstream ss5(in5);
+    Graph g5(1, ss5);
+    Graph ans5;
+
+    // TEST 6 (ERROR)
+    // ребер больше, чем может быть
+    string in6 = "1 2 \
+                  1 2";
+    stringstream ss6(in6);
+    Graph g6(1, ss6);
+    Graph ans6;
+
+    // TEST 7 (ERROR)
+    // мультиграф (наша реализация графа его не поддерживает)
+    // лучше разобраться с обычными
+    string in7 = "3 2 \
+                  1 2 \
+                  1 2  \
+                  inf inf";
+    stringstream ss7(in7);
+    Graph g7(1, ss7);
+    Graph ans7;
+
+    // TEST 8
+    string in8 = "5 4 \
+                  1   inf inf inf \
+                  1   1   inf inf \
+                  inf 1   1   inf \
+                  inf inf 1   1 \
+                  inf inf inf 1";
+    stringstream ss8(in8);
+    Graph g8(1, ss8);
+    Graph ans8;
+    ans8.add_edge(0, 1, 1);
+    ans8.add_edge(1, 2, 1);
+    ans8.add_edge(2, 3, 1);
+    ans8.add_edge(3, 4, 1);
+
+    QTest::addColumn<Graph>("graph_from_inc");
+    QTest::addColumn<Graph>("graph_ans");
+
+    QTest::newRow("graph_inc_1") << g1 << ans1;
+    QTest::newRow("graph_inc_2") << g2 << ans2;
+    QTest::newRow("graph_inc_3") << g3 << ans3;
+    QTest::newRow("graph_inc_4") << g4 << ans4;
+    QTest::newRow("graph_inc_5") << g5 << ans5;
+    QTest::newRow("graph_inc_6") << g6 << ans6;
+    QTest::newRow("graph_inc_7") << g7 << ans7;
+    QTest::newRow("graph_inc_8") << g8 << ans8;
+}
+
+void TestGraph::test_creating_graph_inc() {
+    QFETCH(Graph, graph);
+    QFETCH(Graph, ans);
+    QCOMPARE(graph, ans);
 }
 
 
@@ -104,8 +224,8 @@ void TestGraph::test_undirected_graph_data() {
     //              inf 5   0   10  inf \
     //              inf inf 10  0   6 \
     //              2  0   inf 6   0";
-    //              stringstream ss1(in1);
-    // Graph g1(ss1);
+    // stringstream ss1(in1);
+    // Graph g1(0, ss1);
     // bool ans1 = false;
 
     // TEST 2
@@ -125,7 +245,7 @@ void TestGraph::test_undirected_graph_data() {
     //               inf 0   inf \
     //               1   6   0 ";
     // stringstream ss3(in3);
-    // Graph g3(ss3);
+    // Graph g3(0, ss3);
     // bool ans3 = false;
 
     // TEST 4
