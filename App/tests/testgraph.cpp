@@ -86,9 +86,22 @@ void TestGraph::test_creating_graph_data() {
                  1 1 0 1 \
                  1 1 1 0";
     stringstream ss5(in5);
-    Graph g5(0, ss5);
+    try { Graph g5(0, ss5); } catch (const logic_error& e)
+    { QCOMPARE(e.what(), "Number of vertices is negative!"); }
 
-    uniunii ans5 = {};
+    // TEST 6 (ERROR) (вершин больше либо меньше, чем размерность матрицы)
+    // такое поведение можно считать непредсказуемым, так как количество вершин определяется
+    // по первому числу, поэтому граф может стать не таким, как вы хотели его видеть,
+    // более того, он может стать ориентированным (чаще всего)
+    string in6 = "2 \
+                  0 1   2   3 \
+                  1 0   inf inf \
+                  2 inf 0   4 \
+                  3 inf 4   0";
+    stringstream ss6(in6);
+    try { Graph g6(0, ss6); } catch (const exception& e)
+    { QCOMPARE(e.what(), "This is not undirected graph!"); }
+
     // END INIT DATA
 
     QTest::addColumn<Graph>("graph");   // object
@@ -98,7 +111,6 @@ void TestGraph::test_creating_graph_data() {
     QTest::newRow("graph 2") << g2 << ans2;
     QTest::newRow("graph 3") << g3 << ans3;
     QTest::newRow("graph 4") << g4 << ans4;
-    QTest::newRow("graph 5") << g5 << ans5;
 }
 void TestGraph::test_creating_graph() {
     QFETCH(Graph, graph);
@@ -118,7 +130,7 @@ void TestGraph::test_creating_graph_inc_data() {
         inf -2   inf 4   inf 6";
     stringstream ss1(in1);
     Graph g1(1, ss1);
-    Graph ans1;
+    Graph ans1(5);
     ans1.add_edge(0, 1, 3);
     ans1.add_edge(0, 4, -2);
     ans1.add_edge(1, 2, 5);
@@ -133,12 +145,12 @@ void TestGraph::test_creating_graph_inc_data() {
                   1   6";
     stringstream ss2(in2);
     Graph g2(1, ss2);
-    Graph ans2;
+    Graph ans2(3);
     ans2.add_edge(0, 2, 1);
     ans2.add_edge(1, 2, 6);
 
     // TEST 3
-    string in3 = "0 0";
+    string in3 = "0 0"; // пустой граф
     stringstream ss3(in3);
     Graph g3(1, ss3);
     Graph ans3;
@@ -147,8 +159,8 @@ void TestGraph::test_creating_graph_inc_data() {
     // максимальное количество ребер в графе с n вершинами равно n * (n - 1) / 2
     string in4 = "0 2";
     stringstream ss4(in4);
-    Graph g4(1, ss4);
-    Graph ans4;
+    try { Graph g4(1, ss4); } catch (const logic_error& e)
+    { QCOMPARE(e.what(), "Number of edges is more than it can be!"); }
 
     // TEST 5 (ERROR)
     // отрицательное количество вершин
@@ -158,27 +170,30 @@ void TestGraph::test_creating_graph_inc_data() {
                   inf inf \
                   inf inf";
     stringstream ss5(in5);
-    Graph g5(1, ss5);
-    Graph ans5;
+    try { Graph g5(1, ss5); } catch (const logic_error& e)
+    { QCOMPARE(e.what(), "Number of vertices is negative!"); }
 
     // TEST 6 (ERROR)
     // ребер больше, чем может быть
     string in6 = "1 2 \
                   1 2";
     stringstream ss6(in6);
-    Graph g6(1, ss6);
-    Graph ans6;
+    try { Graph g6(1, ss6); } catch (const logic_error& e)
+    { QCOMPARE(e.what(), "Number of edges is more than it can be!"); }
 
-    // TEST 7 (ERROR)
+    // TEST 7
     // мультиграф (наша реализация графа его не поддерживает)
     // лучше разобраться с обычными
+    // если в матрице инцидентности прописан мультиграф,
+    // то просто в графе перезапишется значение ребра (молча)
     string in7 = "3 2 \
                   1 2 \
                   1 2  \
                   inf inf";
     stringstream ss7(in7);
     Graph g7(1, ss7);
-    Graph ans7;
+    Graph ans7(3);
+    ans7.add_edge(0, 1, 2);
 
     // TEST 8
     string in8 = "5 4 \
@@ -189,23 +204,52 @@ void TestGraph::test_creating_graph_inc_data() {
                   inf inf inf 1";
     stringstream ss8(in8);
     Graph g8(1, ss8);
-    Graph ans8;
+    Graph ans8(5);
     ans8.add_edge(0, 1, 1);
     ans8.add_edge(1, 2, 1);
     ans8.add_edge(2, 3, 1);
     ans8.add_edge(3, 4, 1);
 
-    QTest::addColumn<Graph>("graph_from_inc");
-    QTest::addColumn<Graph>("graph_ans");
+    // TEST 9 (Коронный граф из 8 вершин)
+    string in9 = "8 12 \
+        1   1   1   inf inf inf inf inf inf inf inf inf \
+        inf inf 1   inf inf 1   inf inf 1   inf inf inf \
+        inf inf inf 1   1   1   inf inf inf inf inf inf \
+        inf inf inf 1   inf inf 1   inf inf 1   inf inf \
+        inf inf inf inf inf inf 1   1   1   inf inf inf \
+        1   inf inf inf inf inf inf 1   inf inf 1   inf \
+        inf inf inf inf inf inf inf inf inf 1   1   1 \
+        inf 1   inf inf 1   inf inf inf inf inf inf 1";
+    stringstream ss9(in9);
+    Graph g9(1, ss9);
+    Graph ans9(8);
 
-    QTest::newRow("graph_inc_1") << g1 << ans1;
-    QTest::newRow("graph_inc_2") << g2 << ans2;
-    QTest::newRow("graph_inc_3") << g3 << ans3;
-    QTest::newRow("graph_inc_4") << g4 << ans4;
-    QTest::newRow("graph_inc_5") << g5 << ans5;
-    QTest::newRow("graph_inc_6") << g6 << ans6;
-    QTest::newRow("graph_inc_7") << g7 << ans7;
-    QTest::newRow("graph_inc_8") << g8 << ans8;
+    ans9.add_edge(4, 1, 1);
+    ans9.add_edge(3, 6, 1);
+    ans9.add_edge(5, 6, 1);
+    ans9.add_edge(6, 7, 1);
+
+    ans9.add_edge(0, 5, 1);
+    ans9.add_edge(0, 7, 1);
+    ans9.add_edge(0, 1, 1);
+    ans9.add_edge(2, 3, 1);
+
+    ans9.add_edge(2, 7, 1);
+    ans9.add_edge(1, 2, 1);
+    ans9.add_edge(3, 4, 1);
+    ans9.add_edge(4, 5, 1);
+
+    // END INIT DATA
+
+    QTest::addColumn<Graph>("graph");
+    QTest::addColumn<Graph>("ans");
+
+    QTest::newRow("graph inc 1") << g1 << ans1;
+    QTest::newRow("graph inc 2") << g2 << ans2;
+    QTest::newRow("graph inc 3") << g3 << ans3;
+    QTest::newRow("graph inc 7") << g7 << ans7;
+    QTest::newRow("graph inc 8") << g8 << ans8;
+    QTest::newRow("graph inc 9") << g9 << ans9;
 }
 
 void TestGraph::test_creating_graph_inc() {

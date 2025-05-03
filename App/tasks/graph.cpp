@@ -10,8 +10,6 @@ size_t TupleHash::operator()(const tuple<int, int, int>& t) const {
     return h1 ^ (h2 << 1) ^ (h3 << 2);
 }
 
-//const int inf = 1e9;
-
 
 // построение графа при помощи матрицы смежности
 void Graph::create_from_madj(const vector<vector<int>>& madj) {
@@ -36,10 +34,11 @@ void Graph::create_from_madj(const vector<vector<int>>& madj) {
 void Graph::construct_from_string_madj(istream& in) {
     int n;
     in >> n;
+    // проверяем количество вершин
     if (n < 0) {
-        n = 0;
+        throw logic_error("Number of vertices is negative!");
     }
-    vector<vector<int>> madj(n, vector<int>(n));
+    vector<vector<int>> madj(n, vector<int>(n, inf));
     string buffer;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -58,8 +57,63 @@ void Graph::construct_from_string_madj(istream& in) {
 // создание графа из матрицы инцидентности из строкового потока
 // это просто прямоугольная матрица из inf и чисел
 void Graph::construct_from_string_incm(istream& in) {
-
-}   // НЕ РЕАЛИЗОВАН
+    int v = 0, e = 0;
+    in >> v >> e;
+    // если граф имеет отрицательное количество вершин или ребер (ERROR)
+    if (v < 0) {
+        throw logic_error("Number of vertices is negative!");
+    }
+    if (e < 0) {
+        throw logic_error("Number of edges is negative!");
+    }
+    // если граф имеет ребер больше, чем может иметь (мультиграф) (ERROR)
+    if (e > v * (v - 1) / 2) {
+        throw logic_error("Number of edges is more than it can be!");
+    }
+    // добавляем в граф v вершин
+    for (int i = 0; i < v; i++) {
+        this->add_vertex();
+    }
+    // читаем граф из строкового потока в vector<vector<int>>
+    vector<vector<int>> incm(v, vector<int>(e));
+    string buffer;
+    for (int i = 0; i < v; i++) {
+        for (int j = 0; j < e; j++) {
+            in >> buffer;
+            if (buffer == "inf") {
+                incm[i][j] = inf;
+            }
+            else {
+                incm[i][j] = stoi(buffer);  // обработка исключения
+            }
+        }
+    }
+    // создание графа по матрице инцидентности
+    // если в столбце одно значение или больше 2, то это ОШИБКА
+    // идем по ребрам
+    for (int i = 0; i < e; i++) {
+        vector<int> n_vs;        // соседние вершины (вектор должен иметь размер 2)
+        for (int j = 0; j < v; j++) {
+            if (incm[j][i] != inf) {
+                n_vs.push_back(j);
+            }
+        }
+        if (n_vs.size() > 2) {
+            throw logic_error("Multiple edge!");
+        }
+        if (n_vs.size() == 1) {
+            throw logic_error("Edge with one end!");
+        }
+        if (n_vs.size() != 0) {
+            // если веса у вершин неодинаковы
+            if (incm[n_vs[0]][i] != incm[n_vs[1]][i]) {
+                throw logic_error("Weights of vertices aren`t the same");
+            }
+            // добавляем ребро
+            this->add_edge(n_vs[0], n_vs[1], incm[n_vs[0]][i]);
+        }
+    }
+}
 
 // создание графа из списков смежности из строкового потока
 void Graph::construct_from_string_ladj(istream& in) {
@@ -120,7 +174,7 @@ Graph::Graph(const int& type, istream& in) : graph() {
             break;
         }
         case 1: {
-            // construct_from_string_incm(in);
+            construct_from_string_incm(in);
             break;
         }
         case 2: {
