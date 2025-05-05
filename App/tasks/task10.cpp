@@ -8,9 +8,9 @@ string task10::input(Graph tree) {
     return ans;
 } // принимаем на вход дерево, затем отправляем в функцию кодирования
 string task10::coding(Graph g) {
-    if(!g.is_tree()){
+    /*if(!g.is_tree()){
         cout << "ERROR, Graph isn't a tree";
-    }
+    }*/
     unordered_map<int, unordered_map<int, int>> uiuii_tree = g.get_graph();
     string ans = "";
     while(uiuii_tree.size() > 2){

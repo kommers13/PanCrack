@@ -15,6 +15,7 @@ qt6_add_qml_module(PanCrack
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
         "EventListModel.qml"
+        "Constants.qml"
         "EventListSimulator.qml"
         "Constants.qml"
 )
