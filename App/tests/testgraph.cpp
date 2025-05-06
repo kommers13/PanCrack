@@ -259,6 +259,83 @@ void TestGraph::test_creating_graph_inc() {
 }
 
 
+void TestGraph::test_creating_graph_ladj_data() {
+    // INIT DATA
+    // TEST 1
+    string in1 = "A:(B,3), (E,-2); \
+                  C: (B, 5), (D, 10); \
+                  B: (A, 3), (C, 5), (E, 4); \
+                  D: (C, 10), (E, 6); \
+                  E: (A, -2), (B, 4), (D, 6);";
+    stringstream ss1(in1);
+    Graph g1(2, ss1);
+    Graph ans1(5);
+    ans1.add_edge(0, 1, 3);
+    ans1.add_edge(0, 4, -2);
+    ans1.add_edge(1, 2, 5);
+    ans1.add_edge(1, 4, 4);
+    ans1.add_edge(2, 3, 10);
+    ans1.add_edge(3, 4, 6);
+
+    // TEST 2
+    string in2 = "a c 1;b: (c,6); c: (a,1) (b, 6)";
+    stringstream ss2(in2);
+    Graph g2(2, ss2);
+    Graph ans2(3);
+    ans2.add_edge(0, 2, 1);
+    ans2.add_edge(1, 2, 6);
+
+    // TEST 3
+    // если список смежности пуст, то граф тоже будет пустой
+    string in3 = ""; // пустой граф
+    stringstream ss3(in3);
+    Graph g3(2, ss3);
+    Graph ans3;
+
+    // TEST 4 (ERROR) (4 - число стабильности)
+    // неполное количество ребер
+    string in4 = "A: (B, 4) ; B: (A, 4) ;";
+    stringstream ss4(in4);
+    cout << "TEST 4" << '\n';
+    try { Graph g4(2, ss4); g4.print(); } catch (const exception& e) {
+        cout << e.what() << '\n';
+    }
+
+    // TEST 5 (ERROR)
+    // без точки с запятой
+    string in5 = "2: (1, 4)  1: (2, 4) ";
+    stringstream ss5(in5);
+    cout << "TEST 5" << '\n';
+    try { Graph g5(2, ss5); g5.print(); } catch (const exception& e) {
+        cout << e.what() << '\n';
+    }
+
+    // END INIT DATA
+
+    QTest::addColumn<int>("test_n");
+    QTest::addColumn<Graph>("graph_ladj");
+    QTest::addColumn<Graph>("ans_ladj");
+
+    QTest::newRow("graph ladj 1") << 1 << g1 << ans1;
+    QTest::newRow("graph ladj 2") << 2 << g2 << ans2;
+    QTest::newRow("graph ladj 3") << 3 << g3 << ans3;
+    // QTest::newRow("graph ladj 4") << 4 << g4 << ans4;
+    // QTest::newRow("graph ladj 5") << 5 << g5 << ans5;
+}
+
+void TestGraph::test_creating_graph_ladj() {
+    QFETCH(int, test_n);
+    QFETCH(Graph, graph_ladj);
+    QFETCH(Graph, ans_ladj);
+
+    cout << "test_creating_graph_ladj_data_" << test_n << '\n';
+    cout << "TEST " << test_n << '\n';
+    cout << "graph_ladj" << '\n';
+    graph_ladj.print();
+    cout << "and_ladj" << '\n';
+    ans_ladj.print();
+}
+
 void TestGraph::test_undirected_graph_data() {
     // INIT DATA
     // TEST 1

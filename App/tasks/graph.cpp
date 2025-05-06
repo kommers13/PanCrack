@@ -117,26 +117,99 @@ void Graph::construct_from_string_incm(istream& in) {
 
 // создание графа из списков смежности из строкового потока
 void Graph::construct_from_string_ladj(istream& in) {
+    vector<string> prs;    // обработанная строка, разбитая на токены
+    string buffer;
+    while (in >> buffer) {
+        // проходимся по buffer и закидываем в prs только то, что подходит
+        string nbuffer = "";
+        buffer += ',';
+        for (int i = 0; i < buffer.size(); i++) {
+            char c = buffer[i];
+            if (c == '-' ||
+                ('0' <= c && c <= '9') ||
+                ('a' <= c && c <= 'z') ||
+                ('A' <= c && c <= 'Z')
+                ) {
+                nbuffer += c;
+            }
+            else {
+                if (nbuffer.size() > 0) {
+                    prs.push_back(nbuffer);
+                    nbuffer = "";
+                }
+                if (c == ';') {
+                    prs.push_back(";");
+                }
+            }
+        }
+    }
+    // for (auto e: prs) {
+    //     cout << e << ' ';
+    // }
+    // cout << '\n';
 
-}   // НЕ РЕАЛИЗОВАН
+    // теперь у нас есть разбитая на токены строка, можно начать собирать вектор
+    int cnt = 1; // счетчик чисел в списке смежности
+    int current_vertex, add_vertex, weight; // добавляемая вершина и вес
+    unordered_map<char, int> name_ind;  // имя вершины отображается на ее индекс
+    for (int i = 0; i < prs.size(); i++) {
+        string token = prs[i];
+        if (token[0] == ';') {
+            cnt = 1;
+            continue;
+        }
+        if (cnt == 1) {
+            // проверяем, что токен состоит из одного символа
+            if (token.size() > 1) {
+                throw domain_error("Name of vertex must be a one character");
+            }
+            // добавляем вершину с именем token[0], если такой еще не существует
+            if (name_ind.find(token[0]) == name_ind.end()) {
+                this->add_vertex(token[0]);
+                current_vertex = vs.size() - 1;
+                name_ind[token[0]] = current_vertex;
+            }
+            else { // если вершина уже существовала, то мы просто берем ее индекс
+                current_vertex = name_ind[token[0]];
+            }
+        }
+        else if (cnt % 2 == 0) {    // если порядок четный, то это зависимая вершина
+            // проверяем, что токен состоит из одного символа
+            if (token.size() > 1) {
+                throw domain_error("Name of vertex must be a character");
+            }
+            // добавляем вершину с именем token[0], если такой еще не существует
+            if (name_ind.find(token[0]) == name_ind.end()) {
+                this->add_vertex(token[0]);
+                add_vertex = vs.size() - 1;
+                name_ind[token[0]] = add_vertex;
+            }
+            else { // если вершина уже существовала, то мы просто берем ее индекс
+                add_vertex = name_ind[token[0]];
+            }
+        }
+        else {  // если порядок нечетный, то это вес
+            weight = stoi(token);   // выбрасывается исключение, если нельзя преобразовать к числу
+            // добавляем ребро вручную, так как add_edge добавляет ребро как
+            // для неориентированного графа
+            this->graph[current_vertex][add_vertex] = weight;
+        }
+        // увеличиваем счетчик чисел в списке смежности
+        ++cnt;
+    }
+}
 
 
 // проверка, является ли граф неориентированным
 // он проверяет атрбиут graph на то, чтобы он был НЕОРИЕНТИРОВАННЫМ
 bool Graph::is_undirected() {
-    // проверенные вершины
-    unordered_set<int> checked;
     for (const auto [v, neighbours]: graph) {
         for (const auto [u, w]: neighbours) {
-            // если вершина u еще не проверена
-            if (checked.find(u) == checked.end()) {
-                // если из v в u вес не равен из u в v, то граф ориентированный
-                if (graph[v][u] != graph[u][v]) {
-                    return false;
-                }
+            // если из v в u вес не равен из u в v, то граф ориентированный
+            if (graph[v][u] != graph[u][v]) {
+                return false;
             }
         }
-        checked.insert(v);
     }
     return true;
 }
@@ -178,7 +251,7 @@ Graph::Graph(const int& type, istream& in) : graph() {
             break;
         }
         case 2: {
-            // construct_from_string_ladj(in);
+            construct_from_string_ladj(in);
             break;
         }
     }
@@ -192,13 +265,19 @@ Graph::Graph(const int& type, istream& in) : graph() {
 }
 
 // добавление вершины
-void Graph::add_vertex() {
+// letter имеет значение по умолчанию равное A
+void Graph::add_vertex(const char& letter) {
     graph[vs.size()] = {};
     if (vs.size() == 0) {
-        vs.push_back('A');
+        vs.push_back(letter);
     }
     else {
-        vs.push_back((char)(vs[vs.size() - 1] + 1));
+        if (letter != 'A') {
+            vs.push_back(letter);
+        }
+        else {
+            vs.push_back((char)(vs[vs.size() - 1] + 1));
+        }
     }
 }
 

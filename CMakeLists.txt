@@ -33,9 +33,6 @@ qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     FILES
         qtquickcontrols2.conf)
 
-
-target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/data)
-
 # копирование json-файлов в директорию для сборки
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/cominf.cmake)
 

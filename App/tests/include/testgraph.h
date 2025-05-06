@@ -21,6 +21,9 @@ private slots:
     void test_creating_graph_inc_data();
     void test_creating_graph_inc();
 
+    void test_creating_graph_ladj_data();
+    void test_creating_graph_ladj();
+
     void test_undirected_graph_data();
     void test_undirected_graph();
 
