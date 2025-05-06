@@ -6,6 +6,8 @@
 #include "../signals.h"
 #include "../listcommands.h"
 
+#include <graph.h>
+
 #include <string>
 #include <vector>
 

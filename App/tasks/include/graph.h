@@ -227,6 +227,9 @@ public:
     // если такой вершины нет, возникнет исключение
     int get_v_degree(int v) const;
 
+    // граф в виде строки
+    string get_str_graph(const string& nl_sign = "\n") const;
+
     // OPERATORS
     // сравнение графов
     bool operator==(const Graph& other) const;

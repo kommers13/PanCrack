@@ -1,4 +1,5 @@
 #include "../include/commands/createcommand.h"
+#include <QDebug>
 
 string CreateCommand::execute(const string& command,
                               const vector<string>& args,
@@ -36,23 +37,44 @@ string CreateCommand::execute(const string& command,
         return description + "<br>";
     }
 
-    // для create -a|-i|-l graphname
+    // для create -a|-i|-l graphname data
     // CHECKING ARGUMENTS
     // проверка, правильно ли введены аргументы
-    // в данном случае аргумент один - имя графа
-    // если больше одного или меньше одного, то
-    // мы должны сообщить об ошибке
-    if (args.size() < 1 || 1 < args.size()) {
-        output = "<font color=\"red\">create</font> has one required arguments." + output;
-        return output;
-    }
+    // в данном случае аргументов может быть любое количество, первый в args считается именем графа,
+    // а остальные описанием его при помощи одного из трех способов
+    // поэтому количество аргументов проверять не надо
+
     // EXECUTING COMMAND
     // начинаем обрабатывать ПРАВИЛЬНО введенные данные
     // флаг -a
     if (opts.size() == 1 && (opts[0] == "--adjacency-matrix" || opts[0] == "-a")) {
         // если мы дошли до сюда, то все проверки прошли успешно, и мы можем выполнять функции
-        emit my_signals->createCommand();
-        output = "<b>--adjacency-matrix</b> is being developing.";
+        // строим матрицу смежности из аргументов
+        // первый аргумент - это имя графа, остальные - описание графа, в данном случае
+        // в виде матрицы смежности
+        string name = args[0];  // нужно проверить, что такого имени еще не было, прежде чем добавлять
+        string data = "";
+        for (int i = 1; i < args.size(); i++) {
+            data += args[i];
+            data += ' ';
+        }
+        stringstream in_data(data);
+        Graph* G;
+        try {
+            G = new Graph(0, in_data);
+        }
+        catch (const invalid_argument& e) {
+            output = "<font color=\"red\">Error:</font> you input bad character, and I don`t tell where";
+            return output;
+        }
+        catch (const logic_error& e) {
+            string error_desc = e.what();
+            output = "<font color=\"red\">Error:</font> " + error_desc;
+            return output;
+        }
+        // как-то нужно сохранить граф с его именем
+        output = "Graph <b>" + name + "</b> has been constructed!<br>";
+        output += G->get_str_graph("<br>");
         return output;
     }
     // флаг -i
@@ -65,9 +87,7 @@ string CreateCommand::execute(const string& command,
         output = "<b>--adjacency-lists</b> is being developing.";
         return output;
     }
-    // если мы дошли до сюда, то все проверки прошли успешно, и мы можем выполнять функции
-    emit my_signals->createCommand();
-    // в выводе будет небольшое описание графа, который создался
-    output = "";
+    // это условие никогда не будет достигнуто
+    output = "IT IS PROBLEM IN CREATECOMMAND::EXECUTE, CHECK IT URGENTLY";
     return output;
 }

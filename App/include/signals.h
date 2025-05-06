@@ -22,7 +22,6 @@ signals:
     void graphDraw(const QVariantMap& graph);
     // сигналы для ВСЕХ команд
     void clearCommand();
-    void createCommand();
 };
 
 #endif // SIGNALS_H

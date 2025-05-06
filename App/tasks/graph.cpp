@@ -36,7 +36,7 @@ void Graph::construct_from_string_madj(istream& in) {
     in >> n;
     // проверяем количество вершин
     if (n < 0) {
-        throw logic_error("Number of vertices is negative!");
+        throw logic_error("Number of vertices is negative or absent!");
     }
     vector<vector<int>> madj(n, vector<int>(n, inf));
     string buffer;
@@ -323,6 +323,27 @@ int Graph::get_v_degree(int v) const {
     return (*this)[v].size();
 }
 
+// граф в виде строки
+// по умолчанию nl_sign равен "\n"
+string Graph::get_str_graph(const string& nl_sign) const {
+    string str_graph = "";
+    for (auto key: graph) {
+
+        str_graph += vs[key.first];
+        str_graph += ": ";
+
+        for (auto neighbour: key.second) {
+            str_graph += "(";
+            str_graph += vs[neighbour.first];
+            str_graph += ", ";
+            str_graph += to_string(neighbour.second);
+            str_graph += "); ";
+        }
+        str_graph += nl_sign;
+    }
+    return str_graph;
+}
+
 unordered_map<int, unordered_map<int, int>> Graph::get_graph() const {
     return graph;
 }
@@ -349,16 +370,7 @@ unordered_set<tuple<int, int, int>, TupleHash> Graph::get_edges() const {
 // вывод графа на консоль
 void Graph::print() {
     cout << "Graph " << this << '\n';
-    for (auto key: graph) {
-
-        cout << vs[key.first] << ": ";
-
-        for (auto neighbour: key.second) {
-            cout << "(" << vs[neighbour.first] << ", " << neighbour.second << "); ";
-        }
-        cout << '\n';
-    }
-    cout << '\n';
+    cout << this->get_str_graph() << '\n';
 }
 
 
