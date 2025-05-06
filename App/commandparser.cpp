@@ -95,6 +95,10 @@ string CommandParser::execute_command(const string& command,
         // данная команда нуждается в вызове JS-функции через испускание сигнала
         return ClearCommand::execute(command, args, opts, my_signals);
     }
+    if (command == "create") {
+        // данная команда нуждается в вызове JS-функции через испускание сигнала
+        return CreateCommand::execute(command, args, opts, my_signals);
+    }
     return "I don`t know how this happened, we need to check CommandParser::execute_command";
 }
 
