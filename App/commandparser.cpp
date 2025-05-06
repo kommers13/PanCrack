@@ -6,7 +6,7 @@ const string pref = "PanCrack>";
 // trimming of string from left edge
 string ltrim(string s) {
     int i = 0;
-    while (s[i] == ' ' || s[i] == '\t') {
+    while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n') {
         i++;
     }
     return s.substr(i, s.size());
@@ -15,7 +15,7 @@ string ltrim(string s) {
 // trimmint of string from right edge
 string rtrim(string s) {
     int i = s.size() - 1;
-    while (s[i] == ' ' || s[i] == '\t') {
+    while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n') {
         i--;
     }
     return s.substr(0, i + 1);
@@ -56,7 +56,7 @@ tuple<string,
     for (int i = 0; i < input.size(); i++) {
         char c = input[i];
         buffer += c;
-        if (c == ' ') {
+        if (c == ' ' || c == '\n') {
             // если это первое слово
             if (is_command) {
                 not_options.push_back(trim(buffer));
@@ -66,7 +66,8 @@ tuple<string,
                 // если это опция
                 if (buffer[0] == '-'
                     &&
-                    (buffer[1] == '-' || !('0' <= buffer[1] && buffer[1] <= '9'))) {
+                    (buffer[1] == '-' || !('0' <= buffer[1] && buffer[1] <= '9'))
+                    ) {
                     options.push_back(trim(buffer));
                 }
                 else { // если НЕ ОПЦИЯ
@@ -118,6 +119,7 @@ QString CommandParser::on_output_command(const QString& input) {
     // qDebug() << "opts: " << opts;
 
     // если строка пустая, то возвращаем пустую строку
+
     if (command.size() == 0) {
         return QString();
     }

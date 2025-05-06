@@ -18,6 +18,7 @@ Item {
 
     Signals {
         property bool isCleared: false;
+        property bool isCreated: false;
         id: signals_id
         objectName: "signals_id_"
         // этот компонент зарегистрирован из C++
@@ -34,7 +35,6 @@ Item {
             DrawingUtils.draw_graph(graph, canvas_graphdraw)
         }
     }
-
 
     Rectangle {
         id: rect_console
@@ -185,7 +185,6 @@ Item {
                 onAccepted: {
                     column.submitInput()
                 }
-
             }
         }
     }

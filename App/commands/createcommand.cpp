@@ -50,6 +50,8 @@ string CreateCommand::execute(const string& command,
     // начинаем обрабатывать ПРАВИЛЬНО введенные данные
     // флаг -a
     if (opts.size() == 1 && (opts[0] == "--adjacency-matrix" || opts[0] == "-a")) {
+        // если мы дошли до сюда, то все проверки прошли успешно, и мы можем выполнять функции
+        emit my_signals->createCommand();
         output = "<b>--adjacency-matrix</b> is being developing.";
         return output;
     }
@@ -64,7 +66,7 @@ string CreateCommand::execute(const string& command,
         return output;
     }
     // если мы дошли до сюда, то все проверки прошли успешно, и мы можем выполнять функции
-    // emit my_signals->clearCommand();
+    emit my_signals->createCommand();
     // в выводе будет небольшое описание графа, который создался
     output = "";
     return output;

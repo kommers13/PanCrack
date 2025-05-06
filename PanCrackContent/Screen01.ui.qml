@@ -29,4 +29,11 @@ Rectangle {
         x: parent.width - 86 - graphDraw.width
         y: 80
     }
+
+    DialogInput {
+        id: dialog_input
+        opacity: 0
+        enabled: false
+        anchors.centerIn: parent
+    }
 }
