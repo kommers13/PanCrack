@@ -32,6 +32,7 @@ Item {
             isCleared = true
         }
         onGraphDraw: (graph) => {
+            // graph - QVariantMap
             DrawingUtils.draw_graph(graph, canvas_graphdraw)
         }
     }

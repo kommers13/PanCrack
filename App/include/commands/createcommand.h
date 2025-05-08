@@ -5,13 +5,18 @@
 
 #include "../signals.h"
 #include "../listcommands.h"
+#include "../dataconverse.h"
 
 #include <graph.h>
 
 #include <string>
 #include <vector>
+#include <filesystem>
+
 
 using namespace std;
+namespace fs = std::filesystem;
+
 
 class CreateCommand
 {

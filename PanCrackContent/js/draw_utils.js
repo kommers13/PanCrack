@@ -7,6 +7,5 @@ function draw_graph(graph, canvas_gd) {
     // ...
     // рисуем graph
     // ...
-    console.log(graph)
 }
 

@@ -24,16 +24,19 @@ Rectangle {
         clip: true
     }
 
-    GraphDraw {
-        id: graphDraw
-        x: parent.width - 86 - graphDraw.width
-        y: 80
-    }
+    Rectangle {
 
-    DialogInput {
-        id: dialog_input
-        opacity: 0
-        enabled: false
-        anchors.centerIn: parent
+        id: root_graphdraw
+        width: 850
+        height: 920
+        x: parent.width - 86 - root_graphdraw.width
+        y: 80
+        color: "#4A6A2E"
+
+        Canvas {
+            id: canvas_graphdraw
+            width: parent.width
+            height: parent.height
+        }
     }
 }

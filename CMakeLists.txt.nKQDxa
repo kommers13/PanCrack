@@ -35,7 +35,7 @@ qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
         qtquickcontrols2.conf)
 
 # копирование json-файлов в директорию для сборки
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/crtsrc.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/cominf.cmake)
 
 include(qds)
 

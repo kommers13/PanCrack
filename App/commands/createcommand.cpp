@@ -1,5 +1,59 @@
 #include "../include/commands/createcommand.h"
+
 #include <QDebug>
+
+
+string construct(int type, const vector<string>& args) {
+    // если мы дошли до сюда, то все проверки прошли успешно, и мы можем выполнять функции
+    // строим матрицу смежности из аргументов
+    // первый аргумент - это имя графа, остальные - описание графа, в данном случае
+    // в виде матрицы смежности
+
+    string output;
+
+    string name = args[0];  // нужно проверить, что такого имени еще не было, прежде чем добавлять
+
+    // проверка, что такого графа еще нет
+    const string path = "graphs";
+    for (const auto& entry: fs::directory_iterator(path)) {
+        if (entry.path() == (path + "\\" + name + ".json")) {
+            output = "<font color=\"red\">Error:</font> graph <b>" + name + "</b> already exists";
+            return output;
+        }
+    }
+
+    // создание графа
+    string data = "";
+    for (int i = 1; i < args.size(); i++) {
+        data += args[i];
+        data += ' ';
+    }
+
+    // вывод ошибок, если они есть
+    stringstream in_data(data);
+    Graph* G;
+    try {
+        G = new Graph(type, in_data);
+    }
+    catch (const invalid_argument& e) {
+        output = "<font color=\"red\">Error:</font> you input bad character, and I don`t tell where";
+        return output;
+    }
+    catch (const logic_error& e) {
+        string error_desc = e.what();
+        output = "<font color=\"red\">Error:</font> " + error_desc;
+        return output;
+    }
+
+    // запись графа в JSON-файл graphs/<name>.json
+    dataconverse::fromGraphToJSONfile(*G, name);
+
+    // сообщение о том, что граф был создан
+    output = "Graph <b>" + name + "</b> has been constructed!<br>";
+    output += G->get_str_graph("<br>");
+    return output;
+}
+
 
 string CreateCommand::execute(const string& command,
                               const vector<string>& args,
@@ -48,92 +102,15 @@ string CreateCommand::execute(const string& command,
     // начинаем обрабатывать ПРАВИЛЬНО введенные данные
     // флаг -a
     if (opts.size() == 1 && (opts[0] == "--adjacency-matrix" || opts[0] == "-a")) {
-        // если мы дошли до сюда, то все проверки прошли успешно, и мы можем выполнять функции
-        // строим матрицу смежности из аргументов
-        // первый аргумент - это имя графа, остальные - описание графа, в данном случае
-        // в виде матрицы смежности
-        string name = args[0];  // нужно проверить, что такого имени еще не было, прежде чем добавлять
-        string data = "";
-        for (int i = 1; i < args.size(); i++) {
-            data += args[i];
-            data += ' ';
-        }
-        stringstream in_data(data);
-        Graph* G;
-        try {
-            G = new Graph(0, in_data);
-        }
-        catch (const invalid_argument& e) {
-            output = "<font color=\"red\">Error:</font> you input bad character, and I don`t tell where";
-            return output;
-        }
-        catch (const logic_error& e) {
-            string error_desc = e.what();
-            output = "<font color=\"red\">Error:</font> " + error_desc;
-            return output;
-        }
-        // как-то нужно сохранить граф с его именем
-        output = "Graph <b>" + name + "</b> has been constructed!<br>";
-        output += G->get_str_graph("<br>");
-        return output;
+        return construct(0, args);
     }
     // флаг -i
     if (opts.size() == 1 && (opts[0] == "--incidence-matrix" || opts[0] == "-i")) {
-        // первый аргумент - это имя графа, остальные - описание графа, в данном случае
-        // в виде матрицы инцидентности
-        string name = args[0];  // нужно проверить, что такого имени еще не было, прежде чем добавлять
-        string data = "";
-        for (int i = 1; i < args.size(); i++) {
-            data += args[i];
-            data += ' ';
-        }
-        stringstream in_data(data);
-        Graph* G;
-        try {
-            G = new Graph(1, in_data);
-        }
-        catch (const invalid_argument& e) {
-            output = "<font color=\"red\">Error:</font> you input bad character, and I don`t tell where";
-            return output;
-        }
-        catch (const logic_error& e) {
-            string error_desc = e.what();
-            output = "<font color=\"red\">Error:</font> " + error_desc;
-            return output;
-        }
-        // как-то нужно сохранить граф с его именем
-        output = "Graph <b>" + name + "</b> has been constructed!<br>";
-        output += G->get_str_graph("<br>");
-        return output;
+        return construct(1, args);
     }
     // флаг -l
     if (opts.size() == 1 && (opts[0] == "--adjacency-lists" || opts[0] == "-l")) {
-        // первый аргумент - это имя графа, остальные - описание графа, в данном случае
-        // в виде списков смежности
-        string name = args[0];  // нужно проверить, что такого имени еще не было, прежде чем добавлять
-        string data = "";
-        for (int i = 1; i < args.size(); i++) {
-            data += args[i];
-            data += ' ';
-        }
-        stringstream in_data(data);
-        Graph* G;
-        try {
-            G = new Graph(2, in_data);
-        }
-        catch (const invalid_argument& e) {
-            output = "<font color=\"red\">Error:</font> you input bad character, and I don`t tell where";
-            return output;
-        }
-        catch (const logic_error& e) {
-            string error_desc = e.what();
-            output = "<font color=\"red\">Error:</font> " + error_desc;
-            return output;
-        }
-        // как-то нужно сохранить граф с его именем
-        output = "Graph <b>" + name + "</b> has been constructed!<br>";
-        output += G->get_str_graph("<br>");
-        return output;
+        return construct(2, args);
     }
     // это условие никогда не будет достигнуто
     output = "IT IS PROBLEM IN CREATECOMMAND::EXECUTE, CHECK IT URGENTLY";

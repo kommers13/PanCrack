@@ -228,6 +228,9 @@ public:
     // граф в виде строки
     string get_str_graph(const string& nl_sign = "\n") const;
 
+    // имена вершин графа
+    vector<char> get_vs_name() const;
+
     // OPERATORS
     // сравнение графов
     bool operator==(const Graph& other) const;

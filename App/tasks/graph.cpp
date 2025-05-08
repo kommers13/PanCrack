@@ -353,6 +353,11 @@ unordered_map<int, unordered_map<int, int>> Graph::get_graph() const {
     return graph;
 }
 
+// имена вершин графа
+vector<char> Graph::get_vs_name() const {
+    return vs;
+}
+
 bool Graph::get_undirected() const {
     return undirected;
 }
