@@ -32,8 +32,10 @@ void Graph::create_from_madj(const vector<vector<int>>& madj) {
 
 // создание графа из матрицы смежности из строкового потока
 void Graph::construct_from_string_madj(istream& in) {
+    string nbuffer;
     int n;
-    in >> n;
+    in >> nbuffer;
+    n = stoi(nbuffer);  // обработка исключения invalid_argument
     // проверяем количество вершин
     if (n < 0) {
         throw logic_error("Number of vertices is negative or absent!");
@@ -47,7 +49,7 @@ void Graph::construct_from_string_madj(istream& in) {
                 madj[i][j] = inf;
             }
             else {
-                madj[i][j] = stoi(buffer);  // обработка исключения
+                madj[i][j] = stoi(buffer);  // обработка исключения invalid_argument
             }
         }
     }
@@ -57,8 +59,11 @@ void Graph::construct_from_string_madj(istream& in) {
 // создание графа из матрицы инцидентности из строкового потока
 // это просто прямоугольная матрица из inf и чисел
 void Graph::construct_from_string_incm(istream& in) {
+    string vbuffer, ebuffer;
     int v = 0, e = 0;
-    in >> v >> e;
+    in >> vbuffer >> ebuffer;
+    v = stoi(vbuffer);  // обработка исключения invalid argument
+    e = stoi(ebuffer);  // обработка исключения invalid argument
     // если граф имеет отрицательное количество вершин или ребер (ERROR)
     if (v < 0) {
         throw logic_error("Number of vertices is negative!");
@@ -265,19 +270,19 @@ Graph::Graph(const int& type, istream& in) : graph() {
 }
 
 // добавление вершины
-// letter имеет значение по умолчанию равное A
+// letter имеет значение по умолчанию равное ' '
 void Graph::add_vertex(const char& letter) {
     graph[vs.size()] = {};
-    if (vs.size() == 0) {
-        vs.push_back(letter);
-    }
-    else {
-        if (letter != 'A') {
-            vs.push_back(letter);
+    if (letter == ' ') {
+        if (vs.size() == 0) {
+            vs.push_back('A');
         }
         else {
             vs.push_back((char)(vs[vs.size() - 1] + 1));
         }
+    }
+    else {
+        vs.push_back(letter);
     }
 }
 

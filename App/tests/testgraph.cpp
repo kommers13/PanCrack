@@ -87,7 +87,7 @@ void TestGraph::test_creating_graph_data() {
                  1 1 1 0";
     stringstream ss5(in5);
     try { Graph g5(0, ss5); } catch (const logic_error& e)
-    { QCOMPARE(e.what(), "Number of vertices is negative!"); }
+    { QCOMPARE(e.what(), "Number of vertices is negative or absent!"); }
 
     // TEST 6 (ERROR) (вершин больше либо меньше, чем размерность матрицы)
     // такое поведение можно считать непредсказуемым, так как количество вершин определяется

@@ -79,12 +79,60 @@ string CreateCommand::execute(const string& command,
     }
     // флаг -i
     if (opts.size() == 1 && (opts[0] == "--incidence-matrix" || opts[0] == "-i")) {
-        output = "<b>--incidence-matrix</b> is being developing.";
+        // первый аргумент - это имя графа, остальные - описание графа, в данном случае
+        // в виде матрицы инцидентности
+        string name = args[0];  // нужно проверить, что такого имени еще не было, прежде чем добавлять
+        string data = "";
+        for (int i = 1; i < args.size(); i++) {
+            data += args[i];
+            data += ' ';
+        }
+        stringstream in_data(data);
+        Graph* G;
+        try {
+            G = new Graph(1, in_data);
+        }
+        catch (const invalid_argument& e) {
+            output = "<font color=\"red\">Error:</font> you input bad character, and I don`t tell where";
+            return output;
+        }
+        catch (const logic_error& e) {
+            string error_desc = e.what();
+            output = "<font color=\"red\">Error:</font> " + error_desc;
+            return output;
+        }
+        // как-то нужно сохранить граф с его именем
+        output = "Graph <b>" + name + "</b> has been constructed!<br>";
+        output += G->get_str_graph("<br>");
         return output;
     }
     // флаг -l
     if (opts.size() == 1 && (opts[0] == "--adjacency-lists" || opts[0] == "-l")) {
-        output = "<b>--adjacency-lists</b> is being developing.";
+        // первый аргумент - это имя графа, остальные - описание графа, в данном случае
+        // в виде списков смежности
+        string name = args[0];  // нужно проверить, что такого имени еще не было, прежде чем добавлять
+        string data = "";
+        for (int i = 1; i < args.size(); i++) {
+            data += args[i];
+            data += ' ';
+        }
+        stringstream in_data(data);
+        Graph* G;
+        try {
+            G = new Graph(2, in_data);
+        }
+        catch (const invalid_argument& e) {
+            output = "<font color=\"red\">Error:</font> you input bad character, and I don`t tell where";
+            return output;
+        }
+        catch (const logic_error& e) {
+            string error_desc = e.what();
+            output = "<font color=\"red\">Error:</font> " + error_desc;
+            return output;
+        }
+        // как-то нужно сохранить граф с его именем
+        output = "Graph <b>" + name + "</b> has been constructed!<br>";
+        output += G->get_str_graph("<br>");
         return output;
     }
     // это условие никогда не будет достигнуто
