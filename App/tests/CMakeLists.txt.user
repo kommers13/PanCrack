@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 16.0.1, 2025-05-04T03:09:55. -->
+<!-- Written by QtCreator 16.0.1, 2025-05-10T13:58:33. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
-  <value type="QByteArray">{7973fe0a-f46e-4c7a-bc32-6ed7b0c433d7}</value>
+  <value type="QByteArray">{9798948c-97b9-4cec-87ef-b4a8b4662be9}</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -71,186 +71,7 @@
     <value type="bool" key="AutoTest.Framework.QtTest">true</value>
    </valuemap>
    <value type="bool" key="AutoTest.ApplyFilter">false</value>
-   <valuemap type="QVariantMap" key="AutoTest.CheckStates">
-<<<<<<< HEAD
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testgraph.h:TestGraph">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testgraph.h:test_add_edge">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testgraph.h:test_add_vertex">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testgraph.h:test_creating_graph">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testgraph.h:test_equal">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testgraph.h:test_get_degree">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testgraph.h:test_get_edges">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testgraph.h:test_undirected_graph">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask0.h:TestTask0">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask0.h:test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask1.h:TestTask1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask1.h:test_DFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask10.h:TestTask10">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask10.h:eight_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask10.h:lection_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask10.h:list_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask10.h:star_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask10.h:trivial_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask10.h:typical_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask10.h:very_hard_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask11.h:TestTask11">PartiallyChecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask11.h:hard_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask11.h:lection_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask11.h:star_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask11.h:test3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask11.h:test4">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask11.h:zero_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask2.h:TestTask2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask2.h:test_DFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask2.h:test_check_user_DFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask2.h:test_generate_random_graph">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask3.h:TestTask3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask3.h:test1_BFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask3.h:test2_BFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask3.h:test3_BFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask3.h:test4_BFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask3.h:test5_BFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask3.h:test6_BFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask3.h:test7_BFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask4.h:TestTask4">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask4.h:test1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask4.h:test2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask4.h:test3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask4.h:test4">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask5.h:TestTask5">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask5.h:test_connected_components">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask6.h:TestTask6">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask6.h:test_answer_checking">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask6.h:test_graph_generation">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask7.h:TestTask7">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask7.h:test_MST">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask8.h:TestTask8">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/include/testtask8.h:test_dijkstra">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:degree 1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:degree 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:degree 3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:edge 1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:edge 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:edge 3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:edge 4">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:edge 5">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:equal 1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:equal 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:equal 3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:get edges 1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:get edges 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:get edges 3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:graph 1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:graph 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:graph 3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:graph 4">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:test_add_edge_data">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:test_add_vertex_data">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:test_creating_graph_data">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:test_equal_data">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:test_get_degree_data">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:test_get_edges_data">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:test_undirected_graph_data">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:und graph 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:und graph 4">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:und graph 5">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:vertex 1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:vertex 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:vertex 3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testgraph.cpp:vertex 4">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testtask7.cpp:MST 1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testtask7.cpp:MST 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testtask7.cpp:MST 3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testtask7.cpp:MST 4">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testtask7.cpp:MST 5">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testtask7.cpp:MST 6">Unchecked</value>
-    <value type="Qt::CheckState" key="1@/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/testtask7.cpp:test_MST_data">Unchecked</value>
-    <value type="Qt::CheckState" key="1@:Qt Test">PartiallyChecked</value>
-=======
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testgraph.h:TestGraph">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testgraph.h:test_add_edge">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testgraph.h:test_add_vertex">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testgraph.h:test_creating_graph">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testgraph.h:test_equal">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testgraph.h:test_get_degree">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testgraph.h:test_get_edges">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testgraph.h:test_undirected_graph">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask0.h:TestTask0">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask0.h:test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask1.h:TestTask1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask1.h:test_DFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask10.h:TestTask10">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask10.h:eight_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask10.h:lection_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask10.h:list_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask10.h:star_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask10.h:trivial_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask10.h:typical_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask10.h:very_hard_test">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask2.h:TestTask2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask2.h:test_DFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask2.h:test_check_user_DFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask2.h:test_generate_random_graph">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask3.h:TestTask3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask3.h:test1_BFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask3.h:test2_BFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask3.h:test3_BFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask3.h:test4_BFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask3.h:test5_BFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask3.h:test6_BFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask3.h:test7_BFS">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask5.h:TestTask5">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask5.h:test_connected_components">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask6.h:TestTask6">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask6.h:test_answer_checking">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask6.h:test_graph_generation">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask7.h:TestTask7">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask7.h:test_MST">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask8.h:TestTask8">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask8.h:test_dijkstra">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask9.h:TestTask9">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/include/testtask9.h:test_floyd_warshall">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:degree 1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:degree 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:degree 3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:edge 1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:edge 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:edge 3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:edge 4">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:edge 5">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:equal 1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:equal 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:equal 3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:get edges 1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:get edges 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:get edges 3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:graph 1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:graph 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:graph 3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:graph 4">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:test_add_edge_data">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:test_add_vertex_data">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:test_creating_graph_data">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:test_equal_data">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:test_get_degree_data">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:test_get_edges_data">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:test_undirected_graph_data">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:und graph 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:und graph 4">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:und graph 5">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:vertex 1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:vertex 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:vertex 3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testgraph.cpp:vertex 4">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testtask7.cpp:MST 1">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testtask7.cpp:MST 2">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testtask7.cpp:MST 3">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testtask7.cpp:MST 4">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testtask7.cpp:MST 5">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testtask7.cpp:MST 6">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/fashi/Downloads/PanCrack/App/tests/testtask7.cpp:test_MST_data">Unchecked</value>
->>>>>>> refs/remotes/origin/main
-   </valuemap>
+   <valuemap type="QVariantMap" key="AutoTest.CheckStates"/>
    <valuelist type="QVariantList" key="AutoTest.PathFilters"/>
    <value type="int" key="AutoTest.RunAfterBuild">0</value>
    <value type="bool" key="AutoTest.UseGlobal">true</value>
@@ -271,15 +92,9 @@
   <variable>ProjectExplorer.Project.Target.0</variable>
   <valuemap type="QVariantMap">
    <value type="QString" key="DeviceType">Desktop</value>
-<<<<<<< HEAD
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">{5d5cb1c7-3960-43ea-a4c5-d1f8135924d4}</value>
-=======
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop Qt 6.9.0 MinGW 64-bit</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop Qt 6.9.0 MinGW 64-bit</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">qt.qt6.690.win64_mingw_kit</value>
->>>>>>> refs/remotes/origin/main
    <value type="qlonglong" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
    <value type="qlonglong" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="qlonglong" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
@@ -288,33 +103,18 @@
     <value type="int" key="CMake.Configure.BaseEnvironment">2</value>
     <value type="bool" key="CMake.Configure.ClearSystemEnvironment">false</value>
     <valuelist type="QVariantList" key="CMake.Configure.UserEnvironmentChanges"/>
-<<<<<<< HEAD
-    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
--DCMAKE_C_COMPILER:FILEPATH=%{Compiler:Executable:C}
--DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}
--DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
--DCMAKE_GENERATOR:STRING=Ninja
--DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}
--DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}
+    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_C_COMPILER:FILEPATH=%{Compiler:Executable:C}
 -DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
+-DCMAKE_GENERATOR:STRING=Ninja
+-DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
+-DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}
+-DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}
+-DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
+-DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}
 -DCMAKE_BUILD_TYPE:STRING=Debug</value>
     <value type="QString" key="CMake.Source.Directory">/home/sam/C++Projects/pancrack_all/PanCrack/App/tests</value>
     <value type="int" key="EnableQmlDebugging">0</value>
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/build/Desktop-Debug</value>
-=======
-    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_BUILD_TYPE:STRING=Debug
--DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}
--DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}
--DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
--DCMAKE_C_COMPILER:FILEPATH=%{Compiler:Executable:C}
--DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
--DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
--DCMAKE_GENERATOR:STRING=Ninja
--DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}</value>
-    <value type="QString" key="CMake.Source.Directory">C:\Users\fashi\Downloads\PanCrack\App\tests</value>
-    <value type="int" key="EnableQmlDebugging">0</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\fashi\Downloads\PanCrack\App\tests\build\Desktop_Qt_6_9_0_MinGW_64_bit_qt_qt6-Debug</value>
->>>>>>> refs/remotes/origin/main
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="QString" key="CMakeProjectManager.MakeStep.BuildPreset"></value>
@@ -357,232 +157,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Отладка (imported)</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeBuildConfiguration</value>
    </valuemap>
-<<<<<<< HEAD
    <value type="qlonglong" key="ProjectExplorer.Target.BuildConfigurationCount">1</value>
-=======
-   <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
-    <value type="QString" key="CMake.Build.Type">Release</value>
-    <value type="int" key="CMake.Configure.BaseEnvironment">2</value>
-    <value type="bool" key="CMake.Configure.ClearSystemEnvironment">false</value>
-    <valuelist type="QVariantList" key="CMake.Configure.UserEnvironmentChanges"/>
-    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_BUILD_TYPE:STRING=Release
--DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}
--DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}
--DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
--DCMAKE_C_COMPILER:FILEPATH=%{Compiler:Executable:C}
--DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
--DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
--DCMAKE_GENERATOR:STRING=Ninja
--DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\fashi\Downloads\PanCrack\App\tests\build\Desktop_Qt_6_9_0_MinGW_64_bit_qt_qt6-Release</value>
-    <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
-     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
-      <value type="QString" key="CMakeProjectManager.MakeStep.BuildPreset"></value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.BuildTargets">
-       <value type="QString">all</value>
-      </valuelist>
-      <value type="bool" key="CMakeProjectManager.MakeStep.ClearSystemEnvironment">false</value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.UserEnvironmentChanges"/>
-      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.MakeStep</value>
-     </valuemap>
-     <value type="qlonglong" key="ProjectExplorer.BuildStepList.StepsCount">1</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Сборка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Сборка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Build</value>
-    </valuemap>
-    <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.1">
-     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
-      <value type="QString" key="CMakeProjectManager.MakeStep.BuildPreset"></value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.BuildTargets">
-       <value type="QString">clean</value>
-      </valuelist>
-      <value type="bool" key="CMakeProjectManager.MakeStep.ClearSystemEnvironment">false</value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.UserEnvironmentChanges"/>
-      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.MakeStep</value>
-     </valuemap>
-     <value type="qlonglong" key="ProjectExplorer.BuildStepList.StepsCount">1</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Очистка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Очистка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Clean</value>
-    </valuemap>
-    <value type="int" key="ProjectExplorer.BuildConfiguration.BuildStepListCount">2</value>
-    <value type="bool" key="ProjectExplorer.BuildConfiguration.ClearSystemEnvironment">false</value>
-    <valuelist type="QVariantList" key="ProjectExplorer.BuildConfiguration.CustomParsers"/>
-    <value type="bool" key="ProjectExplorer.BuildConfiguration.ParseStandardOutput">false</value>
-    <valuelist type="QVariantList" key="ProjectExplorer.BuildConfiguration.UserEnvironmentChanges"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Выпуск</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeBuildConfiguration</value>
-   </valuemap>
-   <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.2">
-    <value type="QString" key="CMake.Build.Type">RelWithDebInfo</value>
-    <value type="int" key="CMake.Configure.BaseEnvironment">2</value>
-    <value type="bool" key="CMake.Configure.ClearSystemEnvironment">false</value>
-    <valuelist type="QVariantList" key="CMake.Configure.UserEnvironmentChanges"/>
-    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo
--DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}
--DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}
--DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
--DCMAKE_C_COMPILER:FILEPATH=%{Compiler:Executable:C}
--DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
--DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
--DCMAKE_GENERATOR:STRING=Ninja
--DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\fashi\Downloads\PanCrack\App\tests\build\Desktop_Qt_6_9_0_MinGW_64_bit_qt_qt6-RelWithDebInfo</value>
-    <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
-     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
-      <value type="QString" key="CMakeProjectManager.MakeStep.BuildPreset"></value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.BuildTargets">
-       <value type="QString">all</value>
-      </valuelist>
-      <value type="bool" key="CMakeProjectManager.MakeStep.ClearSystemEnvironment">false</value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.UserEnvironmentChanges"/>
-      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.MakeStep</value>
-     </valuemap>
-     <value type="qlonglong" key="ProjectExplorer.BuildStepList.StepsCount">1</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Сборка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Сборка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Build</value>
-    </valuemap>
-    <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.1">
-     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
-      <value type="QString" key="CMakeProjectManager.MakeStep.BuildPreset"></value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.BuildTargets">
-       <value type="QString">clean</value>
-      </valuelist>
-      <value type="bool" key="CMakeProjectManager.MakeStep.ClearSystemEnvironment">false</value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.UserEnvironmentChanges"/>
-      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.MakeStep</value>
-     </valuemap>
-     <value type="qlonglong" key="ProjectExplorer.BuildStepList.StepsCount">1</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Очистка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Очистка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Clean</value>
-    </valuemap>
-    <value type="int" key="ProjectExplorer.BuildConfiguration.BuildStepListCount">2</value>
-    <value type="bool" key="ProjectExplorer.BuildConfiguration.ClearSystemEnvironment">false</value>
-    <valuelist type="QVariantList" key="ProjectExplorer.BuildConfiguration.CustomParsers"/>
-    <value type="bool" key="ProjectExplorer.BuildConfiguration.ParseStandardOutput">false</value>
-    <valuelist type="QVariantList" key="ProjectExplorer.BuildConfiguration.UserEnvironmentChanges"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Выпуск с отладочной информацией</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeBuildConfiguration</value>
-   </valuemap>
-   <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.3">
-    <value type="QString" key="CMake.Build.Type">RelWithDebInfo</value>
-    <value type="int" key="CMake.Configure.BaseEnvironment">2</value>
-    <value type="bool" key="CMake.Configure.ClearSystemEnvironment">false</value>
-    <valuelist type="QVariantList" key="CMake.Configure.UserEnvironmentChanges"/>
-    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo
--DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}
--DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}
--DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
--DCMAKE_C_COMPILER:FILEPATH=%{Compiler:Executable:C}
--DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
--DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
--DCMAKE_GENERATOR:STRING=Ninja
--DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}</value>
-    <value type="int" key="EnableQmlDebugging">0</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\fashi\Downloads\PanCrack\App\tests\build\Desktop_Qt_6_9_0_MinGW_64_bit_qt_qt6-Profile</value>
-    <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
-     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
-      <value type="QString" key="CMakeProjectManager.MakeStep.BuildPreset"></value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.BuildTargets">
-       <value type="QString">all</value>
-      </valuelist>
-      <value type="bool" key="CMakeProjectManager.MakeStep.ClearSystemEnvironment">false</value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.UserEnvironmentChanges"/>
-      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.MakeStep</value>
-     </valuemap>
-     <value type="qlonglong" key="ProjectExplorer.BuildStepList.StepsCount">1</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Сборка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Сборка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Build</value>
-    </valuemap>
-    <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.1">
-     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
-      <value type="QString" key="CMakeProjectManager.MakeStep.BuildPreset"></value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.BuildTargets">
-       <value type="QString">clean</value>
-      </valuelist>
-      <value type="bool" key="CMakeProjectManager.MakeStep.ClearSystemEnvironment">false</value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.UserEnvironmentChanges"/>
-      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.MakeStep</value>
-     </valuemap>
-     <value type="qlonglong" key="ProjectExplorer.BuildStepList.StepsCount">1</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Очистка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Очистка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Clean</value>
-    </valuemap>
-    <value type="int" key="ProjectExplorer.BuildConfiguration.BuildStepListCount">2</value>
-    <value type="bool" key="ProjectExplorer.BuildConfiguration.ClearSystemEnvironment">false</value>
-    <valuelist type="QVariantList" key="ProjectExplorer.BuildConfiguration.CustomParsers"/>
-    <value type="bool" key="ProjectExplorer.BuildConfiguration.ParseStandardOutput">false</value>
-    <valuelist type="QVariantList" key="ProjectExplorer.BuildConfiguration.UserEnvironmentChanges"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Profile</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeBuildConfiguration</value>
-   </valuemap>
-   <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.4">
-    <value type="QString" key="CMake.Build.Type">MinSizeRel</value>
-    <value type="int" key="CMake.Configure.BaseEnvironment">2</value>
-    <value type="bool" key="CMake.Configure.ClearSystemEnvironment">false</value>
-    <valuelist type="QVariantList" key="CMake.Configure.UserEnvironmentChanges"/>
-    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_BUILD_TYPE:STRING=MinSizeRel
--DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}
--DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}
--DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
--DCMAKE_C_COMPILER:FILEPATH=%{Compiler:Executable:C}
--DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
--DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
--DCMAKE_GENERATOR:STRING=Ninja
--DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\fashi\Downloads\PanCrack\App\tests\build\Desktop_Qt_6_9_0_MinGW_64_bit_qt_qt6-MinSizeRel</value>
-    <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
-     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
-      <value type="QString" key="CMakeProjectManager.MakeStep.BuildPreset"></value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.BuildTargets">
-       <value type="QString">all</value>
-      </valuelist>
-      <value type="bool" key="CMakeProjectManager.MakeStep.ClearSystemEnvironment">false</value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.UserEnvironmentChanges"/>
-      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.MakeStep</value>
-     </valuemap>
-     <value type="qlonglong" key="ProjectExplorer.BuildStepList.StepsCount">1</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Сборка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Сборка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Build</value>
-    </valuemap>
-    <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.1">
-     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
-      <value type="QString" key="CMakeProjectManager.MakeStep.BuildPreset"></value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.BuildTargets">
-       <value type="QString">clean</value>
-      </valuelist>
-      <value type="bool" key="CMakeProjectManager.MakeStep.ClearSystemEnvironment">false</value>
-      <valuelist type="QVariantList" key="CMakeProjectManager.MakeStep.UserEnvironmentChanges"/>
-      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.MakeStep</value>
-     </valuemap>
-     <value type="qlonglong" key="ProjectExplorer.BuildStepList.StepsCount">1</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Очистка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Очистка</value>
-     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Clean</value>
-    </valuemap>
-    <value type="int" key="ProjectExplorer.BuildConfiguration.BuildStepListCount">2</value>
-    <value type="bool" key="ProjectExplorer.BuildConfiguration.ClearSystemEnvironment">false</value>
-    <valuelist type="QVariantList" key="ProjectExplorer.BuildConfiguration.CustomParsers"/>
-    <value type="bool" key="ProjectExplorer.BuildConfiguration.ParseStandardOutput">false</value>
-    <valuelist type="QVariantList" key="ProjectExplorer.BuildConfiguration.UserEnvironmentChanges"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Выпуск минимального размера</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeBuildConfiguration</value>
-   </valuemap>
-   <value type="qlonglong" key="ProjectExplorer.Target.BuildConfigurationCount">5</value>
->>>>>>> refs/remotes/origin/main
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.DeployConfiguration.0">
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <value type="qlonglong" key="ProjectExplorer.BuildStepList.StepsCount">0</value>
@@ -639,20 +214,13 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="bool" key="PE.EnvironmentAspect.PrintOnRun">false</value>
-<<<<<<< HEAD
     <value type="QString" key="PerfRecordArgsId">-e cpu-cycles --call-graph dwarf,4096 -F 250</value>
-=======
-    <value type="QString" key="PerfRecordArgsId">-e cpu-cycles --call-graph &quot;dwarf,4096&quot; -F 250</value>
->>>>>>> refs/remotes/origin/main
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Tests</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeRunConfiguration.</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">Tests</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.CustomExecutableRunConfiguration</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey"></value>
     <value type="bool" key="ProjectExplorer.RunConfiguration.Customized">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
-    <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-<<<<<<< HEAD
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/sam/C++Projects/pancrack_all/PanCrack/App/tests/build/Desktop-Debug</value>
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
@@ -672,14 +240,14 @@
     <value type="int" key="CMake.Configure.BaseEnvironment">2</value>
     <value type="bool" key="CMake.Configure.ClearSystemEnvironment">false</value>
     <valuelist type="QVariantList" key="CMake.Configure.UserEnvironmentChanges"/>
-    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
--DCMAKE_C_COMPILER:FILEPATH=%{Compiler:Executable:C}
--DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}
--DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
--DCMAKE_GENERATOR:STRING=Ninja
--DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}
--DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}
+    <value type="QString" key="CMake.Initial.Parameters">-DCMAKE_C_COMPILER:FILEPATH=%{Compiler:Executable:C}
 -DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
+-DCMAKE_GENERATOR:STRING=Ninja
+-DCMAKE_COLOR_DIAGNOSTICS:BOOL=ON
+-DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}
+-DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}
+-DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
+-DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}
 -DCMAKE_BUILD_TYPE:STRING=Debug</value>
     <value type="QString" key="CMake.Source.Directory">/home/sam/C++Projects/pancrack_all/PanCrack/App/tests</value>
     <value type="int" key="EnableQmlDebugging">0</value>
@@ -788,16 +356,13 @@
     <value type="bool" key="ProjectExplorer.RunConfiguration.Customized">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-=======
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/fashi/Downloads/PanCrack/App/tests/build/Desktop_Qt_6_9_0_MinGW_64_bit_qt_qt6-Debug</value>
->>>>>>> refs/remotes/origin/main
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
  </data>
  <data>
   <variable>ProjectExplorer.Project.TargetCount</variable>
-  <value type="qlonglong">1</value>
+  <value type="qlonglong">2</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.Updater.FileVersion</variable>
