@@ -49,8 +49,8 @@ Item {
 
         WheelHandler {
             onWheel: (event) => {
-                console.log(event.angleDelta)
-                console.log("Delta X:", event.angleDelta.x, "Delta Y:", event.angleDelta.y)
+                // console.log(event.angleDelta)
+                // console.log("Delta X:", event.angleDelta.x, "Delta Y:", event.angleDelta.y)
 
                 if (event.angleDelta.y > 0) {
                     // когда консоль движется вниз, она движется вверх, и ее координата "y" уменьшается
