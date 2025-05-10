@@ -47,7 +47,7 @@ Rectangle {
                 let ctx = canvas_graphdraw.getContext("2d");
                 ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1);
                 ctx.fillRect(0, 0, canvas_graphdraw.width, canvas_graphdraw.height);
-                ctx.requestPaint();
+                canvas_graphdraw.requestPaint();
             }
         }
     }
