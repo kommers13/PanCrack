@@ -39,19 +39,16 @@ Rectangle {
         y: 80
     }
 
-    // Rectangle {
-
-    //     id: root_graphdraw
-    //     width: 850
-    //     height: 920
-    //     x: parent.width - 86 - root_graphdraw.width
-    //     y: 80
-    //     color: "#4A6A2E"
-
-    //     Canvas {
-    //         id: canvas_graphdraw
-    //         width: parent.width
-    //         height: parent.height
-    //     }
-    // }
+    Connections {
+        target: canvas_graphdraw
+        onAvailableChanged: {
+            // заполняем соответствующей краской при создании Canvas-а
+            if (canvas_graphdraw.available) {
+                let ctx = canvas_graphdraw.getContext("2d");
+                ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1);
+                ctx.fillRect(0, 0, canvas_graphdraw.width, canvas_graphdraw.height);
+                ctx.requestPaint();
+            }
+        }
+    }
 }

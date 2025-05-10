@@ -8,8 +8,9 @@ function draw_graph(graph, canvas_gd) {
 
     // CLEANING
     // перед тем как рисовать, мы должны очистить Canvas
-    ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 0.0039);
+    ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1);
     ctx.fillRect(0, 0, canvas_gd.width, canvas_gd.height);
+
     // DRAWING
     // рисуем graph
     // ...
@@ -23,9 +24,6 @@ function draw_graph(graph, canvas_gd) {
     for (let v in graph["namevs"]) {
         console.log(v)
     }
-
-    ctx.fillStyle = Qt.rgba(1, 0, 0, 1);
-    ctx.fillRect(0, 0, canvas_gd.width, canvas_gd.height);
 
     // UPDATING
     canvas_gd.requestPaint();  // Важно для обновления
