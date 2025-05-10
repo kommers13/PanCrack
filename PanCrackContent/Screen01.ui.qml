@@ -25,18 +25,33 @@ Rectangle {
     }
 
     Rectangle {
+        width: 100
+        height: 100
+        x: parent.width - 86 - 850
+        y: 80
+    }
 
-        id: root_graphdraw
+    Canvas {
+        id: canvas_graphdraw
         width: 850
         height: 920
-        x: parent.width - 86 - root_graphdraw.width
+        x: parent.width - 86 - width
         y: 80
-        color: "#4A6A2E"
-
-        Canvas {
-            id: canvas_graphdraw
-            width: parent.width
-            height: parent.height
-        }
     }
+
+    // Rectangle {
+
+    //     id: root_graphdraw
+    //     width: 850
+    //     height: 920
+    //     x: parent.width - 86 - root_graphdraw.width
+    //     y: 80
+    //     color: "#4A6A2E"
+
+    //     Canvas {
+    //         id: canvas_graphdraw
+    //         width: parent.width
+    //         height: parent.height
+    //     }
+    // }
 }

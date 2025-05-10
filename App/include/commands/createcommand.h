@@ -30,8 +30,7 @@ public:
     // указатель на Signals, так как будет вызываться реализация функция в JS
     static string execute(const string& command,
                           const vector<string>& args,
-                          const vector<string>& opts,
-                          Signals* my_signals);
+                          const vector<string>& opts);
 };
 
 #endif // CREATECOMMAND_H

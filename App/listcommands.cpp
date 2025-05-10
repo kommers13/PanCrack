@@ -26,8 +26,11 @@ tuple<string,       // имя команды
 }
 
 // проверка существование команды
-bool list_commands::exist_command(const string& command) {
-    const string path = "cominf";
+bool list_commands::exist_file(const string& path,
+                               const string& command,
+                               const string& ext
+                               ) {
+    // const string path = "cominf";
     for (const auto& entry: fs::directory_iterator(path)) {
         if (entry.path() == (path + "\\" + command + ".json")) {
             return true;

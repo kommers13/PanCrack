@@ -28,6 +28,7 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
     # команды
     App/include/commands/clearcommand.h App/commands/clearcommand.cpp
     App/include/commands/createcommand.h App/commands/createcommand.cpp
+    App/include/commands/drawcommand.h App/commands/drawcommand.cpp
 )
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"

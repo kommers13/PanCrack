@@ -10,14 +10,23 @@ QVariantMap dataconverse::fromGraphToQVariantMap(const Graph& G) {
         for (auto p: l.second) {    // pair
             int v2 = p.first;   // номер соседней вершины (НЕ ИМЯ)
             int w = p.second;   // вес ребра
-            string name_v1 = to_string(name_vs[v1]);
-            string name_v2 = to_string(name_vs[v2]);
-            string ws = to_string(w);
-            auto qpair = QPair(name_v2.c_str(), ws.c_str());
-            qvmap[name_v1.c_str()] = QVariant::fromValue(qpair);
+            char name_v1 = name_vs[v1];
+            char name_v2 = name_vs[v2];
+            // string ws = to_string(w);
+            QVariantList qpair;
+            qpair << QString(name_v2) << w;
+            qvmap.insert(QString(name_v1), QVariant::fromValue(qpair));
         }
     }
-    return qvmap;
+
+    QVariantMap gmap;
+
+    gmap.insert("graph", QVariant::fromValue(qvmap));
+    gmap.insert("namevs", QVariant::fromValue(name_vs));
+
+    // qDebug() << qvmap;
+
+    return gmap;
 }
 
 // функция записывает объект в JSON-файл
@@ -30,6 +39,11 @@ void dataconverse::fromGraphToJSONfile(const Graph& G, const string& filename) {
     json j; // объект JSON
     auto graph = G.get_graph();
     vector<char> name_vs = G.get_vs_name();
+
+    // в файле всегда должны быть два поля: graph и namevs
+    j["graph"] = {};
+
+    j["namevs"] = {};
 
     // записываем граф в JSON-файл
     for (auto l: graph) {   // list
@@ -54,8 +68,27 @@ void dataconverse::fromGraphToJSONfile(const Graph& G, const string& filename) {
 }
 
 // функция преобразовывает JSON-файл в объект типа Graph
-// <graph_name>.json - это имя файла, в котором хранится граф
-// если эта функция выполняется, то такой файл УЖЕ ТОЧНО ЕСТЬ
+// <graph_name>.json - это имя файла, в котором хранится граф.
+// Если эта функция выполняется, то такой файл УЖЕ ТОЧНО ЕСТЬ
 Graph dataconverse::fromJSONfileToGraph(const string& graph_name) {
-    return Graph();
+    ifstream in("graphs/" + graph_name + ".json");
+    json j = json::parse(in);
+
+    Graph graph;
+
+    for (auto namev: j["namevs"]) {
+        graph.add_vertex((char)namev.get<int>());
+    }
+
+    for (auto [v1, edge]: j["graph"].items()) {
+        // three - { "n": {"m": w} }
+        for (auto [v2, w]: edge.items()) {
+            graph.add_edge(stoi(v1),
+                           stoi(v2),
+                           w);
+        }
+    }
+
+    return graph;
+
 }

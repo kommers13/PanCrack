@@ -97,8 +97,12 @@ string CommandParser::execute_command(const string& command,
         return ClearCommand::execute(command, args, opts, my_signals);
     }
     if (command == "create") {
-        // данная команда нуждается в вызове JS-функции через испускание сигнала
-        return CreateCommand::execute(command, args, opts, my_signals);
+        // данная команда НЕ нуждается в вызове JS-функции через испускание сигнала
+        return CreateCommand::execute(command, args, opts);
+    }
+    if (command == "draw") {
+        // данная команда нуждается в вызове JS-функции
+        return DrawCommand::execute(command, args, opts, my_signals);
     }
     return "I don`t know how this happened, we need to check CommandParser::execute_command";
 }
@@ -125,7 +129,7 @@ QString CommandParser::on_output_command(const QString& input) {
     }
 
     // если такой команды не существует, то сообщаем об этом
-    if (!list_commands::exist_command(command)) {
+    if (!list_commands::exist_file("cominf", command, ".json")) {
         output = "Command \"" + command + "\" doesn`t exist";
         return QString(output.c_str());
     }

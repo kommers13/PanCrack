@@ -14,6 +14,7 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E copy
         "${COMINF_SRC_DIR}/clear.json"
         "${COMINF_SRC_DIR}/create.json"
+        "${COMINF_SRC_DIR}/draw.json"
         "${COMINF_BNR_DIR}"
     COMMENT "Копирование данных команд в json-файлах"
 )

@@ -57,8 +57,7 @@ string construct(int type, const vector<string>& args) {
 
 string CreateCommand::execute(const string& command,
                               const vector<string>& args,
-                              const vector<string>& opts,
-                              Signals* my_signals) {
+                              const vector<string>& opts) {
     string output = "<br>You may input <b>create --help</b> for more information.";
     // command name
     // description
