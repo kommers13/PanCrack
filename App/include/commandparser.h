@@ -43,7 +43,7 @@ class CommandParser : public QObject
 
 
     // преобразованная команды
-    // string -
+    // string - имя команды
 
     // vector<string> - вектор опций (они всегда полные, т. е. из -h будет --help,
     // а если --help, то опция изменятся не будет)

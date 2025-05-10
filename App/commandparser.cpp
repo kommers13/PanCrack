@@ -94,6 +94,8 @@ string CommandParser::execute_command(const string& command,
     if (command == "clear") {
         // данная команда нуждается в вызове JS-функции через испускание сигнала
         return ClearCommand::execute(command, args, opts, my_signals);
+    } if (command == "prufer"){
+        return "I'm lazy, but i must create new cummand for prufer decode and code";
     }
     return "I don`t know how this happened, we need to check CommandParser::execute_command";
 }
