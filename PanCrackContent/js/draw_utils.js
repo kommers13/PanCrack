@@ -3,9 +3,13 @@
 // граф в переменной graph всегда ПРАВИЛЬНЫЙ
 // canvas_gd - объект Canvas для рисования графа
 function draw_graph(graph, canvas_gd) {
+
+    let ctx = canvas_gd.getContext("2d");
+
     // CLEANING
     // перед тем как рисовать, мы должны очистить Canvas
-    // ...
+    ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 0.0039);
+    ctx.fillRect(0, 0, canvas_gd.width, canvas_gd.height);
     // DRAWING
     // рисуем graph
     // ...
@@ -20,7 +24,6 @@ function draw_graph(graph, canvas_gd) {
         console.log(v)
     }
 
-    let ctx = canvas_gd.getContext("2d");
     ctx.fillStyle = Qt.rgba(1, 0, 0, 1);
     ctx.fillRect(0, 0, canvas_gd.width, canvas_gd.height);
 

@@ -11,6 +11,12 @@ string construct(int type, const vector<string>& args) {
 
     string output;
 
+    // если все аргументы пустые, то заканчиваем
+    if (args.size() == 0) {
+        output = "<font color=\"red\">Error:</font> no arguments";
+        return output;
+    }
+
     string name = args[0];  // нужно проверить, что такого имени еще не было, прежде чем добавлять
 
     // проверка, что такого графа еще нет
