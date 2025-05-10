@@ -13,8 +13,6 @@ std::vector<int> DFS(const Graph& g, int start_vertex);
 // Функция для проверки пользовательского обхода
 bool check_user_DFS(const Graph& g, int start_vertex, const std::vector<int>& user_traversal);
 
-std::vector<std::vector<int>> generate_all_possible_dfs(const Graph& g, int start_vertex);
-
 // Функция для генерации случайного графа
 Graph generate_random_graph(int vertices);
 

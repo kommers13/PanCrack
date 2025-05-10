@@ -36,30 +36,6 @@ std::vector<int> DFS(const Graph& g, int start_vertex) {
     return traversal;
 }
 
-bool is_valid_dfs(const Graph& g, const std::vector<int>& traversal) {
-    if (traversal.empty()) return false;
-
-    std::vector<bool> visited(g.vertex_count() + 1, false);
-    visited[traversal[0]] = true;
-
-    for (size_t i = 1; i < traversal.size(); ++i) {
-        int current = traversal[i];
-        if (current < 1 || current > g.vertex_count() || visited[current]) {
-            return false;
-        }
-
-        auto neighbors = g.get_sorted_neighbors(traversal[i-1] - 1);
-        bool is_neighbor = std::find(neighbors.begin(), neighbors.end(), current - 1) != neighbors.end();
-        if (!is_neighbor) {
-            return false;
-        }
-
-        visited[current] = true;
-    }
-
-    return true;
-}
-
 bool check_user_DFS(const Graph& g, int start_vertex, const std::vector<int>& user_traversal) {
     // Проверяем базовые условия
     if (user_traversal.empty() || user_traversal[0] != start_vertex) {
@@ -117,47 +93,6 @@ bool check_user_DFS(const Graph& g, int start_vertex, const std::vector<int>& us
 
     return correct_visited == user_visited;
 }
-
-void dfs_permutations(const Graph& g, int current, std::vector<bool>& visited,
-                      std::vector<int>& path, std::vector<std::vector<int>>& results) {
-    visited[current] = true;
-    path.push_back(current + 1); // Переводим в 1-based индекс
-
-    auto neighbors = g.get_sorted_neighbors(current);
-
-    if (neighbors.empty()) {
-        results.push_back(path);
-    } else {
-        do {
-            bool has_unvisited = false;
-            for (int neighbor : neighbors) {
-                if (!visited[neighbor]) {
-                    has_unvisited = true;
-                    dfs_permutations(g, neighbor, visited, path, results);
-                    break;
-                }
-            }
-            if (!has_unvisited) {
-                results.push_back(path);
-            }
-        } while (std::next_permutation(neighbors.begin(), neighbors.end()));
-    }
-
-    visited[current] = false;
-    path.pop_back();
-}
-
-std::vector<std::vector<int>> generate_all_possible_dfs(const Graph& g, int start_vertex) {
-    std::vector<std::vector<int>> results;
-    if (start_vertex < 1 || start_vertex > g.vertex_count()) return results;
-
-    std::vector<bool> visited(g.vertex_count(), false);
-    std::vector<int> path;
-    dfs_permutations(g, start_vertex - 1, visited, path, results);
-
-    return results;
-}
-
 
 Graph generate_random_graph(int vertices) {
     std::random_device rd;

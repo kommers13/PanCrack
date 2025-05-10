@@ -17,6 +17,11 @@ qt6_add_qml_module(PanCrack
         "EventListSimulator.qml"
         "EventListModel.qml"
         "Constants.qml"
+<<<<<<< HEAD
+=======
+        "EventListSimulator.qml"
+        "Constants.qml"
+>>>>>>> refs/remotes/origin/main
 )
 
 

@@ -4,15 +4,23 @@
 add_subdirectory(PanCrack)
 add_subdirectory(PanCrackContent)
 add_subdirectory(App)
+<<<<<<< HEAD
 #add_subdirectory(Dependencies)
+=======
+add_subdirectory(Dependencies)
+>>>>>>> refs/remotes/origin/main
 
 qt6_add_resources(${CMAKE_PROJECT_NAME} MainResource
     PREFIX "/qt/qml"
     VERSION 1.0
     FILES 
-        "App/cominf/clear.json"
+        "App/data/clear.json"
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     PanCrackplugin
+<<<<<<< HEAD
     PanCrackContentplugin)
+=======
+    PanCrackContentplugin)
+>>>>>>> refs/remotes/origin/main
