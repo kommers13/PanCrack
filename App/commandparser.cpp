@@ -104,6 +104,9 @@ string CommandParser::execute_command(const string& command,
         // данная команда нуждается в вызове JS-функции
         return DrawCommand::execute(command, args, opts, my_signals);
     }
+    if (command == "ILYA") {
+        return ILYUACommand::execute(command, args, opts);
+    }
     return "I don`t know how this happened, we need to check CommandParser::execute_command";
 }
 
@@ -137,6 +140,6 @@ QString CommandParser::on_output_command(const QString& input) {
     // запускаем команду
     output = execute_command(command, args, opts);
 
-    // функция с определенными аргументами возвращает строку в output
+    // выводим ответ
     return QString(output.c_str());
 }

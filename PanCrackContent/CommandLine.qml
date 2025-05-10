@@ -47,6 +47,39 @@ Item {
         // color: "#bb1993"
         border.width: 0
 
+        WheelHandler {
+            onWheel: (event) => {
+                console.log(event.angleDelta)
+                console.log("Delta X:", event.angleDelta.x, "Delta Y:", event.angleDelta.y)
+
+                if (event.angleDelta.y > 0) {
+                    // когда консоль движется вниз, она движется вверх, и ее координата "y" уменьшается
+                    if (column.y + 25 <= 25) {   // magic const 25 - origin y
+                        column.y += 25
+                    }
+                }
+                else if (event.angleDelta.y < 0) {
+                    // нужно запретить спускаться ниже крайнего ребенка "column"
+                    // крайним ребенком всегда будет CommandSingleLine
+                    // console.log("RCB: ", root_commandLine.y + root_commandLine.height)
+                    let gc = column.children[column.children.length - 1].mapToItem(root_commandLine, 0, 0)
+                    // console.log("LOWER CHILD BOTTOM: ", gc.y + 25)
+                    // console.log("COLUMN Y: ", column.y)
+                    // console.log("COLUMN HEIGHT: ", column.height)
+                    // console.log("COLUMN BOTTOM: ", column.y + column.height)
+                    // console.log("ROOT COMMAND LINE Y: ", root_commandLine.y)
+                    // console.log(gc.y > root_commandLine.y + root_commandLine.height)
+                    // gc.y > root_commandLine.y + root_commandLine.height
+                    if (gc.y > 0 + root_commandLine.height) {
+                        column.y -= 25
+                    }
+                }
+
+                // // Можно принять событие, чтобы оно не передавалось дальше
+                // event.accepted = true
+            }
+        }
+
         Column {
             id: column
             x: 8
@@ -153,30 +186,31 @@ Item {
                                                  })
                 }
             }
-            Keys.onPressed: (event) => {
-                if (event.key === Qt.Key_Up) {
-                    // когда консоль движется вниз, она движется вверх, и ее координата "y" уменьшается
-                    if (column.y + 25 <= 25) {   // magic const 25 - origin y
-                        column.y += 25
-                    }
-                }
-                else if (event.key === Qt.Key_Down) {
-                    // нужно запретить спускаться ниже крайнего ребенка "column"
-                    // крайним ребенком всегда будет CommandSingleLine
-                    // console.log("RCB: ", root_commandLine.y + root_commandLine.height)
-                    let gc = column.children[children.length - 1].mapToItem(root_commandLine, 0, 0)
-                    // console.log("LOWER CHILD BOTTOM: ", gc.y + 25)
-                    // console.log("COLUMN Y: ", column.y)
-                    // console.log("COLUMN HEIGHT: ", column.height)
-                    // console.log("COLUMN BOTTOM: ", column.y + column.height)
-                    // console.log("ROOT COMMAND LINE Y: ", root_commandLine.y)
-                    // console.log(gc.y > root_commandLine.y + root_commandLine.height)
-                    // gc.y > root_commandLine.y + root_commandLine.height
-                    if (gc.y > 0 + root_commandLine.height) {
-                         column.y -= 25
-                     }
-                }
-            }
+
+            // Keys.onPressed: (event) => {
+            //     if (event.key === Qt.Key_Up) {
+            //         // когда консоль движется вниз, она движется вверх, и ее координата "y" уменьшается
+            //         if (column.y + 25 <= 25) {   // magic const 25 - origin y
+            //             column.y += 25
+            //         }
+            //     }
+            //     else if (event.key === Qt.Key_Down) {
+            //         // нужно запретить спускаться ниже крайнего ребенка "column"
+            //         // крайним ребенком всегда будет CommandSingleLine
+            //         // console.log("RCB: ", root_commandLine.y + root_commandLine.height)
+            //         let gc = column.children[children.length - 1].mapToItem(root_commandLine, 0, 0)
+            //         // console.log("LOWER CHILD BOTTOM KEYS: ", gc.y + 25)
+            //         // console.log("COLUMN Y: ", column.y)
+            //         // console.log("COLUMN HEIGHT: ", column.height)
+            //         // console.log("COLUMN BOTTOM: ", column.y + column.height)
+            //         // console.log("ROOT COMMAND LINE Y: ", root_commandLine.y)
+            //         // console.log(gc.y > root_commandLine.y + root_commandLine.height)
+            //         // gc.y > root_commandLine.y + root_commandLine.height
+            //         if (gc.y > 0 + root_commandLine.height) {
+            //              column.y -= 25
+            //         }
+            //     }
+            // }
 
             CommandSingleLine {
                 id: commandSingleLine
