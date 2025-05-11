@@ -60,7 +60,7 @@ string task12::coloring(Graph& g){
         }
     }
     for(auto& el : color){
-        ans += colors[el];
+        ans += to_string(el);
         ans += " ";
     }
 
