@@ -25,6 +25,12 @@ function draw_graph(graph, canvas_gd) {
         console.log(v)
     }
 
+    ctx.strokeStyle = 'green';        // set the color for the circle to 'green'
+    ctx.lineWidth = 5.0;              // set the lineWidth for the circle to 5.0
+    // ctx.beginPath();                  // start a new path
+    ctx.arc (100,100,80,0,2*Math.PI); // a circle with center point (100,100) and radius 80
+    ctx.stroke();                     // draw the path; in this case only the circle
+
     // UPDATING
     canvas_gd.requestPaint();  // Важно для обновления
 }

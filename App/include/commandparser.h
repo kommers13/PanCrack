@@ -19,7 +19,7 @@
 #include "commands/createcommand.h"
 #include "commands/drawcommand.h"
 #include "commands/showcommand.h"
-
+#include "commands/viewcommand.h"
 
 
 using namespace std;

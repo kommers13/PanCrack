@@ -1,5 +1,4 @@
 #include "../include/commands/showcommand.h"
-#include "App/include/listcommands.h"
 
 
 string get_list_of_graphs(const string& path) {

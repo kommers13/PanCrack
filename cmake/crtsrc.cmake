@@ -16,6 +16,7 @@ add_custom_command(
         "${COMINF_SRC_DIR}/create.json"
         "${COMINF_SRC_DIR}/draw.json"
         "${COMINF_SRC_DIR}/show.json"
+        "${COMINF_SRC_DIR}/view.json"
         "${COMINF_BNR_DIR}/"
     COMMENT "Копирование данных команд в json-файлах"
 )

@@ -1,0 +1,8 @@
+{
+  "name": "view",
+  "description": "view -h => description;\nview -d GRAPH_NAME VERTEX_NAME => degree of vertex VERTEX_NAME in graph GRAPH_NAME;\nview -c GRAPH_NAME => amount connected components in graph GRAPH_NAME;\nview -d -a GRAPH_NAME => all vertex and its degree in graph GRAPH_NAME",
+  "options": [ {"-h": "--help"},
+               {"-d": "--vertex-degree"},
+               {"-c": "--connected-components"},
+               {"-a": "--all"} ]
+}
