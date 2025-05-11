@@ -18,7 +18,7 @@
 #include "commands/clearcommand.h"
 #include "commands/createcommand.h"
 #include "commands/drawcommand.h"
-#include "commands/ilyuacommand.h"
+#include "commands/showcommand.h"
 
 
 
