@@ -27,15 +27,7 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
     App/include/dataconverse.h App/dataconverse.cpp
     # команды
     App/include/commands/clearcommand.h App/commands/clearcommand.cpp
-<<<<<<< HEAD
-    App/include/commands/prufercommand.h App/commands/prufercommand.cpp
-=======
     App/include/commands/createcommand.h App/commands/createcommand.cpp
-    App/include/commands/drawcommand.h App/commands/drawcommand.cpp
-    App/include/commands/showcommand.h App/commands/showcommand.cpp
-    App/include/commands/viewcommand.h App/commands/viewcommand.cpp
-
->>>>>>> origin/graphdraw
 )
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"
@@ -43,7 +35,7 @@ qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
         qtquickcontrols2.conf)
 
 # копирование json-файлов в директорию для сборки
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/crtsrc.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/cominf.cmake)
 
 include(qds)
 

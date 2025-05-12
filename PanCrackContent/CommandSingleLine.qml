@@ -24,10 +24,15 @@ TextEdit {
                                 insert(cursorPosition, " ")
                             }
                         }
+                        else if ((event.key === Qt.Key_Enter || event.key === Qt.Key_Return) &&
+                                 (event.modifiers & Qt.ShiftModifier)) {
+                            // перенос на новую строку
+                        }
                         else if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
                             accepted()
                             event.accepted = true   // prevent propagation
                         }
+
                     }
     onSelectionStartChanged: {
         let lw = "PanCrack>".length

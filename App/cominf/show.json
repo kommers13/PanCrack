@@ -1,0 +1,5 @@
+{
+  "name": "show",
+  "description": "...COMMAND SHOW description",
+  "options": [ {"-h": "--help"}, {"-a": "--all"} ]
+}

@@ -26,7 +26,7 @@ Graph generate_random_graph(int n) {
 
 std::string graph_to_string(const Graph& g) {
     std::stringstream ss;
-    int n = g.vertex_count();
+    int n = g.get_cnt_vertexes();
 
     ss << "Сгенерированный граф (" << n << " вершин):\n";
     ss << "Матрица смежности:\n";
@@ -42,9 +42,9 @@ std::string graph_to_string(const Graph& g) {
 
 std::pair<bool, std::string> check_answer(const Graph& g, int user_answer) {
     std::vector<std::vector<int>> components;
-    std::vector<bool> visited(g.vertex_count(), false);
+    std::vector<bool> visited(g.get_cnt_vertexes(), false);
 
-    for (int i = 0; i < g.vertex_count(); ++i) {
+    for (int i = 0; i < g.get_cnt_vertexes(); ++i) {
         if (!visited[i]) {
             std::vector<int> component;
             std::stack<int> s;

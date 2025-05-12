@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<< HEAD
 <!-- Written by QtDesignStudio 4.7.1, 2025-05-05T17:28:25. -->
+=======
+<!-- Written by QtDesignStudio 4.6.2, 2025-05-10T17:43:44. -->
+>>>>>>> origin/graphdraw
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>

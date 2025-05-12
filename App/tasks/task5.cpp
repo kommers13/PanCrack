@@ -8,7 +8,7 @@ namespace task5 {
 namespace {
 std::vector<int> DFS(const Graph& g, int start_vertex, std::vector<bool>& visited) {
     std::vector<int> component;
-    if (start_vertex < 0 || start_vertex >= g.vertex_count()) return component;
+    if (start_vertex < 0 || start_vertex >= g.get_cnt_vertexes()) return component;
 
     std::stack<int> stack;
     stack.push(start_vertex);
@@ -37,9 +37,9 @@ std::vector<int> DFS(const Graph& g, int start_vertex, std::vector<bool>& visite
 
 std::vector<std::vector<int>> find_connected_components(const Graph& g) {
     std::vector<std::vector<int>> components;
-    std::vector<bool> visited(g.vertex_count(), false);
+    std::vector<bool> visited(g.get_cnt_vertexes(), false);
 
-    for (int i = 0; i < g.vertex_count(); ++i) {
+    for (int i = 0; i < g.get_cnt_vertexes(); ++i) {
         if (!visited[i]) {
             std::vector<int> component = DFS(g, i, visited);
             components.push_back(component);

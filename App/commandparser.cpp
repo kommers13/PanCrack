@@ -6,7 +6,7 @@ const string pref = "PanCrack>";
 // trimming of string from left edge
 string ltrim(string s) {
     int i = 0;
-    while (s[i] == ' ' || s[i] == '\t') {
+    while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n') {
         i++;
     }
     return s.substr(i, s.size());
@@ -15,7 +15,7 @@ string ltrim(string s) {
 // trimmint of string from right edge
 string rtrim(string s) {
     int i = s.size() - 1;
-    while (s[i] == ' ' || s[i] == '\t') {
+    while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n') {
         i--;
     }
     return s.substr(0, i + 1);
@@ -56,7 +56,7 @@ tuple<string,
     for (int i = 0; i < input.size(); i++) {
         char c = input[i];
         buffer += c;
-        if (c == ' ') {
+        if (c == ' ' || c == '\n') {
             // если это первое слово
             if (is_command) {
                 not_options.push_back(trim(buffer));
@@ -66,7 +66,8 @@ tuple<string,
                 // если это опция
                 if (buffer[0] == '-'
                     &&
-                    (buffer[1] == '-' || !('0' <= buffer[1] && buffer[1] <= '9'))) {
+                    (buffer[1] == '-' || !('0' <= buffer[1] && buffer[1] <= '9'))
+                    ) {
                     options.push_back(trim(buffer));
                 }
                 else { // если НЕ ОПЦИЯ
@@ -97,6 +98,20 @@ string CommandParser::execute_command(const string& command,
     } if (command == "prufer"){
         return "I'm lazy, but i must create new cummand for prufer decode and code";
     }
+    if (command == "create") {
+        // данная команда НЕ нуждается в вызове JS-функции через испускание сигнала
+        return CreateCommand::execute(command, args, opts);
+    }
+    if (command == "draw") {
+        // данная команда нуждается в вызове JS-функции
+        return DrawCommand::execute(command, args, opts, my_signals);
+    }
+    if (command == "show") {
+        return ShowCommand::execute(command, args, opts);
+    }
+    if (command == "view") {
+        return ViewCommand::execute(command, args, opts);
+    }
     return "I don`t know how this happened, we need to check CommandParser::execute_command";
 }
 
@@ -116,12 +131,13 @@ QString CommandParser::on_output_command(const QString& input) {
     // qDebug() << "opts: " << opts;
 
     // если строка пустая, то возвращаем пустую строку
+
     if (command.size() == 0) {
         return QString();
     }
 
     // если такой команды не существует, то сообщаем об этом
-    if (!list_commands::exist_command(command)) {
+    if (!list_commands::exist_file("cominf", command, ".json")) {
         output = "Command \"" + command + "\" doesn`t exist";
         return QString(output.c_str());
     }
@@ -129,6 +145,6 @@ QString CommandParser::on_output_command(const QString& input) {
     // запускаем команду
     output = execute_command(command, args, opts);
 
-    // функция с определенными аргументами возвращает строку в output
+    // выводим ответ
     return QString(output.c_str());
 }

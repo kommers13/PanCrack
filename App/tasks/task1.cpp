@@ -7,11 +7,11 @@ namespace task1 {
 std::vector<int> DFS(const Graph& g, int start_vertex) {
 
     std::vector<int> traversal;
-    if (start_vertex < 1 || start_vertex > g.vertex_count()) {
+    if (start_vertex < 1 || start_vertex > g.get_cnt_vertexes()) {
         return traversal;
     }
 
-    std::vector<bool> visited(g.vertex_count() + 1, false); // 1-based
+    std::vector<bool> visited(g.get_cnt_vertexes() + 1, false); // 1-based
     std::stack<int> stack;
     stack.push(start_vertex);
 

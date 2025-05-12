@@ -9,9 +9,9 @@ namespace task2 {
 
 std::vector<int> DFS(const Graph& g, int start_vertex) {
     std::vector<int> traversal;
-    if (start_vertex < 1 || start_vertex > g.vertex_count()) return traversal;
+    if (start_vertex < 1 || start_vertex > g.get_cnt_vertexes()) return traversal;
 
-    std::vector<bool> visited(g.vertex_count() + 1, false);
+    std::vector<bool> visited(g.get_cnt_vertexes() + 1, false);
     std::stack<int> stack;
     stack.push(start_vertex);
 
@@ -35,6 +35,30 @@ std::vector<int> DFS(const Graph& g, int start_vertex) {
 
     return traversal;
 }
+bool is_valid_dfs(const Graph& g, const std::vector<int>& traversal) {
+    if (traversal.empty()) return false;
+
+    std::vector<bool> visited(g.get_cnt_vertexes() + 1, false);
+    visited[traversal[0]] = true;
+
+    for (size_t i = 1; i < traversal.size(); ++i) {
+        int current = traversal[i];
+        if (current < 1 || current > g.get_cnt_vertexes() || visited[current]) {
+            return false;
+        }
+
+        auto neighbors = g.get_sorted_neighbors(traversal[i-1] - 1);
+        bool is_neighbor = std::find(neighbors.begin(), neighbors.end(), current - 1) != neighbors.end();
+        if (!is_neighbor) {
+            return false;
+        }
+
+        visited[current] = true;
+    }
+
+    return true;
+}
+
 
 bool check_user_DFS(const Graph& g, int start_vertex, const std::vector<int>& user_traversal) {
     // Проверяем базовые условия
@@ -45,7 +69,7 @@ bool check_user_DFS(const Graph& g, int start_vertex, const std::vector<int>& us
     // Проверяем, что все вершины уникальны и существуют в графе
     std::unordered_set<int> visited;
     for (int v : user_traversal) {
-        if (v < 1 || v > g.vertex_count() || visited.count(v)) {
+        if (v < 1 || v > g.get_cnt_vertexes() || visited.count(v)) {
             return false;
         }
         visited.insert(v);
@@ -55,7 +79,7 @@ bool check_user_DFS(const Graph& g, int start_vertex, const std::vector<int>& us
     std::vector<int> traversal = user_traversal;
     std::reverse(traversal.begin(), traversal.end());
 
-    std::vector<bool> marked(g.vertex_count() + 1, false);
+    std::vector<bool> marked(g.get_cnt_vertexes() + 1, false);
     std::stack<int> stack;
     stack.push(start_vertex);
     marked[start_vertex] = true;
@@ -94,12 +118,53 @@ bool check_user_DFS(const Graph& g, int start_vertex, const std::vector<int>& us
     return correct_visited == user_visited;
 }
 
-Graph generate_random_graph(int vertices) {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, 1);
+void dfs_permutations(const Graph& g, int current, std::vector<bool>& visited,
+                      std::vector<int>& path, std::vector<std::vector<int>>& results) {
+    visited[current] = true;
+    path.push_back(current + 1); // Переводим в 1-based индекс
 
-    std::vector<std::vector<int>> matrix(vertices, std::vector<int>(vertices, 0));
+    auto neighbors = g.get_sorted_neighbors(current);
+
+    if (neighbors.empty()) {
+        results.push_back(path);
+    } else {
+        do {
+            bool has_unvisited = false;
+            for (int neighbor : neighbors) {
+                if (!visited[neighbor]) {
+                    has_unvisited = true;
+                    dfs_permutations(g, neighbor, visited, path, results);
+                    break;
+                }
+            }
+            if (!has_unvisited) {
+                results.push_back(path);
+            }
+        } while (std::next_permutation(neighbors.begin(), neighbors.end()));
+    }
+
+    visited[current] = false;
+    path.pop_back();
+}
+
+std::vector<std::vector<int>> generate_all_possible_dfs(const Graph& g, int start_vertex) {
+    std::vector<std::vector<int>> results;
+    if (start_vertex < 1 || start_vertex > g.get_cnt_vertexes()) return results;
+
+    std::vector<bool> visited(g.get_cnt_vertexes(), false);
+    std::vector<int> path;
+    dfs_permutations(g, start_vertex - 1, visited, path, results);
+
+    return results;
+}
+
+
+Graph generate_random_graph(int vertices) {
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> dis(0, 1);
+
+    vector<vector<int>> matrix(vertices, vector<int>(vertices, 0));
 
     // Заполняем матрицу случайными значениями
     for (int i = 0; i < vertices; ++i) {

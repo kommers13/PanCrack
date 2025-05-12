@@ -4,7 +4,7 @@
 string ClearCommand::execute(const string& command,
                              const vector<string>& args,
                              const vector<string>& opts,
-                               Signals* my_signals) {
+                             Signals* my_signals) {
     string output = "<br>You may input <b>clear --help</b> for more information.";
     // command name
     // description

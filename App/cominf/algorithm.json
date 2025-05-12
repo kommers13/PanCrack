@@ -1,0 +1,7 @@
+{
+  "name": "algorithm",
+  "description": "Возвращает обход графа",
+  "options": [ {"-h": "--help"},
+               {"-d": "--dfs"},
+               {"-b": "--bfs"} ]
+}

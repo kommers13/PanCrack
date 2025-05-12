@@ -12,6 +12,7 @@ qt6_add_qml_module(PanCrackContent
 <<<<<<< HEAD
         "CommandSingleLine.qml"
         "CommandLine.qml"
+<<<<<<< HEAD
         "Loading.qml"
         "Screen01.ui.qml"
         "GraphDraw.qml"
@@ -35,6 +36,22 @@ qt6_add_qml_module(PanCrackContent
     RESOURCES
 >>>>>>> refs/remotes/origin/main
         "img/logo.png"
+=======
+        "CommandSingleLine.qml"
+        "Loading.qml"
+        "Cursor.qml"
+        "App.qml"
+        "GraphDraw.qml"
+        "CommandSingleOutput.qml"
+        "Screen01.ui.qml"
+        "plugs/Signals.qml"
+    RESOURCES
+        "img/logo.png"
+        "img/logo1.png"
+        "ai/assets/logo1.png"
+        "js/console_utils.js"
+        "js/draw_utils.js"
+>>>>>>> origin/graphdraw
 )
 
 

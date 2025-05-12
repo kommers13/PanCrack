@@ -5,9 +5,9 @@
 void TestTask6::test_graph_generation() {
     qDebug() << "=== Тест генерации графа ===";
     Graph g = task6::generate_random_graph(5);
-    // qDebug() << "Сгенерирован граф с" << g.vertex_count() << "вершинами";
+    // qDebug() << "Сгенерирован граф с" << g.get_cnt_vertexes() << "вершинами";
     // qDebug() << "Матрица смежности:\n" << task6::graph_to_string(g).c_str();
-    QVERIFY(g.vertex_count() == 5);
+    QVERIFY(g.get_cnt_vertexes() == 5);
     qDebug() << "Тест пройден успешно\n";
 }
 

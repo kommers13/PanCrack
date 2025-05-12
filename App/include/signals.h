@@ -18,7 +18,8 @@ public:
 
 signals:
     QString output_command(const QString& input);
-    QVariantMap get_command_inf(const QString& input);
+    // сигнал для рисования графа
+    void graphDraw(const QVariantMap& graph);
     // сигналы для ВСЕХ команд
     void clearCommand();
 };

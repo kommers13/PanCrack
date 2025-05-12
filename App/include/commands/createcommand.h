@@ -1,50 +1,36 @@
-#ifndef CLEARCOMMAND_H
-#define CLEARCOMMAND_H
-
+#ifndef CREATECOMMAND_H
+#define CREATECOMMAND_H
 
 #include <QDebug>
 
 #include "../signals.h"
 #include "../listcommands.h"
+#include "../dataconverse.h"
+
+#include <graph.h>
 
 #include <string>
 #include <vector>
+#include <filesystem>
 
-// я никогда не умел нормально называть файлы и классы - я знаю
 
 using namespace std;
+namespace fs = std::filesystem;
 
 
-class ClearCommand
+class CreateCommand
 {
-
 public:
 
 
-    /*
-
-    NAME
-
-        CLEAR - clear the terminal screen
-
-    SYNOPSIS
-
-        CLEAR [-h]
-
-    DESCRIPTION
-
-        CLEAR just returns screen to original state.
-        -h, --help - option that shows this text.
-
-    */
+    // cominf/create.json
 
     // функция возвращает строку результат команды
     // в данном случае, кроме основных имени команды, аргументов и опций, нам понадобился
     // указатель на Signals, так как будет вызываться реализация функция в JS
     static string execute(const string& command,
                           const vector<string>& args,
-                          const vector<string>& opts,
-                          Signals* my_signals);
+                          const vector<string>& opts);
 };
 
-#endif // CLEARCOMMAND_H
+#endif // CREATECOMMAND_H

@@ -67,8 +67,10 @@ tuple<string,                       // имя команды
       unordered_map<string, string> // опции команды (--help (-h), --show (-s))
       > get(const string& command_name);
 
-// проверяет, существует ли такая команда
-bool exist_command(const string& command);
+// проверяет, существует ли такой файл
+bool exist_file(const string& path,
+                const string& command,
+                const string& ext);
 
 };
 

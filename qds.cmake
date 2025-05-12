@@ -10,6 +10,7 @@ add_subdirectory(App)
 add_subdirectory(Dependencies)
 >>>>>>> refs/remotes/origin/main
 
+<<<<<<< HEAD
 qt6_add_resources(${CMAKE_PROJECT_NAME} MainResource
     PREFIX "/qt/qml"
     VERSION 1.0
@@ -24,3 +25,8 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
 =======
     PanCrackContentplugin)
 >>>>>>> refs/remotes/origin/main
+=======
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
+    PanCrackContentplugin
+    PanCrackplugin)
+>>>>>>> origin/graphdraw

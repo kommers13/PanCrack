@@ -11,12 +11,12 @@ const int inf = std::numeric_limits<int>::max();
 
 std::pair<int, std::vector<int>> find_shortest_path(const Graph& g, int start, int end) {
     // Проверка на пустой граф
-    if (g.vertex_count() == 0) {
+    if (g.get_cnt_vertexes() == 0) {
         return {inf, {}};
     }
 
     // Проверка на валидность входных вершин
-    if (start < 1 || end < 1 || start > g.vertex_count() || end > g.vertex_count()) {
+    if (start < 1 || end < 1 || start > g.get_cnt_vertexes() || end > g.get_cnt_vertexes()) {
         return {inf, {}};
     }
 
@@ -27,7 +27,7 @@ std::pair<int, std::vector<int>> find_shortest_path(const Graph& g, int start, i
 
     int start_0 = start - 1;
     int end_0 = end - 1;
-    int n = g.vertex_count();
+    int n = g.get_cnt_vertexes();
     std::vector<int> dist(n, inf);
     std::vector<int> prev(n, -1);
     dist[start_0] = 0;

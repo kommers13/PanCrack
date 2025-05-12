@@ -4,6 +4,7 @@ import QtQuick.Controls
 
 // js
 import "js/console_utils.js" as ConsoleUtils
+import "js/draw_utils.js" as DrawingUtils
 
 // plugs
 // import "plugs"
@@ -17,6 +18,7 @@ Item {
 
     Signals {
         property bool isCleared: false;
+        property bool isCreated: false;
         id: signals_id
         objectName: "signals_id_"
         // этот компонент зарегистрирован из C++
@@ -25,11 +27,15 @@ Item {
         // этот компонент еще будет обрабатывать сигналы, испущенные из C++ кодом, который отвечает за команды консоли
         // здесь мы просто вызываем функции, чтобы они сделали свое дело, но не имели никаких понятий о том,
         // что нам пришлось сделать, чтобы вызвать их
+        // UNCOMMENT
         onClearCommand: {
             isCleared = true
         }
+        onGraphDraw: (graph) => {
+            // graph - QVariantMap
+            DrawingUtils.draw_graph(graph, canvas_graphdraw)
+        }
     }
-
 
     Rectangle {
         id: rect_console
@@ -40,6 +46,39 @@ Item {
         color: "#020808"
         // color: "#bb1993"
         border.width: 0
+
+        WheelHandler {
+            onWheel: (event) => {
+                // console.log(event.angleDelta)
+                // console.log("Delta X:", event.angleDelta.x, "Delta Y:", event.angleDelta.y)
+
+                if (event.angleDelta.y > 0) {
+                    // когда консоль движется вниз, она движется вверх, и ее координата "y" уменьшается
+                    if (column.y + 25 <= 25) {   // magic const 25 - origin y
+                        column.y += 25
+                    }
+                }
+                else if (event.angleDelta.y < 0) {
+                    // нужно запретить спускаться ниже крайнего ребенка "column"
+                    // крайним ребенком всегда будет CommandSingleLine
+                    // console.log("RCB: ", root_commandLine.y + root_commandLine.height)
+                    let gc = column.children[column.children.length - 1].mapToItem(root_commandLine, 0, 0)
+                    // console.log("LOWER CHILD BOTTOM: ", gc.y + 25)
+                    // console.log("COLUMN Y: ", column.y)
+                    // console.log("COLUMN HEIGHT: ", column.height)
+                    // console.log("COLUMN BOTTOM: ", column.y + column.height)
+                    // console.log("ROOT COMMAND LINE Y: ", root_commandLine.y)
+                    // console.log(gc.y > root_commandLine.y + root_commandLine.height)
+                    // gc.y > root_commandLine.y + root_commandLine.height
+                    if (gc.y > 0 + root_commandLine.height) {
+                        column.y -= 25
+                    }
+                }
+
+                // // Можно принять событие, чтобы оно не передавалось дальше
+                // event.accepted = true
+            }
+        }
 
         Column {
             id: column
@@ -69,6 +108,7 @@ Item {
                 // (command_line.text.length > 9) - УСЛОВИЕ БУДЕТ ИЗМЕНЕНО
 
                 // МЕСТО ВХОДА ВВОДА ПОЛЬЗОВАТЕЛЯ В C++ КОД
+                // UNCOMMENT
                 let answer = signals_id.output_command(command_line.text)
                 // ДАННАЯ ФУНКЦИЯ ВОЗВРАЩАЕТ ОТВЕТ КОМАНДЫ И ИСПОЛНЯЕТ ТО, ЧТО ПРОСИТ КОМАНДА
                 command_answer.text = answer
@@ -89,6 +129,7 @@ Item {
                     column.y -= (command_ans_real_bottom - column.height + 25) // 25 - magic constant is height of one command line
                 }
 
+                // UNCOMMENT
                 // CLEAR LIMPED FIX
                 // это единственное, что можно было придумать, не меняя логики программы с корнем
                 if (signals_id.isCleared) {
@@ -145,30 +186,31 @@ Item {
                                                  })
                 }
             }
-            Keys.onPressed: (event) => {
-                if (event.key === Qt.Key_Up) {
-                    // когда консоль движется вниз, она движется вверх, и ее координата "y" уменьшается
-                    if (column.y + 25 <= 25) {   // magic const 25 - origin y
-                        column.y += 25
-                    }
-                }
-                else if (event.key === Qt.Key_Down) {
-                    // нужно запретить спускаться ниже крайнего ребенка "column"
-                    // крайним ребенком всегда будет CommandSingleLine
-                    // console.log("RCB: ", root_commandLine.y + root_commandLine.height)
-                    let gc = column.children[children.length - 1].mapToItem(root_commandLine, 0, 0)
-                    // console.log("LOWER CHILD BOTTOM: ", gc.y + 25)
-                    // console.log("COLUMN Y: ", column.y)
-                    // console.log("COLUMN HEIGHT: ", column.height)
-                    // console.log("COLUMN BOTTOM: ", column.y + column.height)
-                    // console.log("ROOT COMMAND LINE Y: ", root_commandLine.y)
-                    // console.log(gc.y > root_commandLine.y + root_commandLine.height)
-                    // gc.y > root_commandLine.y + root_commandLine.height
-                    if (gc.y > 0 + root_commandLine.height) {
-                         column.y -= 25
-                     }
-                }
-            }
+
+            // Keys.onPressed: (event) => {
+            //     if (event.key === Qt.Key_Up) {
+            //         // когда консоль движется вниз, она движется вверх, и ее координата "y" уменьшается
+            //         if (column.y + 25 <= 25) {   // magic const 25 - origin y
+            //             column.y += 25
+            //         }
+            //     }
+            //     else if (event.key === Qt.Key_Down) {
+            //         // нужно запретить спускаться ниже крайнего ребенка "column"
+            //         // крайним ребенком всегда будет CommandSingleLine
+            //         // console.log("RCB: ", root_commandLine.y + root_commandLine.height)
+            //         let gc = column.children[children.length - 1].mapToItem(root_commandLine, 0, 0)
+            //         // console.log("LOWER CHILD BOTTOM KEYS: ", gc.y + 25)
+            //         // console.log("COLUMN Y: ", column.y)
+            //         // console.log("COLUMN HEIGHT: ", column.height)
+            //         // console.log("COLUMN BOTTOM: ", column.y + column.height)
+            //         // console.log("ROOT COMMAND LINE Y: ", root_commandLine.y)
+            //         // console.log(gc.y > root_commandLine.y + root_commandLine.height)
+            //         // gc.y > root_commandLine.y + root_commandLine.height
+            //         if (gc.y > 0 + root_commandLine.height) {
+            //              column.y -= 25
+            //         }
+            //     }
+            // }
 
             CommandSingleLine {
                 id: commandSingleLine
