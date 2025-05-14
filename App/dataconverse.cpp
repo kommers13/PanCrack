@@ -34,7 +34,7 @@ QVariantMap dataconverse::fromGraphToQVariantMap(const Graph& G) {
 // эта функция выполняется тогда, когда файла с таким именем точно НЕТ
 void dataconverse::fromGraphToJSONfile(const Graph& G, const string& filename) {
     const string path = "graphs";
-    ofstream out(path + "\\" + filename + ".json");
+    ofstream out(path + "/" + filename + ".json");
 
     json j; // объект JSON
     auto graph = G.get_graph();

@@ -303,10 +303,7 @@ void Graph::add_edge(int v1, int v2, int w) {
 
 }
 
-// в АЛГОРИТМЫ
-bool Graph::is_tree() const {
-    return 0;
-}
+
 
 // GETTERS
 int Graph::get_cnt_edges() const {

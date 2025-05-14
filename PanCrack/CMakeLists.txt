@@ -16,17 +16,8 @@ qt6_add_qml_module(PanCrack
     QML_FILES
         "EventListSimulator.qml"
         "EventListModel.qml"
-<<<<<<< HEAD
         "Constants.qml"
-<<<<<<< HEAD
-=======
-        "EventListSimulator.qml"
-        "Constants.qml"
->>>>>>> refs/remotes/origin/main
-=======
-        "EventListSimulator.qml"
-        "Constants.qml"
->>>>>>> origin/graphdraw
+
 )
 
 

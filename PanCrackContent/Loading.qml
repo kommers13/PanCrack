@@ -1,6 +1,5 @@
 import QtQuick
-import QtQuick.Controls
-import QtQuick.Controls.Windows
+import QtQuick.Controls 2.15
 import QtQuick.Timeline 1.0
 
 Rectangle {

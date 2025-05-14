@@ -1,15 +1,17 @@
-#ifndef PRUFERCOMMAND_H
-#define PRUFERCOMMAND_H
-#include "../listcommands.h"
-#include "../dataconverse.h"
-#include <task10.h>
-#include <task11.h>
-#include <graph.h>
+#ifndef ALGORITHMCOMMAND_H
+#define ALGORITHMCOMMAND_H
 #include <string>
 #include <vector>
 #include <unordered_map>
-using namespace std;
-class PruferCommand
+#include <graph.h>
+#include <task1.h>
+#include <task2.h>
+#include <task3.h>
+#include <task4.h>
+#include <task9.h>
+#include "../listcommands.h"
+#include "../dataconverse.h"
+class AlgorithmCommand
 {
 public:
     static string execute(
@@ -19,4 +21,4 @@ public:
         );
 };
 
-#endif // PRUFERCOMMAND_H
+#endif // ALGORITHMCOMMAND_H

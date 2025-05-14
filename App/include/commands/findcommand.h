@@ -1,15 +1,16 @@
-#ifndef PRUFERCOMMAND_H
-#define PRUFERCOMMAND_H
-#include "../listcommands.h"
-#include "../dataconverse.h"
-#include <task10.h>
-#include <task11.h>
-#include <graph.h>
+#ifndef FINDCOMMAND_H
+#define FINDCOMMAND_H
+
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <graph.h>
+#include <task7.h>
+#include <task8.h>
+#include "../listcommands.h"
+#include "../dataconverse.h"
 using namespace std;
-class PruferCommand
+class FindCommand
 {
 public:
     static string execute(
@@ -19,4 +20,4 @@ public:
         );
 };
 
-#endif // PRUFERCOMMAND_H
+#endif // FINDCOMMAND_H

@@ -92,11 +92,21 @@ tuple<string,
 string CommandParser::execute_command(const string& command,
                                        const vector<string>& args,
                                        const vector<string>& opts) {
+    if (command == "algorithm") {
+        return AlgorithmCommand::execute(command, args, opts);
+    }
+    if(command == "find"){
+        return FindCommand::execute(command, args, opts);
+    }
+    if(command == "check"){
+        return CheckCommand::execute(command, args, opts);
+    }
     if (command == "clear") {
         // данная команда нуждается в вызове JS-функции через испускание сигнала
         return ClearCommand::execute(command, args, opts, my_signals);
-    } if (command == "prufer"){
-        return "I'm lazy, but i must create new cummand for prufer decode and code";
+    }
+    if (command == "prufer"){
+        return PruferCommand::execute(command, args, opts);
     }
     if (command == "create") {
         // данная команда НЕ нуждается в вызове JS-функции через испускание сигнала
@@ -112,6 +122,7 @@ string CommandParser::execute_command(const string& command,
     if (command == "view") {
         return ViewCommand::execute(command, args, opts);
     }
+
     return "I don`t know how this happened, we need to check CommandParser::execute_command";
 }
 

@@ -1,0 +1,8 @@
+{
+  "name": "check",
+  "description": "опция: -connect_components (-c)(компоненты связности графа), -euler-graph (-e)(эйлеровый граф), -bipartite_graph (-b)(двудольный граф), -full_bipartite_graph (-f)(полный двудольный граф) аргумент 1: граф аргумент 2: провера введеного пользователя  (5)",
+  "options": [ {"-h": "--help"},
+               {"-c": "--connect_components"},
+               {"-e": "--euler_graph"},
+               {"-b" : "--bipartite_graph"}]
+}

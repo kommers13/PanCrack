@@ -15,7 +15,7 @@ set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
     CACHE STRING "Import paths for Qt Creator's code model"
     FORCE
 )
-
+#find_package(Qt6 REQUIRED COMPONENTS Quick QuickStudioApplication)
 find_package(Qt6 6.4.1 REQUIRED COMPONENTS Core Gui Qml Quick)
 qt_standard_project_setup()
 
@@ -27,15 +27,15 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
     App/include/dataconverse.h App/dataconverse.cpp
     # команды
     App/include/commands/clearcommand.h App/commands/clearcommand.cpp
-<<<<<<< HEAD
     App/include/commands/prufercommand.h App/commands/prufercommand.cpp
-=======
     App/include/commands/createcommand.h App/commands/createcommand.cpp
     App/include/commands/drawcommand.h App/commands/drawcommand.cpp
     App/include/commands/showcommand.h App/commands/showcommand.cpp
     App/include/commands/viewcommand.h App/commands/viewcommand.cpp
+    App/include/commands/algorithmcommand.h App/commands/algorithmcommand.cpp
+    App/include/commands/checkcommand.h App/commands/checkcommand.cpp
+    App/include/commands/findcommand.h App/commands/findcommand.cpp
 
->>>>>>> origin/graphdraw
 )
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"

@@ -1,7 +1,8 @@
 {
   "name": "algorithm",
-  "description": "Возвращает обход графа",
+  "description": "<font color=\"green\">NAME</font><br><div style=\"margin-left: 2em;\"><b>ALGORITHM</b> - graph traversal DFS or DFS algorithm</div><br><font color=\"green\">SYNOPSIS</font><br><div style=\"margin-left: 2em;\"><b>ALGORITHM</b> [-h]</div><div style=\"margin-left: 2em;\"><b>ALGORITHM</b> -d <i>graphname</i><br><b>ALGORITHM</b> -b <i>Prufer code</i></div><br><font color=\"green\">DESCRIPTION</font><br><div style=\"margin-left: 2em;\"><b>ALGORITHM</b> coding or decoding your tree graph with method Prufer code<br>Example of coding Prufer:<br><i> 1221 </i><br>Example of decoding Prufer:<br><i>0 1 1<br>1 0 0 <br> 1 0 0</i><br><font color=\"green\">COMMAND-LINE OPTIONS</font><br><div style=\"margin-left: 2em;\"><i>-h, --help</i> - option that shows this text<br><i>-c, --coding</i> - 'description'<br><i>-d, --decoding</i> - 'description'<br></div>",
   "options": [ {"-h": "--help"},
                {"-d": "--dfs"},
-               {"-b": "--bfs"} ]
+               {"-b": "--bfs"},
+               {"-s": "--shortest_path"}]
 }

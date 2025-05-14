@@ -10,10 +10,10 @@ string task3::input(const Graph g, const string s_e){
 
 string task3::BFS(const Graph &g, const int &start_edge){
     if(g.get_cnt_edges() == 0){
-        return "0";
+        return "";
     }
     if(g.get_cnt_vertexes() <= start_edge || 0 > start_edge){
-        return "ERROR: start edge out of range";
+        return "";
     }
     string bfs_ans = "";
     unordered_map<int, unordered_map<int, int>> uiuii_graph = g.get_graph();

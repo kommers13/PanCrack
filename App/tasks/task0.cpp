@@ -23,18 +23,19 @@ string task0::input(Graph g, string choice){
 
 }
 string task0::check_deg(Graph g){
-    string ans = "No, current Graph doesn't have vertexs!!!";
+    string ans = "-1";
     unordered_map<int, unordered_map<int, int>> uiuii_graph = g.get_graph();
+    vector<char> name_ver = g.get_vs_name();
     string n_ans = "";
     for(auto& [ver, _] : uiuii_graph){
-        n_ans += (to_string(g.get_v_degree(ver))+ " :" + to_string(ver) + "\n");
+        n_ans += (">rb<"+to_string(g.get_v_degree(ver))+ " =)>b/<" + name_ver[ver] + ">b<(ged");
     }
     reverse(n_ans.begin(), n_ans.end());
     ans = n_ans;
     return ans;
 }
 string task0::cnt_comp_connect(Graph g){
-    string ans = "Current Graph doesn't have component connection!!!";
+    string ans = "-1";
     std::unordered_set<int> visited;
     unordered_map<int, unordered_map<int, int>> uiuii_graph = g.get_graph();
     int components = 0;
@@ -57,12 +58,13 @@ string task0::cnt_comp_connect(Graph g){
             components++;
         }
     }
-    if(components != 0)
-        ans = "Graph has component connection " + to_string(components);
+    if(components != 0){
+        ans = to_string(components);
+    }
     return ans;
 }
 string task0::if_eulers_graph(Graph g){
-    string ans = "No, current Graph isn't Eulers graph";
+    string ans = "";
     unordered_map<int, unordered_map<int, int>> uiuii_graph = g.get_graph();
     int cnt = 0;
     for(auto& [ver, _] : uiuii_graph){
@@ -76,7 +78,7 @@ string task0::if_eulers_graph(Graph g){
     return ans;
 }
 string task0::if_bipart_graph(Graph g){
-    string ans = "No, current Graph isn't bipart graph";
+    string ans = "";
     string tt = task12::input(g);
     istringstream iss(tt);
     string word;
@@ -84,6 +86,7 @@ string task0::if_bipart_graph(Graph g){
     while (iss >> word) {
         s.insert(word);
     }
+    unordered_map<int, unordered_map<int, int>> uiuii_graph = g.get_graph();
     if(s.size() == 2) ans = "Yes, current Graph is bipart graph";
     return ans;
 }
