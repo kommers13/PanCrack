@@ -18,6 +18,8 @@ using json = nlohmann::json;
 namespace dataconverse
 {
 
+
+// DEPRECATED
 // функция преобразовывает объект типа Graph в QVariantMap
 QVariantMap fromGraphToQVariantMap(const Graph& data);
 

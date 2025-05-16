@@ -12,6 +12,8 @@
 #include "../dataconverse.h"
 #include "../listcommands.h"
 
+#include "../graphdraw.h"
+
 
 namespace fs = std::filesystem;
 using namespace std;

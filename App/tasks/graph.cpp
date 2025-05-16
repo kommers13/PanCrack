@@ -197,6 +197,9 @@ void Graph::construct_from_string_ladj(istream& in) {
             weight = stoi(token);   // выбрасывается исключение, если нельзя преобразовать к числу
             // добавляем ребро вручную, так как add_edge добавляет ребро как
             // для неориентированного графа
+            if (current_vertex == add_vertex) { // ПЕТЛЯ в графе
+                throw domain_error("Loops can`t be in unoriented graph!");
+            }
             this->graph[current_vertex][add_vertex] = weight;
         }
         // увеличиваем счетчик чисел в списке смежности

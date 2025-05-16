@@ -58,9 +58,9 @@ string DrawCommand::execute(const string& command,
 
     // если такой граф есть, то преобразуем данный граф в QVariantMap из JSON-файла
     Graph graph = dataconverse::fromJSONfileToGraph(args[0]);
-    QVariantMap graphJS = dataconverse::fromGraphToQVariantMap(graph);
+    QVariantMap graph_coords = graphdraw::draw_graph(graph, vector<int>(graph.get_cnt_vertexes(), 0));
 
-    emit my_signals->graphDraw(graphJS);
+    emit my_signals->graphDraw(graph_coords);
     output = "Graph <b>" + args[0] + "</b> has been drawn";
     return output;
 }

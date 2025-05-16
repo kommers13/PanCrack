@@ -25,6 +25,7 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
     App/include/listcommands.h App/listcommands.cpp
     App/include/json.hpp # библиотека для обработки JSON
     App/include/dataconverse.h App/dataconverse.cpp
+        App/include/graphdraw.h App/graphdraw.cpp
     # команды
     App/include/commands/clearcommand.h App/commands/clearcommand.cpp
     App/include/commands/createcommand.h App/commands/createcommand.cpp

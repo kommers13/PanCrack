@@ -32,7 +32,7 @@ bool list_commands::exist_file(const string& path,
                                ) {
     // const string path = "cominf";
     for (const auto& entry: fs::directory_iterator(path)) {
-        if (entry.path() == (path + "\\" + command + ".json")) {
+        if (entry.path() == (path + "/" + command + ".json")) {
             return true;
         }
     }
