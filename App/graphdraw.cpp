@@ -41,23 +41,10 @@ bool check_overlap(const pair<int, int>& p1,
 }
 
 
+unordered_map<char, pair<int, int>> gen_vertices_coords(const Graph& G) {
 
-QVariantMap graphdraw::draw_graph(const Graph& G, const vector<int>& v_c) {
-    QVariantMap graph_coords;   // сюда мы будем складывать остальные QVariant<Structure>
-    QVariantMap vertices;
-    QVariantList edges;
-    QVariantMap colors;
-
-    auto graph = G.get_graph();
     auto vsn = G.get_vs_name();
-
-
-    // перенесем цвета из v_c в colors
-    for (auto v1_neighbours: graph) {
-        int v1 = v1_neighbours.first;
-        colors.insert(QString(vsn[v1]), QVariant::fromValue(v_c[v1]));
-    }
-
+    auto graph = G.get_graph();
 
     // определим позиции вершин
     unordered_map<char, pair<int, int>> vertices_coords;    // имя вершины, пара координат
@@ -90,8 +77,8 @@ QVariantMap graphdraw::draw_graph(const Graph& G, const vector<int>& v_c) {
                     if (cx != c1x || cy != c1y) { // когда вершины разные, тогда только можно строить прямую
                         // если пересечение есть
                         if (!check_overlap(make_pair(cx, cy),
-                                          make_pair(c1x, c1y),
-                                          make_pair(x, y))
+                                           make_pair(c1x, c1y),
+                                           make_pair(x, y))
                             ) {
                             isExit = true;  // выходим из внешнего цикла и начинаем все по новой
                             break;
@@ -122,6 +109,29 @@ QVariantMap graphdraw::draw_graph(const Graph& G, const vector<int>& v_c) {
             }
         }
     }
+    return vertices_coords;
+}
+
+
+
+QVariantMap graphdraw::draw_graph(const Graph& G, const vector<int>& v_c) {
+    QVariantMap graph_coords;   // сюда мы будем складывать остальные QVariant<Structure>
+    QVariantMap vertices;
+    QVariantList edges;
+    QVariantMap colors;
+
+    auto graph = G.get_graph();
+    auto vsn = G.get_vs_name();
+
+
+    // перенесем цвета из v_c в colors
+    for (auto v1_neighbours: graph) {
+        int v1 = v1_neighbours.first;
+        colors.insert(QString(vsn[v1]), QVariant::fromValue(v_c[v1]));
+    }
+
+    // определим позицию вершин
+    unordered_map<char, pair<int, int>> vertices_coords = gen_vertices_coords(G);
     // перенесем данные из vertices_coords в vertices
     for (auto v_x_y: vertices_coords) {
         char v = v_x_y.first;
