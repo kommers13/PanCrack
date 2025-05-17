@@ -4,7 +4,7 @@ string task3::input(const Graph g, const string s_e){
     string ans = "";
     int start_edge = stoi(s_e);
     ans = task3::BFS(g, start_edge);
-    
+
     return ans;
 }
 
@@ -17,15 +17,18 @@ string task3::BFS(const Graph &g, const int &start_edge){
     }
     string bfs_ans = "";
     unordered_map<int, unordered_map<int, int>> uiuii_graph = g.get_graph();
-    int n = g.get_cnt_edges();
+    int n = g.get_cnt_vertexes();
     vector<bool> visited(n, false);
     queue<int> que_edges;
+    vector<char> vc = g.get_vs_name();
     que_edges.push(start_edge);
     visited[start_edge] = true;
     while(!que_edges.empty()){
         int edge = que_edges.front();
         que_edges.pop();
-        bfs_ans += to_string(edge);
+        bfs_ans += "<b>";
+        bfs_ans += vc[edge];
+        bfs_ans += "</b>";
         if(uiuii_graph.count(edge)){
             for(auto& [ed, pii] : uiuii_graph[edge]){
                 if(visited[ed] == false){

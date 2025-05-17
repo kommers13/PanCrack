@@ -34,6 +34,43 @@ string AlgorithmCommand::execute(
 
     }
     if(args.size() == 1 && opts.size() == 1){
+
+        if(opts[0] == "-s" || opts[0] == "--shortest_path"){
+            string graph_name = args[0];
+            bool exist = list_commands::exist_file("graphs", graph_name, ".json");
+            // если такой граф существует
+            if (exist) {
+                // создаем граф из JSON-файла
+                Graph G = dataconverse::fromJSONfileToGraph(graph_name);
+                string ans = task9::print_distance_matrix(task9::floyd_warshall(G));
+
+                if(ans == ""){
+                    return "Graph <b>" + graph_name + "</b> can't make matrix shortest path!!!<br>";
+                }
+                else{
+                    return ans;
+                }
+            }
+        }
+        if(opts[0] == "-t" || opts[0] == "--skeleton_tree"){
+            string graph_name = args[0];
+            bool exist = list_commands::exist_file("graphs", graph_name, ".json");
+            // если такой граф существует
+            if (exist) {
+                // создаем граф из JSON-файла
+                Graph G = dataconverse::fromJSONfileToGraph(graph_name);
+                string ans = task7::create_MST(G).get_str_graph();
+
+                if(ans == ""){
+                    return "Graph <b>" + graph_name + "</b> can't make matrix shortest path!!!<br>";
+                }
+                else{
+                    return "Ready skeleton tree:<br>" + ans;
+                }
+            }
+        }
+    }
+    if(args.size() == 2 && opts.size() == 1){
         if(opts[0] == "-d" || opts[0] == "--dfs"){
             string graph_name = args[0];
             bool exist = list_commands::exist_file("graphs", graph_name, ".json");
@@ -41,7 +78,7 @@ string AlgorithmCommand::execute(
             if (exist) {
                 // создаем граф из JSON-файла
                 Graph G = dataconverse::fromJSONfileToGraph(graph_name);
-                string ans = task1::print_DFS(G,1);
+                string ans = task1::print_DFS(G,args[1][0] - 65);
 
                 if(ans == ""){
                     return "Graph <b>" + graph_name + "</b> can't make DFS!!!<br>";
@@ -58,7 +95,7 @@ string AlgorithmCommand::execute(
             if (exist) {
                 // создаем граф из JSON-файла
                 Graph G = dataconverse::fromJSONfileToGraph(graph_name);
-                string ans = task3::input(G,"0");
+                auto ans = task3::input(G,args[1]);
 
                 if(ans == ""){
                     return "Graph <b>" + graph_name + "</b> can't make BFS!!!<br>";
@@ -68,20 +105,40 @@ string AlgorithmCommand::execute(
                 }
             }
         }
-        if(opts[0] == "-s" || opts[0] == "--shortest_path"){
+
+    }
+    if(args.size() == 3 && opts.size() == 1){
+        if(opts[0] == "-d" || opts[0] == "--dfs"){
             string graph_name = args[0];
             bool exist = list_commands::exist_file("graphs", graph_name, ".json");
             // если такой граф существует
             if (exist) {
                 // создаем граф из JSON-файла
                 Graph G = dataconverse::fromJSONfileToGraph(graph_name);
-                string ans = task9::print_distance_matrix(task9::floyd_warshall(G));
-
-                if(ans == ""){
-                    return "Graph <b>" + graph_name + "</b> can't make matrix shortest path!!!<br>";
+                char c = args[2][0];
+                string a = task2::print_DFS(G, c-64);
+                a = task4::parse(a);
+                if(a != args[1]){
+                    return "You're not right, Mr.Panteleev is very angry!!!<br>";
                 }
                 else{
-                    return ans;
+                    return "You're right, Mr.Panteleev is proud of you!<br>";
+                }
+            }
+        }
+        if(opts[0] == "-b" || opts[0] == "--bfs"){
+            string graph_name = args[0];
+            bool exist = list_commands::exist_file("graphs", graph_name, ".json");
+            // если такой граф существует
+            if (exist) {
+                // создаем граф из JSON-файла
+                Graph G = dataconverse::fromJSONfileToGraph(graph_name);
+                string ans = task4::input(args[1], args[2], G);
+                if(ans == ""){
+                    return "Graph <b>" + graph_name + "</b> can't make BFS!!!<br>";
+                }
+                else{
+                    return ans + "<br>";
                 }
             }
         }

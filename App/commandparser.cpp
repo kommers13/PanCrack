@@ -95,9 +95,6 @@ string CommandParser::execute_command(const string& command,
     if (command == "algorithm") {
         return AlgorithmCommand::execute(command, args, opts);
     }
-    if(command == "find"){
-        return FindCommand::execute(command, args, opts);
-    }
     if(command == "check"){
         return CheckCommand::execute(command, args, opts);
     }

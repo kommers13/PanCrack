@@ -19,7 +19,7 @@ qt6_add_qml_module(PanCrackContent
         "Screen01.ui.qml"
         "plugs/Signals.qml"
 
-        "/home/sam/C++Projects/pancrack_all/branches/PanCrack/PanCrack/Constants.qml"
+        # "Constants.qml"
     RESOURCES
         "img/logo.png"
         "img/logo1.png"

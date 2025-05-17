@@ -1,79 +1,85 @@
-#include "include/task4.h"
+#include <task4.h>
 using namespace std;
-// Обход в ширину - алгоритм похожий на розжиг огня то и есть волнами идёт
-string task4::BFS(const Graph &g, const int &start_edge){
-    if(g.get_cnt_edges() == 0){
+string task4::BFS(const Graph &g, const int &start_edge) {
+    vector<char> vc = g.get_vs_name();
+    // Проверка на пустой граф (лучше проверять вершины, а не рёбра)
+    if(g.get_cnt_vertexes() == 0) {
         return "0";
     }
-    if(g.get_cnt_vertexes() <= start_edge || 0 > start_edge){
+
+    // Проверка корректности стартовой вершины
+    if(start_edge < 0 || start_edge >= g.get_cnt_vertexes()) {
         return "ERROR: start edge out of range";
     }
-    string bfs_ans = "";
-    unordered_map<int, unordered_map<int, int>> uiuii_graph = g.get_graph();
-    int n = g.get_cnt_edges();
-    vector<bool> visited(n, false);
+
+    string bfs_ans;
+    const auto& graph = g.get_graph(); // избегаем копирования
+    vector<bool> visited(g.get_cnt_vertexes(), false);
     queue<int> que_edges;
+
     que_edges.push(start_edge);
     visited[start_edge] = true;
-    while(!que_edges.empty()){
+
+    while(!que_edges.empty()) {
         int edge = que_edges.front();
         que_edges.pop();
-        bfs_ans += to_string(edge);
-        if(uiuii_graph.count(edge)){
-            for(auto& [ed, pii] : uiuii_graph[edge]){
-                if(visited[ed] == false){
+
+        // Добавляем разделитель, если строка не пустая
+        if(!bfs_ans.empty()) {
+            bfs_ans += ","; // используем запятую как разделитель
+        }
+        bfs_ans += vc[edge];
+
+        // Проверка наличия вершины в графе
+        auto it = graph.find(edge);
+        if(it != graph.end()) {
+            for(const auto& [ed, pii] : it->second) {
+                if(!visited[ed]) {
                     que_edges.push(ed);
                     visited[ed] = true;
                 }
             }
         }
-        if(que_edges.size() != 0){
-            bfs_ans += "->";
-        }
     }
-    //cout << bfs_ans;
+
     return bfs_ans;
 }
-// парсинг ответов - чтобы лишние пробелы у пользователя не помешали решению программы
-string task4::parse(string& s){
-    string s_parse = "";
-    for(char& c : s){
-        if(c == ' ') s_parse += c;
-        else if(c < '0' && c > '9' || c != '-' || c != '>')
-            return "Error input, input must be: 'start vertex -> vertex -> ... -> end vertex'";
-    }
-    return s_parse;
-}
-// метод для создания рандомного графа - надо вынести в граф
-Graph task4::rand(int vers){
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, 1);
-    std::vector<std::vector<int>> matrix(vers, std::vector<int>(vers, 0));
-    // Заполняем матрицу случайными значениями
-    for (int i = 0; i < vers; ++i) {
-        for (int j = i + 1; j < vers; ++j) {
-            matrix[i][j] = matrix[j][i] = dis(gen);
+
+string task4::parse(string& s) {
+    string s_parse;
+    s_parse.reserve(s.length());
+
+    for(char c : s) {
+        // Разрешаем цифры и запятые
+        if((c >= 'A' && c <= 'Z')) {
+            s_parse += c;
         }
     }
-    // Гарантируем связность графа
-    for (int i = 1; i < vers; ++i) {
-        matrix[i-1][i] = matrix[i][i-1] = 1;
+
+    // Удаляем возможные лишние запятые в начале/конце
+    if(!s_parse.empty() && s_parse.front() == ',') {
+        s_parse.erase(0, 1);
+    }
+    if(!s_parse.empty() && s_parse.back() == ',') {
+        s_parse.pop_back();
     }
 
-    return Graph(matrix);
-
+    return s_parse;
 }
-bool task4::input(string user_input, string start_edge, Graph rand_g) {
-    string as = "You're not right, Mr.Panteleev's very angry!!!";
-    bool flag = false;
-    string ans = task4::BFS(rand_g, stoi(start_edge));
+
+string task4::input(string user_input, string start_edge, Graph g) {
+    // Безопасное преобразование строки в число
+    int start = char(start_edge[0]) - 65;
+
+    // Проверка на некорректный ввод (atoi вернет 0 для нечисловых строк)
+
+    string ans = BFS(g, start);
+
+    // Парсим ввод и результат
     user_input = parse(user_input);
     ans = parse(ans);
-    if(ans == user_input){
-        flag = true;
-        as = "You're right, Mr.Panteleev proud for you!";
-    }
-    //cout <<'\n'<<as << "\n\n";
-    return flag;
+    // Сравниваем результаты
+    return (ans == user_input)
+               ? "You're right, Mr.Panteleev is proud of you!"
+               : "You're not right, Mr.Panteleev is very angry!!!";
 }

@@ -9,7 +9,7 @@ namespace task2 {
 
 // Функция для выполнения обхода в глубину и возврата порядка посещения вершин
 std::vector<int> DFS(const Graph& g, int start_vertex);
-
+std::string print_DFS(const Graph& g, int start_vertex);
 // Функция для проверки пользовательского обхода
 bool check_user_DFS(const Graph& g, int start_vertex, const std::vector<int>& user_traversal);
 

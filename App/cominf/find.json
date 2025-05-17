@@ -1,7 +1,0 @@
-{
-  "name": "find",
-  "description": "возвращает кратчайшие пути до вершин или остовное дерево минимальное",
-  "options": [ {"-h": "--help"},
-               {"-p": "--shortest_paths"},
-               {"-t": "--skeleton_tree"} ]
-}

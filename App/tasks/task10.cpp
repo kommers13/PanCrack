@@ -56,5 +56,5 @@ string task10::coding(Graph g) {
         ans.pop_back();
     }
 
-    return ans.empty() ? "0" : ans;
+    return ans += "0";
 }

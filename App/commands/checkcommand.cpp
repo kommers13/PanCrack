@@ -38,10 +38,10 @@ string CheckCommand::execute(const string& command,
                 Graph G = dataconverse::fromJSONfileToGraph(graph_name);
                 string ans = task5::print_connected_components(G);
                 if(ans == ""){
-                    return "Graph <b>" + graph_name + "</b> doesn't have connection components!!!<br>";
+                    return "Graph <b>" + graph_name + "</b> doesn't have connection components!!! <br>";
                 }
                 else{
-                    return ans + "<br>";
+                    return ans + " <br>";
                 }
             }
         }
@@ -54,7 +54,7 @@ string CheckCommand::execute(const string& command,
                 Graph G = dataconverse::fromJSONfileToGraph(graph_name);
                 string ans = task0::if_eulers_graph(G);
                 if(ans == ""){
-                    return "Graph <b>" + graph_name + "</b> isn't Eulers!!!<br>";
+                    return "Graph <b>" + graph_name + "</b> isn't Eulers!!! <br>";
                 }
                 else{
                     return ans + "<br>";
@@ -79,7 +79,25 @@ string CheckCommand::execute(const string& command,
         }
     }
     if (args.size() == 2 && opts.size() == 1){
-
+        if(opts[0] == "-c" || opts[0] == "--connect_components"){
+            string graph_name = args[0];
+            bool exist = list_commands::exist_file("graphs", graph_name, ".json");
+            // если такой граф существует
+            if (exist) {
+                // создаем граф из JSON-файла
+                Graph G = dataconverse::fromJSONfileToGraph(graph_name);
+                stringstream ss(args[1]);
+                int c;
+                ss >> c;
+                pair<bool,string> ans = task6::check_answer(G, c);
+                if(ans.first){
+                    return "You're right!!! <br>";
+                }
+                else{
+                    return "You're not right! <br>";
+                }
+            }
+        }
     }
     return "Usage of command <b>check</b> is incorrect." + output;
 }

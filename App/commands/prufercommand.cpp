@@ -46,7 +46,13 @@ string PruferCommand::execute(const string& command,
         }
         // prufer -d code
         if(opts[0] == "-d" || opts[0] == "--decoding"){
-
+            string points = to_string(args[0].size() + 1);
+            Graph g = task11::input(args[0], points);
+            string ans = to_string(g.get_cnt_edges());
+            if(ans == "0"){
+                return "This code isn't code prufer<br>";
+            }
+            return "This tree for Prufer's code:<br>" + ans + "<br>" ;
         }
     }
 
