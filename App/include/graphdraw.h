@@ -22,6 +22,11 @@ const int HEIGHT = RHEIGHT - MARGIN;
 // расстояние чуть больше, чем RADIUS (в пикселях)
 const int GAP = 2 * RADIUS;
 
+// коэффициент притяжения
+const int Ka = 2;
+// коэффициент отталкивания
+const int Kr = 1;
+
 /*
 Данная функция создает QVariantMap, на основе которого JS-функция нарисует граф на Canvas
 Пример:

@@ -2,14 +2,26 @@
 
 using namespace graphdraw;
 
-
-pair<int, int> tovec(const pair<int, int>& p1,
-                     const pair<int, int>& p2) {
+template<typename T>
+pair<T, T> tovec(const pair<T, T>& p1,
+                 const pair<T, T>& p2) {
     return make_pair(p2.first - p1.first, p2.second - p1.second);
 }
 
-long long int len_sq(const pair<int, int>& v) {
-    return v.first * v.first + v.second * v.second;
+template<typename T>
+double len(const pair<T, T>& v) {
+    return sqrt(v.first * v.first + v.second * v.second);
+}
+
+template<typename T>
+pair<T, T> add(const pair<T, T>& v1,
+               const pair<T, T>& v2) {
+    return make_pair(v1.first + v2.first, v1.second + v2.second);
+}
+
+template<typename T>
+pair<T, T> negative(const pair<T, T>& v) {
+    return make_pair(-v.first, -v.second);
 }
 
 long long int vprod(const pair<int, int>& v1,
@@ -36,9 +48,78 @@ bool check_overlap(const pair<int, int>& p1,
     // вычисляем векторное произведение v и v0
     long long int prod = vprod(v, v0);
     prod *= prod;   // делаем квадрат
-    qDebug() << "len_sq(v) " << len_sq(v);
-    qDebug() << ( ( prod / len_sq(v) ) >= ( (RADIUS + GAP) * (RADIUS + GAP) ) );
-    return ( prod / len_sq(v) ) >= ( (RADIUS + GAP) * (RADIUS + GAP) );
+    qDebug() << "len(v) " << len(v);
+    qDebug() << ( ( prod / len(v) ) >= ( (RADIUS + GAP) * (RADIUS + GAP) ) );
+    return ( prod / len(v) ) >= ( (RADIUS + GAP) * (RADIUS + GAP) );
+}
+
+
+// сила отталкивания
+double f_rep(const double& d) {
+    return Kr / (d * d);
+}
+
+// сила притяжения
+double f_attr(const double& d) {
+    return Ka * log2(d);
+}
+
+/*
+Суть алгоритма: задается начальная позиция вершин и сам граф. Одна итерация алгоритма - это вычисление
+для каждой вершины результирующей силы, действующей на нее со стороны других вершин. В этом алгоритме ребра
+представляются пружинами, которые могут сжиматься и разжиматься, а вершины - заряженными частицами.
+По расстоянию между вершинами мы можем узнать силу отталкивания, а если между ними еще есть и ребро, то
+сможем узнать еще и силу притяжения для пружины (силу сжатия). Сложив все эти вектора сил, действующие на вершину,
+мы узнаем результирующий вектор силы, на который и нужно сдвинуть эту вершину, помноженный на коэффициент
+температуры.
+
+*/
+// одна итерация выполнения алгоритма
+unordered_map<char, pair<double, double>> Eades_algorithm(const Graph& G,     // граф
+                                                    const unordered_map<char, pair<double, double>> vertices_coords,  // координаты вершин
+                                                    const double& temp      // температура
+                                                    ) {
+    // нужно помнить, чтобы вершины не вышли за пределы Canvas-а
+    auto graph = G.get_graph();
+
+    // проходимся по каждой вершине, и вычисляем силу
+    for (auto v_x_y: vertices_coords) {
+        char v = v_x_y.first;
+        double x = v_x_y.second.first;
+        double y = v_x_y.second.second;
+
+        pair<double, double> F_vec = make_pair(0, 0);       // Общая воздействующая сила
+
+        // проходимся по всем остальным
+        for (auto v1_x1_y1: vertices_coords) {
+            char v1 = v1_x1_y1.first;
+            double x1 = v1_x1_y1.second.first;
+            double y1 = v1_x1_y1.second.second;
+
+            // если вершины равны, то пропускаем итерацию
+            if (v1 == v) {
+                continue;
+            }
+
+            // узнаем расстояние между точками
+            pair<double, double> vec_spring = tovec(make_pair(x, y), make_pair(x1, y1));
+            double dist = len(vec_spring);
+
+            // узнаем, есть ли пружина между вершинами
+            // если есть
+            if (graph[v].find(v1) != graph[v].end()) {
+                double F_spring = f_attr(dist);     // скалярная сила пружины
+                // вычислим координаты вектора силы пружины
+                double k = dist / F_spring;         // узнаем коэффициент пропорциональность
+                pair<int, int> vec_attr = make_pair(x / k, y / k);  // узнаем вектор силы пружины
+                F_vec = add<double>(F_vec, vec_attr);
+            }
+
+            // независимо от наличия пружины прибавляем вектор силы отталкивания
+            double F_rep = f_rep(dist);     // скалярная сила отталкивания
+            // вычисляем координаты
+        }
+    }
 }
 
 
@@ -49,86 +130,20 @@ unordered_map<char, pair<int, int>> gen_vertices_coords(const Graph& G) {
 
 
     // определим позиции вершин
-    unordered_map<char, pair<int, int>> vertices_coords;    // имя вершины, пара координат
+    // температура
+    double temp = 20;
+    // выставляем начальные условия
+    unordered_map<char, pair<int, int>> vertices_coords; // имя вершины, пара координат
+
+    // выставим вершины случайно внутри области меньшей, чем Canvas
     for (auto v1_neighbours: graph) {
-        char v1 = vsn[v1_neighbours.first];                 // имя очередной добавляемой вершины
-        int x = rand() % (WIDTH - MARGIN + 1) + MARGIN;     // генерация случайной координаты по оси абсцисс
-        int y = rand() % (HEIGHT - MARGIN + 1) + MARGIN;    // генерации случайной координаты по оси ординат
-        qDebug() << "x, y: " << x << ' ' << y;
-        int attempts = 10;
-        bool isExit = false;    // на выход из внешнего цикла [for (auto cv_cx_cy: vertices_coords)]
-        while (attempts-->0) {
-
-            // qDebug() << "CHOICE";
-            // строим прямые от добавляемой вершины ко всем остальным
-            // когда построили прямую, то мы должны проверить, что все оставшиеся вершины,
-            // которые не задействованы в прямой, должны находится от нее на определенном расстоянии
-
-            // перебираем все вершины, с которыми будет построена прямая из точки (x, y)
-            for (auto cv_cx_cy: vertices_coords) {
-                // char cv = cv_cx_cy.first;
-                int cx = cv_cx_cy.second.first;
-                int cy = cv_cx_cy.second.second;
-
-                // проверяем оставшиеся вершины, чтобы они находились на нужном расстоянии
-                // от этой вершины
-                for (auto c1v_c1x_c1y: vertices_coords) {
-                    // char c1v = c1v_c1x_c1y.first;
-                    int c1x = c1v_c1x_c1y.second.first;
-                    int c1y = c1v_c1x_c1y.second.second;
-
-                    // // если такая прямая уже строилась, то пропускаем эту итерацию
-                    // if (checked_vertices[cv][c1v] || checked_vertices[c1v][cv]) {
-                    //     continue;
-                    // }
-
-                    if (cx != c1x || cy != c1y) { // когда вершины разные, тогда только можно строить прямую
-                        // если пересечение есть
-                        if (!check_overlap(make_pair(x, y),
-                                           make_pair(cx, cy),
-                                           make_pair(c1x, c1y)
-                                           )
-                            ) {
-                            isExit = true;  // выходим из внешнего цикла и начинаем все по новой
-                            break;
-                        }
-                        // checked_vertices[cv][c1v] = true;
-                        // checked_vertices[c1v][cv] = true;
-                        // если она не прошла, то нужно по новому задать координаты вставляемой вершины
-                        // координаты x и y
-                        // иначе, добавить вершину с ее координатами и перейти к следующей вершине
-                    }
-                }
-                if (isExit) {
-                    // выходим из внешнего цикла, но уже с новыми координатами
-                    x = rand() % (WIDTH - MARGIN + 1) + MARGIN;     // генерация случайной координаты по оси абсцисс
-                    y = rand() % (HEIGHT - MARGIN + 1) + MARGIN;    // генерации случайной координаты по оси ординат
-                    // qDebug() << "x, y: " << x << ' ' << y;
-                    // checked_vertices = {};
-                    break;
-                }
-            }
-
-            // СЕЙЧАС МЫ ДЕЙСТВУЕМ НА УДАЧУ, ПОТОМУ ЧТО ВТОРАЯ ВЕРШИНА БУДЕТ ДОБАВЛЯТЬСЯ КАК ПОПАЛО
-            // мы ни разу не захотели выйти из цикла for, т. е. не было пересечений
-            if (!isExit) {
-                // поэтому добавляем вершину с ее координатами и выходим из цикла while
-                vertices_coords[v1] = make_pair(x, y);
-                // qDebug() << "COORDS and vertex: " << v1 << ' ' << x << " " << y;
-                // qDebug() << "END CHOICE";
-                break;
-            }
-            else {  // если мы вышли из цикла (т. е. пересечение было),
-                    // то должны обновить isExit обратно на false
-                isExit = false;
-            }
-        }
-        // если не получилось, то запихиваем как есть
-        if (attempts == -1) {
-            qDebug() << "WTF";
-            vertices_coords[v1] = make_pair(x, y);
-        }
+        char v1 = vsn[v1_neighbours.first];
+        int x = rand() % (WIDTH - 4 * MARGIN + 1) + 4 * MARGIN;
+        int y = rand() % (HEIGHT - 4 * MARGIN + 1) + 4 * MARGIN;
+        vertices_coords[v1] = make_pair(x, y);
     }
+
+
     return vertices_coords;
 }
 
