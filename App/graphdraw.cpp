@@ -13,6 +13,14 @@ double len(const pair<T, T>& v) {
     return sqrt(v.first * v.first + v.second * v.second);
 }
 
+// единичный вектор по двум точкам
+template<typename T>
+pair<T, T> tosvec(const pair<T, T>& p1,
+                  const pair<T, T>& p2) {
+    pair<T, T> vec = tovec<T>(p1, p2);
+    return make_pair((p2.first - p1.first) / len<T>(vec), (p2.second - p1.second) / len<T>(vec));
+}
+
 template<typename T>
 pair<T, T> add(const pair<T, T>& v1,
                const pair<T, T>& v2) {
@@ -20,8 +28,14 @@ pair<T, T> add(const pair<T, T>& v1,
 }
 
 template<typename T>
+pair<T, T> multiply(const T& c,
+                    const pair<T, T>& v) {
+    return make_pair(c * v.first, c * v.second);
+}
+
+template<typename T>
 pair<T, T> negative(const pair<T, T>& v) {
-    return make_pair(-v.first, -v.second);
+    return multiply<T>(-1, v);
 }
 
 long long int vprod(const pair<int, int>& v1,
@@ -75,16 +89,21 @@ double f_attr(const double& d) {
 
 */
 // одна итерация выполнения алгоритма
-unordered_map<char, pair<double, double>> Eades_algorithm(const Graph& G,     // граф
-                                                    const unordered_map<char, pair<double, double>> vertices_coords,  // координаты вершин
+unordered_map<int, pair<double, double>> Eades_algorithm(
+                                                    const Graph& G,     // граф
+                                                    unordered_map<int, pair<double, double>> vertices_coords,  // координаты вершин
                                                     const double& temp      // температура
                                                     ) {
+
+
+    // НЕ ЗАБУДЬ, ЧТО ТЫ ЗАБЫЛ УЧЕСТЬ, ЧТО ТВОИ ВЕРШИНЫ МОГУТ ВЫЙТИ ЗА ПРЕДЕЛЫ CANVAS-А
+
     // нужно помнить, чтобы вершины не вышли за пределы Canvas-а
     auto graph = G.get_graph();
 
     // проходимся по каждой вершине, и вычисляем силу
     for (auto v_x_y: vertices_coords) {
-        char v = v_x_y.first;
+        int v = v_x_y.first;
         double x = v_x_y.second.first;
         double y = v_x_y.second.second;
 
@@ -92,7 +111,7 @@ unordered_map<char, pair<double, double>> Eades_algorithm(const Graph& G,     //
 
         // проходимся по всем остальным
         for (auto v1_x1_y1: vertices_coords) {
-            char v1 = v1_x1_y1.first;
+            int v1 = v1_x1_y1.first;
             double x1 = v1_x1_y1.second.first;
             double y1 = v1_x1_y1.second.second;
 
@@ -102,47 +121,80 @@ unordered_map<char, pair<double, double>> Eades_algorithm(const Graph& G,     //
             }
 
             // узнаем расстояние между точками
-            pair<double, double> vec_spring = tovec(make_pair(x, y), make_pair(x1, y1));
+            pair<double, double> vec_spring = tovec<double>(make_pair(x, y), make_pair(x1, y1));
             double dist = len(vec_spring);
+            qDebug() << "========================================";
+            qDebug() << "v, v1: " << v << ' ' << v1;
+            qDebug() << "dist(v, v1): " << dist;
 
             // узнаем, есть ли пружина между вершинами
             // если есть
             if (graph[v].find(v1) != graph[v].end()) {
                 double F_spring = f_attr(dist);     // скалярная сила пружины
-                // вычислим координаты вектора силы пружины
+                qDebug() << "F_spring: " << F_spring;
+                // вычисляем координаты вектора силы пружины
                 double k = dist / F_spring;         // узнаем коэффициент пропорциональность
-                pair<int, int> vec_attr = make_pair(x / k, y / k);  // узнаем вектор силы пружины
+                qDebug() << "k spring: " << k;
+                pair<double, double> vec_attr = make_pair(x / k, y / k);  // узнаем вектор силы пружины
+                qDebug() << "vec_attr(v, v1): " << vec_attr;
                 F_vec = add<double>(F_vec, vec_attr);
             }
 
             // независимо от наличия пружины прибавляем вектор силы отталкивания
             double F_rep = f_rep(dist);     // скалярная сила отталкивания
+            qDebug() << "F_rep: " << F_rep;
             // вычисляем координаты
+            double k = dist / F_rep;        // коэффициент пропорциональности
+            qDebug() << "k rep: " << k;
+            pair<double, double> vec_rep = make_pair(-x / k, -y / k);     // вектор отталкивания идет в противоположную сторону
+            qDebug() << "vec_rep(v, v1): " << vec_rep;
+            F_vec = add<double>(F_vec, vec_rep);
+            qDebug() << "F_vec: " << F_vec;
         }
+
+        // обновляем позицию вершины
+        // прибавляем к вектор-точке текущей вершины результирующую силу с температурой
+        pair<double, double> vec = add<double>(make_pair(x, y), multiply(temp, F_vec));     // вектор-точка текущей вершины
+        vertices_coords[v] = vec;
     }
+    return vertices_coords;
 }
 
 
-unordered_map<char, pair<int, int>> gen_vertices_coords(const Graph& G) {
+unordered_map<int, pair<double, double>> gen_vertices_coords(const Graph& G) {
 
     auto vsn = G.get_vs_name();
     auto graph = G.get_graph();
 
 
     // определим позиции вершин
-    // температура
-    double temp = 20;
     // выставляем начальные условия
-    unordered_map<char, pair<int, int>> vertices_coords; // имя вершины, пара координат
+    unordered_map<int, pair<double, double>> vertices_coords; // имя вершины, пара координат
 
     // выставим вершины случайно внутри области меньшей, чем Canvas
     for (auto v1_neighbours: graph) {
-        char v1 = vsn[v1_neighbours.first];
-        int x = rand() % (WIDTH - 4 * MARGIN + 1) + 4 * MARGIN;
-        int y = rand() % (HEIGHT - 4 * MARGIN + 1) + 4 * MARGIN;
+        int v1 = v1_neighbours.first;
+        // ТОЧКИ МОГУТ НАСЛОИТЬСЯ, ЧТО ПРИВЕДЕТ К ДЕЛЕНИЮ НА НОЛЬ
+        double x = rand() % (WIDTH - 2 * 4 * MARGIN + 1) + 4 * MARGIN;      // [4 * MARGIN; WIDTH - 4 * MARGIN] - случайное число
+        double y = rand() % (HEIGHT - 2 * 4 * MARGIN + 1) + 4 * MARGIN;
+        // qDebug() << RAND_MAX;
+        // qDebug() << x << ' ' << y;
+        // qDebug() << "WIDTH, HEIGHT, MARGIN: " << WIDTH - 4 * MARGIN << ' ' << HEIGHT - 4 * MARGIN << ' ' << 4 * MARGIN;
         vertices_coords[v1] = make_pair(x, y);
     }
 
+    // температура
+    double temp = 20;
+    // количество итераций
+    int cnt_iters = 1;
+    // шаг температуры
+    double step_temp = temp / cnt_iters;
+    while (cnt_iters-->0) {
+
+        vertices_coords = Eades_algorithm(G, vertices_coords, temp);
+
+        temp -= step_temp;
+    }
 
     return vertices_coords;
 }
@@ -167,12 +219,12 @@ QVariantMap graphdraw::draw_graph(const Graph& G, const vector<int>& v_c) {
     }
 
     // определим позицию вершин
-    unordered_map<char, pair<int, int>> vertices_coords = gen_vertices_coords(G);
+    unordered_map<int, pair<double, double>> vertices_coords = gen_vertices_coords(G);
     // перенесем данные из vertices_coords в vertices
     for (auto v_x_y: vertices_coords) {
-        char v = v_x_y.first;
-        int x = v_x_y.second.first;
-        int y = v_x_y.second.second;
+        char v = vsn[v_x_y.first];
+        double x = v_x_y.second.first;
+        double y = v_x_y.second.second;
         QVariantList coord;
         coord << x << y;
         vertices.insert(QString(v), coord);
