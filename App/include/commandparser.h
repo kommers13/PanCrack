@@ -23,6 +23,7 @@
 #include "commands/prufercommand.h"
 #include "commands/algorithmcommand.h"
 #include "commands/checkcommand.h"
+#include "commands/helpcommand.h"
 
 
 using namespace std;

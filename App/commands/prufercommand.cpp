@@ -48,7 +48,7 @@ string PruferCommand::execute(const string& command,
         if(opts[0] == "-d" || opts[0] == "--decoding"){
             string points = to_string(args[0].size() + 1);
             Graph g = task11::input(args[0], points);
-            string ans = to_string(g.get_cnt_edges());
+            string ans = g.get_str_graph();
             if(ans == "0"){
                 return "This code isn't code prufer<br>";
             }
