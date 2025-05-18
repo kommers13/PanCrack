@@ -45,7 +45,7 @@ void Graph::construct_from_string_madj(istream& in) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             in >> buffer;
-            if (buffer == "inf") {
+            if (buffer == "i") {
                 madj[i][j] = inf;
             }
             else {
@@ -85,7 +85,7 @@ void Graph::construct_from_string_incm(istream& in) {
     for (int i = 0; i < v; i++) {
         for (int j = 0; j < e; j++) {
             in >> buffer;
-            if (buffer == "inf") {
+            if (buffer == "i") {
                 incm[i][j] = inf;
             }
             else {

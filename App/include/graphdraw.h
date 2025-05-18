@@ -13,14 +13,14 @@ const int RWIDTH = 850;
 // реальная высота холста (в пикселях)
 const int RHEIGHT = 920;
 // радиус вершины (в пикселях)
-const int RADIUS = 25;
+const int RADIUS = 15;
 // отступ от краев холста (в пикселях)
 const int MARGIN = 90;
 // ширина и высота холста для наших нужд с отступами (в пикселях)
 const int WIDTH = RWIDTH - MARGIN;
 const int HEIGHT = RHEIGHT - MARGIN;
 // расстояние чуть больше, чем RADIUS (в пикселях)
-const int GAP = RADIUS / 2;
+const int GAP = 2 * RADIUS;
 
 /*
 Данная функция создает QVariantMap, на основе которого JS-функция нарисует граф на Canvas

@@ -58,7 +58,14 @@ string DrawCommand::execute(const string& command,
 
     // если такой граф есть, то преобразуем данный граф в QVariantMap из JSON-файла
     Graph graph = dataconverse::fromJSONfileToGraph(args[0]);
-    QVariantMap graph_coords = graphdraw::draw_graph(graph, vector<int>(graph.get_cnt_vertexes(), 0));
+
+    // ТЕСТОВЫЕ ЦВЕТА (чтобы не передавать однотонные)
+    vector<int> colors(graph.get_cnt_vertexes());
+    for (int i = 0; i < colors.size(); i++) {
+        colors[i] = i;
+    }
+
+    QVariantMap graph_coords = graphdraw::draw_graph(graph, colors);
 
     emit my_signals->graphDraw(graph_coords);
     output = "Graph <b>" + args[0] + "</b> has been drawn";
