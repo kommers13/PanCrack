@@ -4,8 +4,6 @@ import QtQuick.Shapes 2.15
 
 Rectangle {
 
-    property variant canvas: canvas_graphdraw
-
     id: root_graphdraw
     width: 850
     height: 920
