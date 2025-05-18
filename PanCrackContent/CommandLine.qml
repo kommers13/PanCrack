@@ -8,7 +8,7 @@ import "js/draw_utils.js" as DrawingUtils
 // plugs
 //import "plugs"
 // real
-//import signals
+import signals
 
 Item {
     id: root_commandLine
@@ -28,26 +28,26 @@ Item {
 
 
 
-    // Signals {
-     //     property bool isCleared: false;
-     //     property bool isCreated: false;
-     //     id: signals_id
-     //     objectName: "signals_id_"
-     //     // этот компонент зарегистрирован из C++
-     //     // он дает возможность испускать сигналы из C++ и ловить их в этом же классе и обрабатывать,
-     //     // но испускать сигналы из QML мы можем откуда угодно
-     //     // этот компонент еще будет обрабатывать сигналы, испущенные из C++ кодом, который отвечает за команды консоли
-     //     // здесь мы просто вызываем функции, чтобы они сделали свое дело, но не имели никаких понятий о том,
-     //     // что нам пришлось сделать, чтобы вызвать их
-     //     // UNCOMMENT
-     //     onClearCommand: {
-     //         isCleared = true
-     //     }
-     //     onGraphDraw: (graph) => {
-     //         // graph - QVariantMap
-     //         DrawingUtils.draw_graph(graph, canvas_graphdraw)
-     //     }
-     // }
+    Signals {
+         property bool isCleared: false;
+         property bool isCreated: false;
+         id: signals_id
+         objectName: "signals_id_"
+         // этот компонент зарегистрирован из C++
+         // он дает возможность испускать сигналы из C++ и ловить их в этом же классе и обрабатывать,
+         // но испускать сигналы из QML мы можем откуда угодно
+         // этот компонент еще будет обрабатывать сигналы, испущенные из C++ кодом, который отвечает за команды консоли
+         // здесь мы просто вызываем функции, чтобы они сделали свое дело, но не имели никаких понятий о том,
+         // что нам пришлось сделать, чтобы вызвать их
+         // UNCOMMENT
+         onClearCommand: {
+             isCleared = true
+         }
+         onGraphDraw: (graph) => {
+             // graph - QVariantMap
+             DrawingUtils.draw_graph(graph, canvas_graphdraw)
+         }
+    }
 
     Rectangle {
         id: rect_console
@@ -211,7 +211,7 @@ Item {
                 repeat: true
                 onTriggered: {
                     parent.opacity = Math.random() * 0.3;
-                    parent.requestPaint();
+                    // parent.requestPaint();
                 }
             }
         }
@@ -352,8 +352,8 @@ Item {
 
                 // МЕСТО ВХОДА ВВОДА ПОЛЬЗОВАТЕЛЯ В C++ КОД
                 // UNCOMMENT
-                //let answer = signals_id.output_command(command_line.text);
-                let answer = "Command executed" // Placeholder - replace with: signals_id.output_command(command_line.text)
+                let answer = signals_id.output_command(command_line.text);
+                // let answer = "Command executed" // Placeholder - replace with: signals_id.output_command(command_line.text)
                 command_answer.text = answer
 
                 let gca = command_answer.mapToItem(root_commandLine, 0, 0)
@@ -362,12 +362,12 @@ Item {
                     column.y -= (command_ans_real_bottom - column.height + 25)
                 }
                 // UNCOMMENT
-                                // CLEAR LIMPED FIX
-                                // if (signals_id.isCleared) {
-                                //     ConsoleUtils.clear(column)
-                                //     signals_id.isCleared = false
-                                // }
-                                // CLEAR LIMPED FIX END
+                // CLEAR LIMPED FIX
+                if (signals_id.isCleared) {
+                    ConsoleUtils.clear(column)
+                    signals_id.isCleared = false
+                }
+                // CLEAR LIMPED FIX END
 
 
                 column.submitInput()

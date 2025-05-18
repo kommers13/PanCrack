@@ -21,14 +21,12 @@ Window {
         height: 1080
         source: "Screen01.ui.qml"
     }
-
     Loader {
         id: loader_loading
         width: 360
         height: 180
         source: "Loading.qml"
     }
-
     StateGroup {
         id: stateGroup
         state: "LoadingState"
@@ -64,7 +62,6 @@ Window {
             }
         ]
     }
-
     Timeline {
         id: timeline
         animations: [
@@ -82,14 +79,13 @@ Window {
         enabled: false
     }
     Timer {
-        interval: 1000
-        // interval: 17000
+        // interval: 1000
+        interval: 17000
         running: true
         onTriggered: {
             stateGroup.state = "MainScreenState"
             window.showFullScreen()
         }
     }
-
 }
 
