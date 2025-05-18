@@ -19,6 +19,8 @@ qt6_add_qml_module(PanCrackContent
         "App.qml"
         "DuplicateWindow.qml"
         "plugs/Signals.qml"
+
+        # "Constants.qml"
     RESOURCES
         "img/logo1.png"
         "img/logo.png"
@@ -27,5 +29,7 @@ qt6_add_qml_module(PanCrackContent
         "js/draw_utils.js"
         "js/console_utils.js"
 )
+
+
 
 

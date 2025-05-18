@@ -4,7 +4,8 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-
+#include <graph.h>
+#include <task0.h>
 #include "../listcommands.h"
 #include "../dataconverse.h"
 

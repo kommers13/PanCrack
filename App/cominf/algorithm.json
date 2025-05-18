@@ -1,7 +1,9 @@
 {
   "name": "algorithm",
-  "description": "Возвращает обход графа",
+  "description": "<font color=\"green\">NAME</font><br><div style=\"margin-left: 2em;\"><b>ALGORITHM</b> - perform graph traversal (DFS/BFS), make skeleton and shortest path calculation</div><br><font color=\"green\">SYNOPSIS</font><br><div style=\"margin-left: 2em;\"><b>ALGORITHM</b> [-h]</div><div style=\"margin-left: 2em;\"><b>ALGORITHM</b> -d |-b <i>graphname</i> [<i>user_way</i>] <i>start_vertex</i></div><div style=\"margin-left: 2em;\"><b>ALGORITHM</b> -s | -t <i>graphname</i></div><br><font color=\"green\">DESCRIPTION</font><br><div style=\"margin-left: 2em;\"><b>ALGORITHM</b> performs graph traversals using Depth-First Search (DFS) or Breadth-First Search (BFS), and calculates shortest path matrices.<br>Example of DFS traversal:<br><i>A → B → D → C</i><br>Example of BFS traversal:<br><i>A → C → B → D</i><br>Example of shortest path matrix:<br><i>0 2 1<br>4 0 1<br>8 9 0</i></div><br><font color=\"green\">COMMAND-LINE OPTIONS</font><br><div style=\"margin-left: 2em;\"><i>-h, --help</i> - display this help text<br><i>-d, --dfs</i> - perform Depth-First Search traversal<br><i>-b, --bfs</i> - perform Breadth-First Search traversal<br><i>-s, --shortest_path</i> - calculate shortest path matrix<br><i>-t, --skeleton_tree</i> - calculate skeleton tree<br></div>",
   "options": [ {"-h": "--help"},
                {"-d": "--dfs"},
-               {"-b": "--bfs"} ]
+               {"-b": "--bfs"},
+               {"-t": "--skeleton_tree"},
+               {"-s": "--shortest_path"}]
 }

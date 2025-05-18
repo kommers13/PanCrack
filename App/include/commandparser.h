@@ -20,6 +20,10 @@
 #include "commands/drawcommand.h"
 #include "commands/showcommand.h"
 #include "commands/viewcommand.h"
+#include "commands/prufercommand.h"
+#include "commands/algorithmcommand.h"
+#include "commands/checkcommand.h"
+#include "commands/helpcommand.h"
 
 
 using namespace std;
@@ -46,7 +50,7 @@ class CommandParser : public QObject
 
 
     // преобразованная команды
-    // string -
+    // string - имя команды
 
     // vector<string> - вектор опций (они всегда полные, т. е. из -h будет --help,
     // а если --help, то опция изменятся не будет)
