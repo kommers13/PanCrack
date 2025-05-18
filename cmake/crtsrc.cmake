@@ -12,7 +12,16 @@ file(MAKE_DIRECTORY ${GRAPH_BNR_DIR})
 add_custom_target(copy_jsons ALL
     COMMAND ${CMAKE_COMMAND} -E make_directory ${COMINF_BNR_DIR}
     COMMAND ${CMAKE_COMMAND} -E copy
-        ${COMINF_SRC_DIR}/*.json
-        ${COMINF_BNR_DIR}/
+        "${COMINF_SRC_DIR}/clear.json"
+        "${COMINF_SRC_DIR}/create.json"
+        "${COMINF_SRC_DIR}/draw.json"
+        "${COMINF_SRC_DIR}/show.json"
+        "${COMINF_SRC_DIR}/view.json"
+        "${COMINF_SRC_DIR}/algorithm.json"
+        "${COMINF_SRC_DIR}/check.json"
+        "${COMINF_SRC_DIR}/help.json"
+        "${COMINF_SRC_DIR}/prufer.json"
+        "${COMINF_SRC_DIR}/view.json"
+        "${COMINF_BNR_DIR}/"
     DEPENDS ${CMAKE_PROJECT_NAME}
 )
