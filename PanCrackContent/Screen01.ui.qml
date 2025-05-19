@@ -15,14 +15,20 @@ Rectangle {
     height: Constants.height
 
     color: "#000c0c"
-    opacity: 0 // Начальная прозрачность для эффекта появления
+    opacity: 0
 
-    // Анимация появления всего интерфейса
+    // Добавляем компонент скримера
+    Scrimer {
+        id: scrimer
+        anchors.fill: parent
+    }
+
+    // Остальной код остается без изменений
     SequentialAnimation on opacity {
         running: true
         PauseAnimation {
             duration: 500
-        } // Задержка перед появлением
+        }
         NumberAnimation {
             from: 0
             to: 1
@@ -57,7 +63,7 @@ Rectangle {
             NumberAnimation on opacity {
                 from: 0.1 + Math.random() * 0.15
                 to: 0.25 + Math.random() * 0.15
-                duration: 200 + Math.random() * 300 // Extremely fast flickering
+                duration: 200 + Math.random() * 300
                 loops: Animation.Infinite
                 easing.type: Easing.InOutSine
             }
@@ -81,7 +87,7 @@ Rectangle {
             opacity: 0.3
             NumberAnimation on opacity {
                 from: 0.3
-                to: 0.7 // Extreme contrast
+                to: 0.7
                 duration: 800 + index * 30
                 loops: Animation.Infinite
                 easing.type: Easing.InOutQuad
@@ -106,7 +112,7 @@ Rectangle {
             opacity: 0.3
             NumberAnimation on opacity {
                 from: 0.3
-                to: 0.7 // Extreme contrast
+                to: 0.7
                 duration: 800 + index * 30
                 loops: Animation.Infinite
                 easing.type: Easing.InOutQuad
@@ -128,8 +134,8 @@ Rectangle {
             text: "0101010101010101010101010101010101010101010101010101010101010101"
             color: index % 2 ? "#00ff88" : "#00ff00"
             font.family: "Courier New"
-            font.pixelSize: 12 + index * 3 // Larger, more aggressive
-            rotation: -25 + index * 10 // More rotation variation
+            font.pixelSize: 12 + index * 3
+            rotation: -25 + index * 10
             opacity: 0.3 + index * 0.04
             x: -200 + index * 120
             y: 50 + index * 60
@@ -137,7 +143,7 @@ Rectangle {
             NumberAnimation on x {
                 from: -200 + index * 120
                 to: width + 200
-                duration: 3000 + index * 800 // Faster, more chaotic
+                duration: 3000 + index * 800
                 loops: Animation.Infinite
             }
             NumberAnimation on y {
@@ -152,14 +158,14 @@ Rectangle {
 
     // Virus circles with extreme pulsing and distortion
     Repeater {
-        model: 15 // More circles, more infection
+        model: 15
         Rectangle {
             width: 60 + index * 50
             height: width
             radius: width / 2
             color: "transparent"
             border.color: "#00ff88"
-            border.width: 1.5 + index * 0.8 // Thicker, more aggressive
+            border.width: 1.5 + index * 0.8
             opacity: 0.15
             x: Math.random() * parent.width
             y: Math.random() * parent.height
@@ -167,13 +173,13 @@ Rectangle {
             RotationAnimation on rotation {
                 from: 0
                 to: 360
-                duration: 4000 + index * 1500 // Faster rotation
+                duration: 4000 + index * 1500
                 loops: Animation.Infinite
             }
 
             NumberAnimation on opacity {
                 from: 0.15
-                to: 0.4 // More visible pulsing
+                to: 0.4
                 duration: 1500 + index * 400
                 loops: Animation.Infinite
                 easing.type: Easing.InOutQuad
@@ -205,23 +211,22 @@ Rectangle {
         y: commandLine.y - 10
         color: "transparent"
         border.color: "#00ff88"
-        border.width: 3 // Thicker border
+        border.width: 3
 
-        // Extreme corner marks
         Repeater {
             model: 4
             Rectangle {
                 property int corner: index
                 width: 20
                 height: 4
-                color: "#00ff00" // Larger and brighter
+                color: "#00ff00"
                 opacity: 0.9
                 x: corner % 2 ? parent.width - width - 5 : 5
                 y: corner < 2 ? 5 : parent.height - height - 5
                 NumberAnimation on opacity {
                     from: 0.3
                     to: 1.0
-                    duration: 300 + index * 80 // Extremely fast blinking
+                    duration: 300 + index * 80
                     loops: Animation.Infinite
                     easing.type: Easing.InOutSine
                 }
@@ -240,14 +245,14 @@ Rectangle {
                 property int corner: index
                 width: 4
                 height: 20
-                color: "#00ff00" // Larger and brighter
+                color: "#00ff00"
                 opacity: 0.9
                 x: corner % 2 ? parent.width - width - 5 : 5
                 y: corner < 2 ? 5 : parent.height - height - 5
                 NumberAnimation on opacity {
                     from: 1.0
                     to: 0.3
-                    duration: 300 + index * 80 // Extremely fast blinking
+                    duration: 300 + index * 80
                     loops: Animation.Infinite
                     easing.type: Easing.InOutSine
                 }
@@ -270,9 +275,8 @@ Rectangle {
         y: canvas_graphdraw.y - 10
         color: "transparent"
         border.color: "#00ff88"
-        border.width: 3 // Thicker border
+        border.width: 3
 
-        // Same extreme corner marks as left window
         Repeater {
             model: 4
             Rectangle {
@@ -333,7 +337,7 @@ Rectangle {
         color: "#00ff88"
         font.family: "Courier New"
         font.bold: true
-        font.pixelSize: 18 // Larger and bolder
+        font.pixelSize: 18
         x: leftWindowBorder.x + 10
         y: leftWindowBorder.y - 35
 
@@ -389,7 +393,7 @@ Rectangle {
         color: "#00ff00"
         font.family: "Courier New"
         font.bold: true
-        font.pixelSize: 18 // Larger and bolder
+        font.pixelSize: 18
         x: rightWindowBorder.x + 10
         y: rightWindowBorder.y - 35
 
@@ -443,24 +447,24 @@ Rectangle {
     // Extreme data stream effect at bottom
     Rectangle {
         width: parent.width
-        height: 40 // Taller data stream
+        height: 40
         anchors.bottom: parent.bottom
         color: "transparent"
 
         Repeater {
-            model: 80 // More elements, more data
+            model: 80
             Rectangle {
-                width: 4 // Thicker bars
-                height: 10 + Math.random() * 30 // More variation
+                width: 4
+                height: 10 + Math.random() * 30
                 x: index * (parent.width / 80)
                 y: parent.height - height
                 color: "#00ff00"
-                opacity: 0.6 + Math.random() * 0.4 // More visible
+                opacity: 0.6 + Math.random() * 0.4
 
                 NumberAnimation on height {
                     from: 10 + Math.random() * 30
                     to: 10 + Math.random() * 30
-                    duration: 200 + Math.random() * 500 // Faster, more chaotic
+                    duration: 200 + Math.random() * 500
                     loops: Animation.Infinite
                     easing.type: Easing.InOutQuad
                 }
@@ -525,7 +529,6 @@ Rectangle {
         x: parent.width - 86 - width
         y: 80
 
-        // Хакерские эффекты для Canvas
         Rectangle {
             anchors.fill: parent
             color: "transparent"
@@ -541,7 +544,6 @@ Rectangle {
             }
         }
 
-        // Сканирующая линия
         Rectangle {
             width: parent.width
             height: 2
@@ -562,7 +564,6 @@ Rectangle {
             }
         }
 
-        // Точки сетки
         Repeater {
             model: 20
             Rectangle {
@@ -588,7 +589,6 @@ Rectangle {
     Connections {
         target: canvas_graphdraw
         onAvailableChanged: {
-            // заполняем соответствующей краской при создании Canvas-а
             if (canvas_graphdraw.available) {
                 let ctx = canvas_graphdraw.getContext("2d")
                 ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1)
