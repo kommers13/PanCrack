@@ -33,13 +33,10 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
     App/include/commands/drawcommand.h App/commands/drawcommand.cpp
     App/include/commands/showcommand.h App/commands/showcommand.cpp
     App/include/commands/viewcommand.h App/commands/viewcommand.cpp
-<<<<<<< HEAD
     App/include/commands/colorcommand.h App/commands/colorcommand.cpp
-=======
     App/include/commands/algorithmcommand.h App/commands/algorithmcommand.cpp
     App/include/commands/checkcommand.h App/commands/checkcommand.cpp
     App/include/commands/helpcommand.h App/commands/helpcommand.cpp
->>>>>>> 8db98cd412307fbbba24a42a9a668c20aa3e4d57
 
 )
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"

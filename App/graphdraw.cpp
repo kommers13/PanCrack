@@ -73,18 +73,18 @@ pair<double, double> v_rep(const pair<double, double>& sv,  // единичны�
                            const double& d,
                            const double& L) {
     // вектор отталкивания направлен в противоположную сторону от направления вектора пружины
-    return multiply(-(L * L) / d, sv);      // ДЛЯ ФРЮХТЕРМАНА-РЕЙНГОЛЬДА
-    // return multiply(-Kr / (d * d), sv);  // ДЛЯ ИДЕСА
+    // return multiply(-(L * L) / d, sv);      // ДЛЯ ФРЮХТЕРМАНА-РЕЙНГОЛЬДА
+    return multiply(-Kr / (d * d), sv);  // ДЛЯ ИДЕСА
 }
 
 // вектор притяжения
 pair<double, double> v_attr(const pair<double, double>& sv, // единичный вектор
                             const double& d,
                             const double& L) {
-    return multiply((d * d) / L, sv);   // ДЛЯ ФРЮХТЕРМАНА-РЕЙНГОЛЬДА
+    // return multiply((d * d) / L, sv);   // ДЛЯ ФРЮХТЕРМАНА-РЕЙНГОЛЬДА
     // если расстояние больше длины пружины, то это будет стягивание
     // если расстояние меньше длины пружмины, то это будет растяжение
-    // return multiply(Ka * log(d / L), sv);   // ДЛЯ ИДЕСА
+    return multiply(Ka * log(d / L), sv);   // ДЛЯ ИДЕСА
 }
 
 
@@ -216,10 +216,10 @@ unordered_map<int, pair<double, double>> Eades_algorithm(
     // const double L = sqrt(WIDTH * HEIGHT) / graph.size();
     const double L = 25 * RADIUS;
 
-    qDebug() << "vertices_coords AT THE BEGINNING OF ITERATION";
-    for (auto v_x_y: vertices_coords) {
-        qDebug() << "v_x_y: " << v_x_y;
-    }
+    // qDebug() << "vertices_coords AT THE BEGINNING OF ITERATION";
+    // for (auto v_x_y: vertices_coords) {
+    //     qDebug() << "v_x_y: " << v_x_y;
+    // }
 
     // проходимся по каждой вершине, и вычисляем силу
     for (auto v_x_y: vertices_coords) {
@@ -247,24 +247,24 @@ unordered_map<int, pair<double, double>> Eades_algorithm(
             // - в противоложном
             pair<double, double> vec_sspring = tosvec<double>(make_pair(x, y), make_pair(x1, y1));
             double dist = len(vec_spring);
-            qDebug() << "========================================";
-            qDebug() << "v, v1: " << v << ' ' << v1;
-            qDebug() << "dist(v, v1): " << dist;
+            // qDebug() << "========================================";
+            // qDebug() << "v, v1: " << v << ' ' << v1;
+            // qDebug() << "dist(v, v1): " << dist;
 
             // узнаем, есть ли пружина между вершинами
             // если есть
             if (graph[v].find(v1) != graph[v].end()) {
                 pair<double, double> vec_attr = v_attr(vec_sspring, dist, L);     // вектор силы пружины
-                qDebug() << "vec_attr(v, v1): " << vec_attr;
+                // qDebug() << "vec_attr(v, v1): " << vec_attr;
                 F_vec = add<double>(F_vec, vec_attr);
-                qDebug() << "F_vec: " << F_vec;
+                // qDebug() << "F_vec: " << F_vec;
             }
             // если нет пружины между ребрами, значит между ними есть сила отталкивания (ДЛЯ ИДЕСА)
             else {
                 pair<double, double> vec_rep = v_rep(vec_sspring, dist, L);     // вектор отталкивания идет в противоположную сторону
-                qDebug() << "vec_rep(v, v1): " << vec_rep;
+                // qDebug() << "vec_rep(v, v1): " << vec_rep;
                 F_vec = add<double>(F_vec, vec_rep);
-                qDebug() << "F_vec: " << F_vec;
+                // qDebug() << "F_vec: " << F_vec;
             }
             // // независимо от наличия пружины прибавляем вектор силы отталкивания (ДЛЯ ФРЮХТЕРМАНА-РЕЙНГОЛЬДА)
             // pair<double, double> vec_rep = v_rep(vec_sspring, dist);     // вектор отталкивания идет в противоположную сторону
@@ -307,12 +307,12 @@ unordered_map<int, pair<double, double>> gen_vertices_coords(const Graph& G) {
     // температура
     double temp = 1;
     // количество итераций
-    int cnt_iters = 1;
+    int cnt_iters = 100;
     // шаг температуры
     double step_temp = temp / cnt_iters;
     while (cnt_iters-->0) {
 
-        vertices_coords = FR_algorithm(G, vertices_coords, temp);
+        vertices_coords = Eades_algorithm(G, vertices_coords, temp);
 
         temp -= step_temp;
     }

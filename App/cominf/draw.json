@@ -1,5 +1,5 @@
 {
   "name": "draw",
-  "description": "...DESCRIPTION... OF DRAW",
+  "description": "<font color=\"green\">NAME</font><br><div style=\"margin-left: 2em;\"><b>DRAW</b> - vizualize the selected graph</div><br><font color=\"green\">SYNOPSIS</font><br><div style=\"margin-left: 2em;\"><b>DRAW</b> -h </div><div style=\"margin-left: 2em;\"><b>DRAW</b> <i>graphname</i><br><br><font color=\"green\">DESCRIPTION</font><br><div style=\"margin-left: 2em;\"><b>DRAW</b> paints the selected graph using Fruchterman-Reingold algorithm</div><br><font color=\"green\">COMMAND-LINE OPTIONS</font><br><div style=\"margin-left: 2em;\"><i>-h, --help</i> - option that shows this text</div>",
   "options": [ {"-h": "--help"} ]
 }

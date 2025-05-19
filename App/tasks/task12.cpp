@@ -1,13 +1,13 @@
 #include "include/task12.h"
 using namespace std;
 string task12::input(Graph g) {
-    return coloring(g);
+    return coloring(g).second;
 }
-string task12::coloring(Graph& g){
-    map<int, string> colors{{0, "Transparent"}, {1, "#FF0000"}, {2, "#FFFF00"}, {3, "#00BFFF"},
-    {4, "#00FF00"}, {5, "#F0E68C"}, {6, "#EE82EE"}, {7, "#DEB887"}, {8, "#808000"},
-    {9, "#B0E0E6"}, {10, "#FFE4E1"}, {11, "#A9A9A9"}, {12, "#F08080"}, {13, "#C71585"}, {14, "#FFA500"}, {15, "#BDB76B"},
-    {16, "#4B0082"}, {17, "#BC8F8F"}, {18, "#7FFFD4"}, {19, "#008B8B"}, {20, "#800000"},  {21, "#8B4513"}};
+pair<vector<int>, string> task12::coloring(Graph& g){
+    // map<int, string> colors{{0, "Transparent"}, {1, "#FF0000"}, {2, "#FFFF00"}, {3, "#00BFFF"},
+    // {4, "#00FF00"}, {5, "#F0E68C"}, {6, "#EE82EE"}, {7, "#DEB887"}, {8, "#808000"},
+    // {9, "#B0E0E6"}, {10, "#FFE4E1"}, {11, "#A9A9A9"}, {12, "#F08080"}, {13, "#C71585"}, {14, "#FFA500"}, {15, "#BDB76B"},
+    // {16, "#4B0082"}, {17, "#BC8F8F"}, {18, "#7FFFD4"}, {19, "#008B8B"}, {20, "#800000"},  {21, "#8B4513"}};
     string ans = "";
     int v_cnt = g.get_cnt_vertexes();
     vector<int> color(v_cnt, -1);
@@ -64,6 +64,5 @@ string task12::coloring(Graph& g){
         ans += " ";
     }
 
-
-    return ans;
+    return make_pair(color, ans);
 }

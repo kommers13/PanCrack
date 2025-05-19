@@ -59,7 +59,7 @@ string AlgorithmCommand::execute(
             if (exist) {
                 // создаем граф из JSON-файла
                 Graph G = dataconverse::fromJSONfileToGraph(graph_name);
-                string ans = task7::create_MST(G).get_str_graph();
+                string ans = task7::create_MST(G).get_str_graph("<br>");
 
                 if(ans == ""){
                     return "Graph <b>" + graph_name + "</b> can't make matrix shortest path!!!<br>";

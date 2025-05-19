@@ -95,7 +95,7 @@ string CommandParser::execute_command(const string& command,
     if (command == "algorithm") {
         return AlgorithmCommand::execute(command, args, opts);
     }
-    if(command == "check"){
+    if (command == "check") {
         return CheckCommand::execute(command, args, opts);
     }
     if (command == "clear") {
@@ -122,7 +122,9 @@ string CommandParser::execute_command(const string& command,
     if (command == "help") {
         return HelpCommand::execute(command, args, opts);
     }
-
+    if (command == "color") {
+        return ColorCommand::execute(command, args, opts, my_signals);
+    }
     return "I don`t know how this happened, we need to check CommandParser::execute_command";
 }
 

@@ -10,7 +10,7 @@
 namespace task12
 {
     std::string input(Graph g);
-    std::string coloring(Graph& g);
+    std::pair<vector<int>, string> coloring(Graph& g);
 }
 
 #endif // TASK12_H

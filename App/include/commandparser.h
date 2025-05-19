@@ -24,6 +24,7 @@
 #include "commands/algorithmcommand.h"
 #include "commands/checkcommand.h"
 #include "commands/helpcommand.h"
+#include "commands/colorcommand.h"
 
 
 using namespace std;
