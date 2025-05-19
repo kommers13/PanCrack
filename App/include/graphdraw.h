@@ -15,7 +15,7 @@ const int RHEIGHT = 920;
 // радиус вершины (в пикселях)
 const int RADIUS = 15;
 // отступ от краев холста (в пикселях)
-const int MARGIN = 90;
+const int MARGIN = 30;
 // ширина и высота холста для наших нужд с отступами (в пикселях)
 const int WIDTH = RWIDTH - 2 * MARGIN;
 const int HEIGHT = RHEIGHT - 2 * MARGIN;
@@ -23,9 +23,9 @@ const int HEIGHT = RHEIGHT - 2 * MARGIN;
 const int GAP = RADIUS / 2;
 
 // коэффициент притяжения
-const int Ka = 2 * RADIUS;
+// const int Ka = 2 * RADIUS;
 // коэффициент отталкивания
-const int Kr = 10 * RADIUS;
+// const int Kr = 10 * RADIUS;
 // нормальная длина пружины
 // const int L = 7 * RADIUS + GAP;
 // const int L = sqrt(WIDTH * HEIGHT / 3);

@@ -73,18 +73,18 @@ pair<double, double> v_rep(const pair<double, double>& sv,  // единичны�
                            const double& d,
                            const double& L) {
     // вектор отталкивания направлен в противоположную сторону от направления вектора пружины
-    // return multiply(-(L * L) / d, sv);      // ДЛЯ ФРЮХТЕРМАНА-РЕЙНГОЛЬДА
-    return multiply(-Kr / (d * d), sv);  // ДЛЯ ИДЕСА
+    return multiply(- 2 * (L * L) / d, sv);      // ДЛЯ ФРЮХТЕРМАНА-РЕЙНГОЛЬДА
+    // return multiply(-Kr / (d * d), sv);  // ДЛЯ ИДЕСА
 }
 
 // вектор притяжения
 pair<double, double> v_attr(const pair<double, double>& sv, // единичный вектор
                             const double& d,
                             const double& L) {
-    // return multiply((d * d) / L, sv);   // ДЛЯ ФРЮХТЕРМАНА-РЕЙНГОЛЬДА
+    return multiply((d * d) / L, sv);   // ДЛЯ ФРЮХТЕРМАНА-РЕЙНГОЛЬДА
     // если расстояние больше длины пружины, то это будет стягивание
     // если расстояние меньше длины пружмины, то это будет растяжение
-    return multiply(Ka * log(d / L), sv);   // ДЛЯ ИДЕСА
+    // return multiply(Ka * log(d / L), sv);   // ДЛЯ ИДЕСА
 }
 
 
@@ -96,20 +96,23 @@ unordered_map<int, pair<double, double>> FR_algorithm(
                                                     const double& temp
                                                     ) {
     auto graph = G.get_graph();
-    const double L = sqrt(HEIGHT * WIDTH) / graph.size();
-    qDebug() << "L: " << L;
+    const double L = sqrt(HEIGHT * WIDTH / graph.size());
+    // qDebug() << "L: " << L;
 
 
-    qDebug() << "vertices_coords AT THE BEGINNING OF ITERATION";
-    for (auto v_x_y: vertices_coords) {
-        qDebug() << "v_x_y: " << v_x_y;
-    }
+    // qDebug() << "vertices_coords AT THE BEGINNING OF ITERATION";
+    // for (auto v_x_y: vertices_coords) {
+    //     qDebug() << "v_x_y: " << v_x_y;
+    // }
 
     // массив сдвигов вершин, после мы их преобразуем в нормальные координаты
     unordered_map<int, pair<double, double>> displacements;
+    for (int i = 0; i < graph.size(); i++) {
+        displacements[i] = make_pair(0, 0);
+    }
 
-    qDebug() << "===========================";
-    qDebug() << "Repulsion of vertices";
+    // qDebug() << "===========================";
+    // qDebug() << "Repulsion of vertices";
     // сначала мы расчитываем силы отталкиваний у ВСЕХ ВЕРШИН
     // и обновим их координаты соответствующе
     for (auto v_x_y: vertices_coords) {
@@ -132,22 +135,22 @@ unordered_map<int, pair<double, double>> FR_algorithm(
             auto vecs = tosvec(make_pair(x, y), make_pair(x1, y1));
 
             auto vec_rep = v_rep(vecs, dist, L);        // вектор отталкивания у этой вершины
-            qDebug() << "v, v1: " << v << ' ' << v1;
+            // qDebug() << "v, v1: " << v << ' ' << v1;
             // qDebug() << "v(x, y), v1(x, y): " << make_pair(x, y) << ' ' << make_pair(x1, y1);
-            qDebug() << "dist: " << dist;
-            qDebug() << "vec_rep: " << vec_rep;
+            // qDebug() << "dist: " << dist;
+            // qDebug() << "vec_rep: " << vec_rep;
             F_c = add<double>(F_c, vec_rep);
         }
 
-        qDebug() << "F_c: " << F_c;
+        // qDebug() << "F_c: " << F_c;
 
         // записываем в словарь смещений для вершин смещение данной вершины
-        displacements[v] = F_c;
+        displacements[v] = add<double>(displacements[v], F_c);
     }
 
 
-    qDebug() << "================================";
-    qDebug() << "Springs";
+    // qDebug() << "================================";
+    // qDebug() << "Springs";
     // теперь рассчитываем силы притяжения у смежных вершин, чтобы они далеко не улетали
     for (auto v_x_y: vertices_coords) {
         int v = v_x_y.first;
@@ -172,19 +175,40 @@ unordered_map<int, pair<double, double>> FR_algorithm(
                 auto v1_v_s = negative(v_v1_s);   // единичный вектор
 
                 // сдвигаем вершины ребра на встречу друг другу
-                vertices_coords[v] = add<double>(make_pair(x, y), multiply(temp, v_attr(v_v1_s, dist, L)));
-                vertices_coords[v1] = add<double>(make_pair(x1, y1), multiply(temp, v_attr(v1_v_s, dist, L)));
-                qDebug() << "v, v1: " << v << ' ' << v1;
+                displacements[v] = add<double>(displacements[v], v_attr(v_v1_s, dist, L));
+                displacements[v1] = add<double>(displacements[v1], v_attr(v1_v_s, dist, L));
+                // qDebug() << "v, v1: " << v << ' ' << v1;
                 // qDebug() << "v(x, y), v1(x, y): " << make_pair(x, y) << ' ' << make_pair(x1, y1);
-                qDebug() << "dist: " << dist;
-                qDebug() << "v_attr(v, v1): " << v_attr(v_v1_s, dist, L);
-                qDebug() << "v_attr(v1, v): " << v_attr(v1_v_s, dist, L);
+                // qDebug() << "dist: " << dist;
+                // qDebug() << "v_attr(v, v1): " << v_attr(v_v1_s, dist, L);
+                // qDebug() << "v_attr(v1, v): " << v_attr(v1_v_s, dist, L);
             }
         }
     }
-    // проверяем, чтобы вершины не вылезли за пределы Canvas-а
-    // ...
+    // qDebug() << "Displacements ================================";
+    // for (auto v_xf_yf: displacements) {
+    //     qDebug() << "v_xf_yf: " << v_xf_yf;
+    // }
 
+    // устанавливаем новые координат со смещениями и
+    // проверяем, чтобы вершины не вылезли за пределы Canvas-а
+    for (auto v_xf_yf: displacements) {
+        int v = v_xf_yf.first;
+        double xf = v_xf_yf.second.first;
+        double yf = v_xf_yf.second.second;
+        double distf = len<double>(v_xf_yf.second);
+        // обновляем позицию вершины
+        vertices_coords[v] = add<double>(vertices_coords[v],
+                                         multiply<double>(
+                                                min(distf, temp),       // выбираем минимум из температуры, либо смещения
+                                                tosvec<double>(make_pair(0, 0), v_xf_yf.second)   // единичный вектор для вектора смещения
+                                            )
+                                         );
+        // проверяем, чтобы вершины не вышли за пределы экрана
+        // если вершины вышли за границы, то они просто прилипают к границе области
+        vertices_coords[v].first = min<double>(WIDTH, max<double>(MARGIN, vertices_coords[v].first));      // от MARGIN до WIDTH
+        vertices_coords[v].second = min<double>(HEIGHT, max<double>(MARGIN, vertices_coords[v].second));
+    }
     return vertices_coords;
 }
 
@@ -296,8 +320,8 @@ unordered_map<int, pair<double, double>> gen_vertices_coords(const Graph& G) {
     for (auto v1_neighbours: graph) {
         int v1 = v1_neighbours.first;
         // ТОЧКИ МОГУТ НАСЛОИТЬСЯ, ЧТО ПРИВЕДЕТ К ДЕЛЕНИЮ НА НОЛЬ
-        double x = rand() % (WIDTH - 2 * 4 * MARGIN + 1) + 4 * MARGIN;      // [4 * MARGIN; WIDTH - 4 * MARGIN] - случайное число
-        double y = rand() % (HEIGHT - 2 * 4 * MARGIN + 1) + 4 * MARGIN;
+        double x = rand() % (WIDTH - MARGIN + 1) + MARGIN;      // [MARGIN; WIDTH] - случайное число
+        double y = rand() % (HEIGHT - MARGIN + 1) + MARGIN;     // [MARGIN; HEIGHT]
         // qDebug() << RAND_MAX;
         // qDebug() << x << ' ' << y;
         // qDebug() << "WIDTH, HEIGHT, MARGIN: " << WIDTH - 4 * MARGIN << ' ' << HEIGHT - 4 * MARGIN << ' ' << 4 * MARGIN;
@@ -305,14 +329,14 @@ unordered_map<int, pair<double, double>> gen_vertices_coords(const Graph& G) {
     }
 
     // температура
-    double temp = 1;
+    double temp = 100;
     // количество итераций
     int cnt_iters = 100;
     // шаг температуры
     double step_temp = temp / cnt_iters;
     while (cnt_iters-->0) {
 
-        vertices_coords = Eades_algorithm(G, vertices_coords, temp);
+        vertices_coords = FR_algorithm(G, vertices_coords, temp);
 
         temp -= step_temp;
     }
