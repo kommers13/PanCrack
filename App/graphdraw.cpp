@@ -68,15 +68,126 @@ bool check_overlap(const pair<int, int>& p1,
 }
 
 
-// сила отталкивания
-double f_rep(const double& d) {
-    return Kr / (d * d);
+// вектор отталкивания
+pair<double, double> v_rep(const pair<double, double>& sv,  // единичный векор
+                           const double& d,
+                           const double& L) {
+    // вектор отталкивания направлен в противоположную сторону от направления вектора пружины
+    return multiply(-(L * L) / d, sv);      // ДЛЯ ФРЮХТЕРМАНА-РЕЙНГОЛЬДА
+    // return multiply(-Kr / (d * d), sv);  // ДЛЯ ИДЕСА
 }
 
-// сила притяжения
-double f_attr(const double& d) {
-    return Ka * log2(d);
+// вектор притяжения
+pair<double, double> v_attr(const pair<double, double>& sv, // единичный вектор
+                            const double& d,
+                            const double& L) {
+    return multiply((d * d) / L, sv);   // ДЛЯ ФРЮХТЕРМАНА-РЕЙНГОЛЬДА
+    // если расстояние больше длины пружины, то это будет стягивание
+    // если расстояние меньше длины пружмины, то это будет растяжение
+    // return multiply(Ka * log(d / L), sv);   // ДЛЯ ИДЕСА
 }
+
+
+
+
+unordered_map<int, pair<double, double>> FR_algorithm(
+                                                    const Graph& G,     // граф
+                                                    unordered_map<int, pair<double, double>> vertices_coords,  // координаты вершин
+                                                    const double& temp
+                                                    ) {
+    auto graph = G.get_graph();
+    const double L = sqrt(HEIGHT * WIDTH) / graph.size();
+    qDebug() << "L: " << L;
+
+
+    qDebug() << "vertices_coords AT THE BEGINNING OF ITERATION";
+    for (auto v_x_y: vertices_coords) {
+        qDebug() << "v_x_y: " << v_x_y;
+    }
+
+    // массив сдвигов вершин, после мы их преобразуем в нормальные координаты
+    unordered_map<int, pair<double, double>> displacements;
+
+    qDebug() << "===========================";
+    qDebug() << "Repulsion of vertices";
+    // сначала мы расчитываем силы отталкиваний у ВСЕХ ВЕРШИН
+    // и обновим их координаты соответствующе
+    for (auto v_x_y: vertices_coords) {
+        int v = v_x_y.first;
+        double x = v_x_y.second.first;
+        double y = v_x_y.second.second;
+
+        auto F_c = make_pair(0, 0);     // равнодействующая
+
+        for (auto v1_x1_y1: vertices_coords) {
+            int v1 = v1_x1_y1.first;
+            double x1 = v1_x1_y1.second.first;
+            double y1 = v1_x1_y1.second.second;
+
+            if (v1 == v) {
+                continue;
+            }
+
+            double dist = len<double>(tovec(make_pair(x, y), make_pair(x1, y1)));
+            auto vecs = tosvec(make_pair(x, y), make_pair(x1, y1));
+
+            auto vec_rep = v_rep(vecs, dist, L);        // вектор отталкивания у этой вершины
+            qDebug() << "v, v1: " << v << ' ' << v1;
+            // qDebug() << "v(x, y), v1(x, y): " << make_pair(x, y) << ' ' << make_pair(x1, y1);
+            qDebug() << "dist: " << dist;
+            qDebug() << "vec_rep: " << vec_rep;
+            F_c = add<double>(F_c, vec_rep);
+        }
+
+        qDebug() << "F_c: " << F_c;
+
+        // записываем в словарь смещений для вершин смещение данной вершины
+        displacements[v] = F_c;
+    }
+
+
+    qDebug() << "================================";
+    qDebug() << "Springs";
+    // теперь рассчитываем силы притяжения у смежных вершин, чтобы они далеко не улетали
+    for (auto v_x_y: vertices_coords) {
+        int v = v_x_y.first;
+        double x = v_x_y.second.first;
+        double y = v_x_y.second.second;
+
+        for (auto v1_x1_y1: vertices_coords) {
+            int v1 = v1_x1_y1.first;
+            double x1 = v1_x1_y1.second.first;
+            double y1 = v1_x1_y1.second.second;
+
+            // вершины смежные
+            // Т. е. есть пружина
+            // Тогда рассчитываем силу притяжения между ними
+            // вектор (v, v1), т. е. стрелочка от v к v1
+            if (graph[v].find(v1) != graph[v].end()) {
+                // расстояние между вершинами
+                double dist = len<double>(tovec(make_pair(x, y), make_pair(x1, y1)));
+                // единичный вектор (v, v1)
+                auto v_v1_s = tosvec(make_pair(x, y), make_pair(x1, y1));   // единичный вектор
+                // единичый вектор (v1, v)
+                auto v1_v_s = negative(v_v1_s);   // единичный вектор
+
+                // сдвигаем вершины ребра на встречу друг другу
+                vertices_coords[v] = add<double>(make_pair(x, y), multiply(temp, v_attr(v_v1_s, dist, L)));
+                vertices_coords[v1] = add<double>(make_pair(x1, y1), multiply(temp, v_attr(v1_v_s, dist, L)));
+                qDebug() << "v, v1: " << v << ' ' << v1;
+                // qDebug() << "v(x, y), v1(x, y): " << make_pair(x, y) << ' ' << make_pair(x1, y1);
+                qDebug() << "dist: " << dist;
+                qDebug() << "v_attr(v, v1): " << v_attr(v_v1_s, dist, L);
+                qDebug() << "v_attr(v1, v): " << v_attr(v1_v_s, dist, L);
+            }
+        }
+    }
+    // проверяем, чтобы вершины не вылезли за пределы Canvas-а
+    // ...
+
+    return vertices_coords;
+}
+
 
 /*
 Суть алгоритма: задается начальная позиция вершин и сам граф. Одна итерация алгоритма - это вычисление
@@ -97,9 +208,18 @@ unordered_map<int, pair<double, double>> Eades_algorithm(
 
 
     // НЕ ЗАБУДЬ, ЧТО ТЫ ЗАБЫЛ УЧЕСТЬ, ЧТО ТВОИ ВЕРШИНЫ МОГУТ ВЫЙТИ ЗА ПРЕДЕЛЫ CANVAS-А
+    // нужно сделать так, что со всех четырех сторон Canvas-а на частицы тоже действует сила
+    // это нужно для того, чтобы частицы не выходили за пределы
 
     // нужно помнить, чтобы вершины не вышли за пределы Canvas-а
     auto graph = G.get_graph();
+    // const double L = sqrt(WIDTH * HEIGHT) / graph.size();
+    const double L = 25 * RADIUS;
+
+    qDebug() << "vertices_coords AT THE BEGINNING OF ITERATION";
+    for (auto v_x_y: vertices_coords) {
+        qDebug() << "v_x_y: " << v_x_y;
+    }
 
     // проходимся по каждой вершине, и вычисляем силу
     for (auto v_x_y: vertices_coords) {
@@ -107,7 +227,7 @@ unordered_map<int, pair<double, double>> Eades_algorithm(
         double x = v_x_y.second.first;
         double y = v_x_y.second.second;
 
-        pair<double, double> F_vec = make_pair(0, 0);       // Общая воздействующая сила
+        pair<double, double> F_vec = make_pair(0, 0);       // равнодействующая сила
 
         // проходимся по всем остальным
         for (auto v1_x1_y1: vertices_coords) {
@@ -122,6 +242,10 @@ unordered_map<int, pair<double, double>> Eades_algorithm(
 
             // узнаем расстояние между точками
             pair<double, double> vec_spring = tovec<double>(make_pair(x, y), make_pair(x1, y1));
+            // единичный вектор от (x, y) к (x1, y1), где равнодействующая сила вычисляется для точки
+            // (x, y), поэтому вектор силы притяжения действует по направлению вектора, а отталкивания -
+            // - в противоложном
+            pair<double, double> vec_sspring = tosvec<double>(make_pair(x, y), make_pair(x1, y1));
             double dist = len(vec_spring);
             qDebug() << "========================================";
             qDebug() << "v, v1: " << v << ' ' << v1;
@@ -130,26 +254,23 @@ unordered_map<int, pair<double, double>> Eades_algorithm(
             // узнаем, есть ли пружина между вершинами
             // если есть
             if (graph[v].find(v1) != graph[v].end()) {
-                double F_spring = f_attr(dist);     // скалярная сила пружины
-                qDebug() << "F_spring: " << F_spring;
-                // вычисляем координаты вектора силы пружины
-                double k = dist / F_spring;         // узнаем коэффициент пропорциональность
-                qDebug() << "k spring: " << k;
-                pair<double, double> vec_attr = make_pair(x / k, y / k);  // узнаем вектор силы пружины
+                pair<double, double> vec_attr = v_attr(vec_sspring, dist, L);     // вектор силы пружины
                 qDebug() << "vec_attr(v, v1): " << vec_attr;
                 F_vec = add<double>(F_vec, vec_attr);
+                qDebug() << "F_vec: " << F_vec;
             }
-
-            // независимо от наличия пружины прибавляем вектор силы отталкивания
-            double F_rep = f_rep(dist);     // скалярная сила отталкивания
-            qDebug() << "F_rep: " << F_rep;
-            // вычисляем координаты
-            double k = dist / F_rep;        // коэффициент пропорциональности
-            qDebug() << "k rep: " << k;
-            pair<double, double> vec_rep = make_pair(-x / k, -y / k);     // вектор отталкивания идет в противоположную сторону
-            qDebug() << "vec_rep(v, v1): " << vec_rep;
-            F_vec = add<double>(F_vec, vec_rep);
-            qDebug() << "F_vec: " << F_vec;
+            // если нет пружины между ребрами, значит между ними есть сила отталкивания (ДЛЯ ИДЕСА)
+            else {
+                pair<double, double> vec_rep = v_rep(vec_sspring, dist, L);     // вектор отталкивания идет в противоположную сторону
+                qDebug() << "vec_rep(v, v1): " << vec_rep;
+                F_vec = add<double>(F_vec, vec_rep);
+                qDebug() << "F_vec: " << F_vec;
+            }
+            // // независимо от наличия пружины прибавляем вектор силы отталкивания (ДЛЯ ФРЮХТЕРМАНА-РЕЙНГОЛЬДА)
+            // pair<double, double> vec_rep = v_rep(vec_sspring, dist);     // вектор отталкивания идет в противоположную сторону
+            // qDebug() << "vec_rep(v, v1): " << vec_rep;
+            // F_vec = add<double>(F_vec, vec_rep);
+            // qDebug() << "F_vec: " << F_vec;
         }
 
         // обновляем позицию вершины
@@ -184,14 +305,14 @@ unordered_map<int, pair<double, double>> gen_vertices_coords(const Graph& G) {
     }
 
     // температура
-    double temp = 20;
+    double temp = 1;
     // количество итераций
     int cnt_iters = 1;
     // шаг температуры
     double step_temp = temp / cnt_iters;
     while (cnt_iters-->0) {
 
-        vertices_coords = Eades_algorithm(G, vertices_coords, temp);
+        vertices_coords = FR_algorithm(G, vertices_coords, temp);
 
         temp -= step_temp;
     }

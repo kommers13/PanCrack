@@ -17,15 +17,18 @@ const int RADIUS = 15;
 // отступ от краев холста (в пикселях)
 const int MARGIN = 90;
 // ширина и высота холста для наших нужд с отступами (в пикселях)
-const int WIDTH = RWIDTH - MARGIN;
-const int HEIGHT = RHEIGHT - MARGIN;
+const int WIDTH = RWIDTH - 2 * MARGIN;
+const int HEIGHT = RHEIGHT - 2 * MARGIN;
 // расстояние чуть больше, чем RADIUS (в пикселях)
-const int GAP = 2 * RADIUS;
+const int GAP = RADIUS / 2;
 
 // коэффициент притяжения
-const int Ka = 2;
+const int Ka = 2 * RADIUS;
 // коэффициент отталкивания
-const int Kr = 1;
+const int Kr = 10 * RADIUS;
+// нормальная длина пружины
+// const int L = 7 * RADIUS + GAP;
+// const int L = sqrt(WIDTH * HEIGHT / 3);
 
 /*
 Данная функция создает QVariantMap, на основе которого JS-функция нарисует граф на Canvas
