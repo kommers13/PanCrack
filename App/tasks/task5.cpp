@@ -55,11 +55,14 @@ std::string print_connected_components(const Graph& g) {
 
     ss << "Number of connected components: " << components.size() << "\n";
     ss << "Connected components:\n";
-
+    int cnt = 1;
+    vector<char> vc = g.get_vs_name();
     for (const auto& component : components) {
+        ss << to_string(cnt) << " level"<<", vertexes: ";
+        ++cnt;
         for (size_t i = 0; i < component.size(); ++i) {
             if (i != 0) ss << " ";
-            ss << component[i] + 1; // Convert to 1-based for output
+            ss << vc[component[i]]; // Convert to 1-based for output
         }
         ss << "\n";
     }

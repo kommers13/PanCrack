@@ -22,7 +22,7 @@ string construct(int type, const vector<string>& args) {
     // проверка, что такого графа еще нет
     const string path = "graphs";
     for (const auto& entry: fs::directory_iterator(path)) {
-        if (entry.path() == (path + "\\" + name + ".json")) {
+        if (entry.path() == (path + "/" + name + ".json")) {
             output = "<font color=\"red\">Error:</font> graph <b>" + name + "</b> already exists";
             return output;
         }
@@ -102,6 +102,7 @@ string CreateCommand::execute(const string& command,
     // в данном случае аргументов может быть любое количество, первый в args считается именем графа,
     // а остальные описанием его при помощи одного из трех способов
     // поэтому количество аргументов проверять не надо
+
 
     // EXECUTING COMMAND
     // начинаем обрабатывать ПРАВИЛЬНО введенные данные

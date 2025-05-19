@@ -4,6 +4,7 @@
 #include <graph.h>
 #include <vector>
 #include <queue>
+#include <sstream>
 #include <algorithm>
 namespace task3{
 std::string input(Graph g, string s_e);

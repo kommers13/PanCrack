@@ -6,12 +6,15 @@
 #include <algorithm>
 
 namespace task2 {
-
 std::vector<int> DFS(const Graph& g, int start_vertex) {
     std::vector<int> traversal;
-    if (start_vertex < 1 || start_vertex > g.get_cnt_vertexes()) return traversal;
 
-    std::vector<bool> visited(g.get_cnt_vertexes() + 1, false);
+    // Проверка корректности стартовой вершины (0-based)
+    if (start_vertex < 0 || start_vertex >= g.get_cnt_vertexes()) {
+        return traversal;
+    }
+
+    std::vector<bool> visited(g.get_cnt_vertexes(), false); // 0-based
     std::stack<int> stack;
     stack.push(start_vertex);
 
@@ -23,12 +26,13 @@ std::vector<int> DFS(const Graph& g, int start_vertex) {
         visited[current] = true;
         traversal.push_back(current);
 
-        auto neighbors = g.get_sorted_neighbors(current - 1);
-        std::reverse(neighbors.begin(), neighbors.end());
-
-        for (int neighbor : neighbors) {
-            if (!visited[neighbor + 1]) {
-                stack.push(neighbor + 1);
+        // Получаем отсортированных соседей (0-based)
+        auto neighbors = g.get_sorted_neighbors(current);
+        // Добавляем в стек в обратном порядке
+        for (auto it = neighbors.rbegin(); it != neighbors.rend(); ++it) {
+            int neighbor = *it;
+            if (!visited[neighbor]) {
+                stack.push(neighbor);
             }
         }
     }
@@ -59,6 +63,7 @@ bool is_valid_dfs(const Graph& g, const std::vector<int>& traversal) {
 
     return true;
 }
+
 
 bool check_user_DFS(const Graph& g, int start_vertex, const std::vector<int>& user_traversal) {
     // Проверяем базовые условия
@@ -181,4 +186,16 @@ Graph generate_random_graph(int vertices) {
     return Graph(matrix);
 }
 
+std::string print_DFS(const Graph& g, int start_vertex) {
+    auto all_paths = DFS(g, start_vertex);
+    std::stringstream ss;
+    vector<char> vc = g.get_vs_name();
+
+    for (size_t j = 0; j < all_paths.size(); ++j) {
+        ss << vc[all_paths[j]];
+    }
+
+
+    return ss.str();
+}
 } // namespace task2

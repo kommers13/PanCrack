@@ -1,0 +1,8 @@
+{
+  "name": "check",
+  "description": "<font color=\"green\">NAME</font><br><div style=\"margin-left: 2em;\"><b>CHECK</b> - check connections components, euler and bipartite</div><br><font color=\"green\">SYNOPSIS</font><br><div style=\"margin-left: 2em;\"><b>CHECK</b> [-h]</div><div style=\"margin-left: 2em;\"><b>CHECK</b> -c|-e|-b <i>graphname</i></div><br><font color=\"green\">DESCRIPTION</font><br><div style=\"margin-left: 2em;\"><b>CHECK</b> checks graph properties using one of four methods: connected components, euler cycle, bipartite or full bipartite check.<br>Example of connected components:<br><i>Yes, you're right!</i><br>Example of euler graph:<br><i>No, this graph doesn't have Euler cycle</i><br>Example of bipartite graph:<br><i>Yes, current graph is bipartite graph</i></div><br><font color=\"green\">COMMAND-LINE OPTIONS</font><br><div style=\"margin-left: 2em;\"><i>-h, --help</i> - option that shows this text.<br><i>-c, --connected-components</i> - check your connected components.<br><i>-e, --euler_graph</i> - check your graph on Euler's graph.<br><i>-b, --bipartite_graph</i> - check your graph on bipartite.<br></div>",
+  "options": [ {"-h": "--help"},
+               {"-c": "--connect_components"},
+               {"-e": "--euler_graph"},
+               {"-b" : "--bipartite_graph"}]
+}

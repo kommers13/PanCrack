@@ -1,19 +1,26 @@
+// CommandSingleOutput.qml
 import QtQuick
 import QtQuick.Controls
 
 TextEdit {
     property bool isLineEmpty: false
     id: commandAnswer
-    // readOnly: true
     height: 1
     wrapMode: TextEdit.Wrap
-    // textFormat: TextEdit.MarkdownText
-    // textFormat: TextEdit.RichText
     textFormat: TextEdit.AutoText
-    font.family: "AcPlus IBM EGA 9x14"
-    color: "#3ffffc"
-    selectionColor: "#4d633d"
-    font.pointSize: 22
+    font.family: "Courier New"
+    font.bold: true
+    color: "#ff5555"  // Ярко-красный
+    selectionColor: "#00ff00"
+    font.pixelSize: 16
+
+    // Только тёмный фон без эффектов
+    Rectangle {
+        anchors.fill: parent
+        color: "#000000"
+        z: -1
+    }
+
     onContentHeightChanged: {
         if (text !== "") {
             height = contentHeight
