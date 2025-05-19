@@ -41,7 +41,7 @@ string CheckCommand::execute(const string& command,
                     return "Graph <b>" + graph_name + "</b> doesn't have connection components!!! <br>";
                 }
                 else{
-                    return ans + " <br>";
+                    return ans;
                 }
             }
         }
