@@ -11,8 +11,10 @@ Window {
     width: loader_screen01.width
     height: loader_screen01.height
 
+    color: "#000000"
+
     visible: true
-    color: "#00ffff"
+    //color: "#00ffff"
     title: "PanCrack"
 
     Loader {
