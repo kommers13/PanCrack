@@ -17,6 +17,7 @@ qt6_add_qml_module(PanCrackContent
         "CommandLine.qml"
         "App.qml"
         "DuplicateWindow.qml"
+        "Scrimer.qml"
         "plugs/Signals.qml"
     RESOURCES
         "js/console_utils.js"
@@ -25,6 +26,7 @@ qt6_add_qml_module(PanCrackContent
         "img/logo.png"
         "img/unlock.png"
         "img/lock.png"
+        "img/panteleev.jpg"
 )
 
 
