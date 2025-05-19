@@ -73,7 +73,7 @@ pair<double, double> v_rep(const pair<double, double>& sv,  // единичны�
                            const double& d,
                            const double& L) {
     // вектор отталкивания направлен в противоположную сторону от направления вектора пружины
-    return multiply(- 2 * (L * L) / d, sv);      // ДЛЯ ФРЮХТЕРМАНА-РЕЙНГОЛЬДА
+    return multiply(-(L * L) / d, sv);      // ДЛЯ ФРЮХТЕРМАНА-РЕЙНГОЛЬДА
     // return multiply(-Kr / (d * d), sv);  // ДЛЯ ИДЕСА
 }
 
@@ -97,6 +97,7 @@ unordered_map<int, pair<double, double>> FR_algorithm(
                                                     ) {
     auto graph = G.get_graph();
     const double L = sqrt(HEIGHT * WIDTH / graph.size());
+    // const double L = 340;
     // qDebug() << "L: " << L;
 
 
@@ -331,7 +332,7 @@ unordered_map<int, pair<double, double>> gen_vertices_coords(const Graph& G) {
     // температура
     double temp = 100;
     // количество итераций
-    int cnt_iters = 100;
+    int cnt_iters = 200;
     // шаг температуры
     double step_temp = temp / cnt_iters;
     while (cnt_iters-->0) {
