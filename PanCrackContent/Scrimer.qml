@@ -4,93 +4,110 @@ import QtQuick.Controls 2.15
 
 Item {
     id: root
-    width: 300
-    height: 300
-    z: 1000
+    width: 400
+    height: 400
+    z: 10000
     visible: false
 
-    property int minDuration: 60 // 2 секунды минимальная длительность
-    property int maxDuration: 100 // 4 секунды максимальная длительность
-    property int spawnInterval: 25000 // Интервал 20 секунд
+    property int minDuration: 60
+    property int maxDuration: 100
+    property int spawnInterval: 25000
 
-    Image {
-        id: scrimerImage
+    // Чёрный полупрозрачный фон
+    Rectangle {
+        id: background
         anchors.fill: parent
-        source: "img/panteleev.jpg"
-        opacity: 0
+        color: "black"
+        opacity: 0.7
     }
 
-    // Таймер для начальной задержки
-    Timer {
-        id: initialDelayTimer
-        interval: 40000 // 20 секунд задержки
-        running: true
-        onTriggered: {
-            spawnTimer.start() // Запускаем основной таймер после задержки
+    // Основное изображение скримера
+    Image {
+        id: scrimerImage
+        anchors.centerIn: parent
+        width: parent.width * 0.9
+        height: parent.height * 0.9
+        source: "img/panteleev.jpg" // ПРОВЕРЬТЕ ПУТЬ К ФАЙЛУ!
+        opacity: 0
+        visible: opacity > 0
+
+        // Эффект мерцания
+        SequentialAnimation on opacity {
+            id: flickerAnim
+            running: false
+            loops: Animation.Infinite
+            NumberAnimation { to: 0.8; duration: 50 }
+            NumberAnimation { to: 1.0; duration: 100 }
+            NumberAnimation { to: 0.3; duration: 30 }
+            NumberAnimation { to: 1.0; duration: 200 }
+        }
+
+        // Эффект дрожания
+        ParallelAnimation {
+            id: shakeAnim
+            running: false
+            loops: Animation.Infinite
+            NumberAnimation {
+                target: scrimerImage
+                property: "rotation"
+                from: -5; to: 5
+                duration: 100
+                easing.type: Easing.InOutBack
+            }
+            NumberAnimation {
+                target: scrimerImage
+                property: "x"
+                from: scrimerImage.x - 10; to: scrimerImage.x + 10
+                duration: 70
+            }
         }
     }
 
+    // Таймер начальной задержки
+    Timer {
+        id: initialDelayTimer
+        interval: 40000
+        running: true
+        onTriggered: spawnTimer.start()
+    }
+
+    // Основной таймер появления
     Timer {
         id: spawnTimer
         interval: spawnInterval
-        running: false // Не запускаем сразу, ждем initialDelayTimer
+        running: false
         repeat: true
-        onTriggered: {
-            startScrimer();
-        }
+        onTriggered: startScrimer()
     }
 
-    // Остальной код без изменений
     function startScrimer() {
-        // Выбираем случайную стартовую позицию за пределами экрана
+        // Случайная стартовая позиция
         var startX, startY;
-        var side = Math.floor(Math.random() * 4); // 0-3: top, right, bottom, left
+        var side = Math.floor(Math.random() * 4);
 
         switch(side) {
-            case 0: // top
-                startX = Math.random() * root.parent.width;
-                startY = -root.height;
-                break;
-            case 1: // right
-                startX = root.parent.width;
-                startY = Math.random() * root.parent.height;
-                break;
-            case 2: // bottom
-                startX = Math.random() * root.parent.width;
-                startY = root.parent.height;
-                break;
-            case 3: // left
-                startX = -root.width;
-                startY = Math.random() * root.parent.height;
-                break;
+            case 0: startX = Math.random() * root.parent.width; startY = -root.height; break;
+            case 1: startX = root.parent.width; startY = Math.random() * root.parent.height; break;
+            case 2: startX = Math.random() * root.parent.width; startY = root.parent.height; break;
+            case 3: startX = -root.width; startY = Math.random() * root.parent.height; break;
         }
 
-        // Выбираем случайную конечную позицию (противоположная сторона)
+        // Случайная конечная позиция
         var endX, endY;
-        switch((side + 2) % 4) { // Противоположная сторона
-            case 0: // top
-                endX = Math.random() * root.parent.width;
-                endY = -root.height;
-                break;
-            case 1: // right
-                endX = root.parent.width;
-                endY = Math.random() * root.parent.height;
-                break;
-            case 2: // bottom
-                endX = Math.random() * root.parent.width;
-                endY = root.parent.height;
-                break;
-            case 3: // left
-                endX = -root.width;
-                endY = Math.random() * root.parent.height;
-                break;
+        switch((side + 2) % 4) {
+            case 0: endX = Math.random() * root.parent.width; endY = -root.height; break;
+            case 1: endX = root.parent.width; endY = Math.random() * root.parent.height; break;
+            case 2: endX = Math.random() * root.parent.width; endY = root.parent.height; break;
+            case 3: endX = -root.width; endY = Math.random() * root.parent.height; break;
         }
 
-        // Устанавливаем позицию и делаем видимым
+        // Установка позиции
         root.x = startX;
         root.y = startY;
         root.visible = true;
         scrimerImage.opacity = 1.0;
+        flickerAnim.start();
+        shakeAnim.start();
 
         // Длительность анимации
         var duration = root.minDuration + Math.random() * (root.maxDuration - root.minDuration);
@@ -101,6 +118,7 @@ Item {
         movementAnim.start();
     }
 
+    // Анимация движения
     ParallelAnimation {
         id: movementAnim
         property real duration: 3000
@@ -117,8 +135,29 @@ Item {
             duration: movementAnim.duration
             easing.type: Easing.InOutQuad
         }
+        SequentialAnimation {
+            NumberAnimation {
+                target: scrimerImage
+                property: "scale"
+                from: 0.8
+                to: 1.2
+                duration: movementAnim.duration/2
+                easing.type: Easing.InOutBack
+            }
+            NumberAnimation {
+                target: scrimerImage
+                property: "scale"
+                from: 1.2
+                to: 0.8
+                duration: movementAnim.duration/2
+                easing.type: Easing.InOutBack
+            }
+        }
         onStopped: {
             root.visible = false;
+            scrimerImage.scale = 1.0;
+            flickerAnim.stop();
+            shakeAnim.stop();
         }
     }
 }

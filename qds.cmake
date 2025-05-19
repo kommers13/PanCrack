@@ -19,6 +19,7 @@ qt6_add_resources(${CMAKE_PROJECT_NAME} MainResource
         "App/cominf/help.json"
         "App/cominf/check.json"
         "App/cominf/prufer.json"
+        "App/cominf/color.json"
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
