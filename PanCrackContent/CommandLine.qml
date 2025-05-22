@@ -383,7 +383,7 @@ Item {
                     let nextLine = nextLineComponent.createObject(column, {
                         focus: true,
                         width: column.width,
-                        text: "PanCrack> "
+                        text: "PanCrack>"
                     })
 
                     let nextOutput = nextOutputComponent.createObject(column, {
@@ -397,23 +397,23 @@ Item {
                     nextLine.Keys.onUpPressed.connect(() => {
                         if (historyIndex < commandHistory.length - 1) {
                             historyIndex++;
-                            nextLine.text = "PanCrack> " + commandHistory[commandHistory.length - 1 - historyIndex];
+                            nextLine.text = "PanCrack>" + commandHistory[commandHistory.length - 1 - historyIndex];
                         }
                     })
 
                     nextLine.Keys.onDownPressed.connect(() => {
                         if (historyIndex > 0) {
                             historyIndex--;
-                            nextLine.text = "PanCrack> " + commandHistory[commandHistory.length - 1 - historyIndex];
+                            nextLine.text = "PanCrack>" + commandHistory[commandHistory.length - 1 - historyIndex];
                         } else {
                             historyIndex = -1;
-                            nextLine.text = "PanCrack> ";
+                            nextLine.text = "PanCrack>";
                         }
                     })
 
                     nextLine.Keys.onPressed.connect((event) => {
                         if (event.key === Qt.Key_Shift && event.key === Qt.Key_Return) {
-                            nextLine.text += "\nPanCrack> ";
+                            nextLine.text += "\nPanCrack>";
                         }
                     })
 

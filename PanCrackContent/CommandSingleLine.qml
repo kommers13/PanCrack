@@ -18,7 +18,7 @@ TextEdit {
     font.family: "Courier New"
     font.bold: true
 
-    // Подключаем ваш моргающий курсор
+    // Подключаем наш моргающий курсор
     cursorDelegate: Cursor {
         curwidth: 2
         curheight: font.pixelSize * 1.2
@@ -35,9 +35,12 @@ TextEdit {
     Keys.onPressed: (event) => {
         let lw = "PanCrack>".length
         if (event.key === Qt.Key_Backspace) {
+            // let current_cursorPosition = cursorPosition;
             if (cursorPosition <= lw) {
-                insert(cursorPosition, " ")
+                event.accepted = true;  // приняли event, дальше не пускаем
+                // insert(cursorPosition, " ")
             }
+            // cursorPosition = current_cursorPosition
         }
         else if ((event.key === Qt.Key_Enter || event.key === Qt.Key_Return) &&
                  (event.modifiers & Qt.ShiftModifier)) {
@@ -51,7 +54,7 @@ TextEdit {
 
     onSelectionStartChanged: {
         let lw = "PanCrack>".length
-        if (selectionStart < lw) {
+        if (selectionStart <= lw) {
             select(lw, selectionEnd)
         }
     }
