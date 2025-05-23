@@ -21,6 +21,7 @@ Item {
         opacity: 0.7
     }
 
+
     // Основное изображение скримера
     Image {
         id: scrimerImage
