@@ -8,6 +8,8 @@ project(PanCrackApp LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
+set(CMAKE_WIN32_EXECUTABLE TRUE)  # убирает консоль (устанавливает флаг WIN32 (неявно),
+                                  # т. е. приложение ОКОННОЕ)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/qml)
