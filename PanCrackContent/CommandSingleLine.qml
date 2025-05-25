@@ -34,13 +34,15 @@ TextEdit {
 
     Keys.onPressed: (event) => {
         let lw = "PanCrack>".length
-        if (event.key === Qt.Key_Backspace) {
-            // let current_cursorPosition = cursorPosition;
+        if (event.key === Qt.Key_Backspace || event.key === Qt.Key_Delete) {
+            let current_cursorPosition = cursorPosition;
             if (cursorPosition <= lw) {
+                // clear();
+                // insert(0, "PanCrack>");
                 event.accepted = true;  // приняли event, дальше не пускаем
                 // insert(cursorPosition, " ")
             }
-            // cursorPosition = current_cursorPosition
+            cursorPosition = current_cursorPosition;
         }
         else if ((event.key === Qt.Key_Enter || event.key === Qt.Key_Return) &&
                  (event.modifiers & Qt.ShiftModifier)) {
@@ -55,7 +57,12 @@ TextEdit {
     onSelectionStartChanged: {
         let lw = "PanCrack>".length
         if (selectionStart <= lw) {
-            select(lw, selectionEnd)
+            if (selectionStart == selectionEnd) {
+                select(lw, lw)
+            }
+            else {
+                select(lw, selectionEnd)
+            }
         }
     }
 }
