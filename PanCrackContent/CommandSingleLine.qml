@@ -2,6 +2,7 @@
 import QtQuick
 import QtQuick.Controls
 
+
 TextEdit {
     signal accepted()
 
@@ -13,7 +14,7 @@ TextEdit {
     selectedTextColor: "#000000"
     width: 700
     font.pixelSize: 16
-    cursorPosition: text.length
+    // cursorPosition: text.length
     focus: true
     font.family: "Courier New"
     font.bold: true
@@ -64,5 +65,10 @@ TextEdit {
                 select(lw, selectionEnd)
             }
         }
+    }
+
+    Component.onCompleted: {
+        forceActiveFocus()      // принудительный фокус к объекту после его создания
+        cursorPosition = text.length
     }
 }

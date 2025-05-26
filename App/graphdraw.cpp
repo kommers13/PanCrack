@@ -97,7 +97,7 @@ unordered_map<int, pair<double, double>> FR_algorithm(
                                                     ) {
     auto graph = G.get_graph();
     const double L = sqrt(HEIGHT * WIDTH / graph.size());
-    // const double L = 340;
+    // const double L = 1000;
     // qDebug() << "L: " << L;
 
 
@@ -238,8 +238,8 @@ unordered_map<int, pair<double, double>> Eades_algorithm(
 
     // нужно помнить, чтобы вершины не вышли за пределы Canvas-а
     auto graph = G.get_graph();
-    // const double L = sqrt(WIDTH * HEIGHT) / graph.size();
-    const double L = 25 * RADIUS;
+    const double L = sqrt(WIDTH * HEIGHT) / graph.size();
+    // const double L = 1000 * RADIUS;
 
     // qDebug() << "vertices_coords AT THE BEGINNING OF ITERATION";
     // for (auto v_x_y: vertices_coords) {

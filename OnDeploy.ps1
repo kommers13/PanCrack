@@ -7,7 +7,7 @@ $exe_file = $build_dir + "PanCrackApp.exe"    # исполняемый файл
 $required_files = Get-Content -Path $file    # прочитали содержимое файла в виде массива
 
 # развертываем приложение при помощи windeployqt6
-windeployqt6 $exe_file --qmldir $qml_dir
+windeployqt6 $exe_file --qmldir $qml_dir --compiler-runtime --no-translations
 
 # все файлы внутри $build_dir
 $files_in_build_dir = Get-ChildItem -Path $build_dir
