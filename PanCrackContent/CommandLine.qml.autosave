@@ -8,7 +8,7 @@ import "js/draw_utils.js" as DrawingUtils
 // plugs
 //import "plugs"
 // real
-//import signals
+import signals
 
 Item {
     id: root_commandLine
@@ -28,26 +28,26 @@ Item {
 
 
 
-    // Signals {
-    //      property bool isCleared: false;
-    //      property bool isCreated: false;
-    //      id: signals_id
-    //      objectName: "signals_id_"
-    //      // этот компонент зарегистрирован из C++
-    //      // он дает возможность испускать сигналы из C++ и ловить их в этом же классе и обрабатывать,
-    //      // но испускать сигналы из QML мы можем откуда угодно
-    //      // этот компонент еще будет обрабатывать сигналы, испущенные из C++ кодом, который отвечает за команды консоли
-    //      // здесь мы просто вызываем функции, чтобы они сделали свое дело, но не имели никаких понятий о том,
-    //      // что нам пришлось сделать, чтобы вызвать их
-    //      // UNCOMMENT
-    //      onClearCommand: {
-    //          isCleared = true
-    //      }
-    //      onGraphDraw: (graph) => {
-    //          // graph - QVariantMap
-    //          DrawingUtils.draw_graph(graph, canvas_graphdraw)
-    //      }
-    // }
+    Signals {
+         property bool isCleared: false;
+         property bool isCreated: false;
+         id: signals_id
+         objectName: "signals_id_"
+         // этот компонент зарегистрирован из C++
+         // он дает возможность испускать сигналы из C++ и ловить их в этом же классе и обрабатывать,
+         // но испускать сигналы из QML мы можем откуда угодно
+         // этот компонент еще будет обрабатывать сигналы, испущенные из C++ кодом, который отвечает за команды консоли
+         // здесь мы просто вызываем функции, чтобы они сделали свое дело, но не имели никаких понятий о том,
+         // что нам пришлось сделать, чтобы вызвать их
+         // UNCOMMENT
+         onClearCommand: {
+             isCleared = true
+         }
+         onGraphDraw: (graph) => {
+             // graph - QVariantMap
+             DrawingUtils.draw_graph(graph, canvas_graphdraw)
+         }
+    }
 
     Rectangle {
         id: rect_console

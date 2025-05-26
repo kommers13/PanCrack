@@ -17,9 +17,8 @@ Rectangle {
     color: "#000c0c"
     opacity: 0
 
-    // Добавляем компонент скримера
-    Scrimer {
-        id: scrimer
+    Bsod {
+        id: bsod
         anchors.fill: parent
     }
 

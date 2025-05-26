@@ -10,16 +10,16 @@ qt6_add_resources(${CMAKE_PROJECT_NAME} MainResource
     PREFIX "/qt/qml"
     VERSION 1.0
     FILES 
-        "App/cominf/create.json"
         "App/cominf/algorithm.json"
-        "App/cominf/draw.json"
-        "App/cominf/show.json"
-        "App/cominf/view.json"
-        "App/cominf/clear.json"
-        "App/cominf/help.json"
+        "App/cominf/create.json"
         "App/cominf/check.json"
         "App/cominf/prufer.json"
+        "App/cominf/show.json"
+        "App/cominf/view.json"
         "App/cominf/color.json"
+        "App/cominf/clear.json"
+        "App/cominf/draw.json"
+        "App/cominf/help.json"
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
