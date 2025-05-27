@@ -207,8 +207,9 @@ unordered_map<int, pair<double, double>> FR_algorithm(
                                          );
         // проверяем, чтобы вершины не вышли за пределы экрана
         // если вершины вышли за границы, то они просто прилипают к границе области
-        vertices_coords[v].first = min<double>(WIDTH, max<double>(MARGIN, vertices_coords[v].first));      // от MARGIN до WIDTH
-        vertices_coords[v].second = min<double>(HEIGHT, max<double>(MARGIN, vertices_coords[v].second));
+        // ТЕПЕРЬ ОНИ ВЫХОДЯТ ЗА ПРЕДЕЛЫ
+        // vertices_coords[v].first = min<double>(WIDTH, max<double>(MARGIN, vertices_coords[v].first));      // от MARGIN до WIDTH
+        // vertices_coords[v].second = min<double>(HEIGHT, max<double>(MARGIN, vertices_coords[v].second));
     }
     return vertices_coords;
 }

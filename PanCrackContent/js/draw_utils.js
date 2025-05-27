@@ -1,19 +1,27 @@
 .pragma library
 
 
-// эта переменная зависит от переменной от переменной в области имен graphdraw
-const RADIUS = 15;
-
-// шаг для цвета, мы поделили весь диапазон цветов на 30 частей и равномерно
-// распределили его, это шаг для одного цвета
-const COLOR_STEP = 559240;
+// эта переменная зависит от переменной в области имен graphdraw
+let RADIUS = 15;
 
 // толщина ребер
-const EDGE_WIDTH = 2.0;
+let EDGE_WIDTH = 2.0;
 
 // цвет ребер
 const EDGE_COLOR = "#00FF00";
 
+// глобальная переменная с координатами графа
+// граф рисуется, и тогда, он находится на экране, его можно МАСШТАБИРОВАТЬ, ПЕРЕМЕЩАТЬ, ДВИГАТЬ ВЕРШИНЫ,
+// т. е. тогда, когда GRAPH != null
+// когда canvas очищается, то GRAPH становится равным null
+// Т. Е. точкой входа в canvas является draw_graph
+// Таким образом, пока GRAPH != null, он находится на экране, иначе, когда он исчезает с экрана, получаем
+// GRAPH = null
+let GRAPH = null            // НЕ ИСПОЛЬЗУЙТЕ ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ, ДА ЛАДНО, ВЫ ЧТО, ИЗДЕВАЕТЕСЬ
+
+
+// коэффициент масштабирования canvas-а
+let k_scale = 1;
 
 // Тридцать цветов для вершин
 // первый цвет - цвет фона вершины
@@ -52,17 +60,27 @@ const distinctColors = [
 ];
 
 
+// функция для очистки Canvas-а
+function clean_canvas(canvas_gd, ctx, clean_graph) {    // clean_graph - 1 - очистка, 0 - оставляем как есть
+    // CLEANING
+    ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1);
+    console.log("WIDTH, HEIGHT", canvas_gd.width, canvas_gd.height)
+    ctx.setTransform(1, 0, 0, 1, 0, 0);     // сбрасываем масштаб до изначального
+    ctx.fillRect(0, 0, canvas_gd.width, canvas_gd.height);  // очищаем canvas
+    ctx.scale(k_scale, k_scale);    // возвращаем масштаб
+    GRAPH = (clean_graph ? null : GRAPH);       // очищаем граф
+    canvas_gd.requestPaint();  // Важно для обновления
+}
+
 
 // граф в переменной graph всегда ПРАВИЛЬНЫЙ
 // canvas_gd - объект Canvas для рисования графа
-function draw_graph(graph, canvas_gd) {
+function draw_graph(graph, canvas_gd, ctx) {
 
-    let ctx = canvas_gd.getContext("2d");
+    // очищаем Canvas
+    clean_canvas(canvas_gd, ctx, 1)
 
-    // CLEANING
-    // перед тем как рисовать, мы должны очистить Canvas
-    ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1);
-    ctx.fillRect(0, 0, canvas_gd.width, canvas_gd.height);
+    GRAPH = graph;  // обозначаем, что на экране сейчас находится граф
 
     // DRAWING
     // рисуем graph
@@ -139,7 +157,24 @@ function draw_graph(graph, canvas_gd) {
     }
 
 
+    ctx.strokeStyle = 'white'
+    ctx.strokeRect(0, 0, canvas_gd.width, canvas_gd.height)
+    ctx.closePath()
+
     // UPDATING
     canvas_gd.requestPaint();  // Важно для обновления
+}
+
+// изменение масштаба графа
+// при это нужно делать так, чтобы Canvas всегда находится по центру своей области
+function scale_canvas(scale, canvas_gd, ctx) {
+    if (GRAPH != null) {
+        // EDGE_WIDTH = EDGE_WIDTH * scale;
+        // RADIUS = RADIUS * scale;
+        k_scale *= scale;        // домножаем на множитель scale коэффициент масштабирования
+        clean_canvas(canvas_gd, ctx, 0) // просто очищаем Canvas, но оставляем GRAPH
+        draw_graph(GRAPH, canvas_gd, ctx);
+        console.log("HELLO I AM SCALED CANVAS, my scale equals", scale)
+    }
 }
 
