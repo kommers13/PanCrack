@@ -398,7 +398,6 @@ Item {
                         if (historyIndex < commandHistory.length - 1) {
                             historyIndex++;
                             nextLine.text = "PanCrack>" + commandHistory[commandHistory.length - 1 - historyIndex];
-                            nextLine.cursorPosition = nextLine.text.length;
                         }
                     })
 
@@ -406,11 +405,9 @@ Item {
                         if (historyIndex > 0) {
                             historyIndex--;
                             nextLine.text = "PanCrack>" + commandHistory[commandHistory.length - 1 - historyIndex];
-                            nextLine.cursorPosition = nextLine.text.length;
                         } else {
                             historyIndex = -1;
                             nextLine.text = "PanCrack>";
-                            nextLine.cursorPosition = nextLine.text.length;
                         }
                     })
 
