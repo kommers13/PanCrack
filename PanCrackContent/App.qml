@@ -13,7 +13,9 @@ Window {
 
     color: "#000000"
 
-    visible: true
+    //enable: false
+    // modality: Qt.ApplicationModal
+    visible: false
     //color: "#00ffff"
     title: "PanCrack"
 
