@@ -9,24 +9,24 @@ qt6_add_qml_module(PanCrackContent
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
-        "CommandSingleOutput.qml"
-        "CommandSingleLine.qml"
-        "Loading.qml"
-        "Cursor.qml"
-        "Screen01.ui.qml"
         "CommandLine.qml"
-        "App.qml"
         "DuplicateWindow.qml"
-        "Scrimer.qml"
+        "CommandSingleOutput.qml"
+        "App.qml"
+        "Screen01.ui.qml"
+        "Cursor.qml"
+        "Loading.qml"
+        "CommandSingleLine.qml"
+        "Bsod.qml"
         "plugs/Signals.qml"
     RESOURCES
+        "img/logo.png"
+        "img/lock.png"
+        "img/qr.png"
+        "img/logo1.png"
+        "img/unlock.png"
         "js/console_utils.js"
         "js/draw_utils.js"
-        "img/logo1.png"
-        "img/logo.png"
-        "img/unlock.png"
-        "img/lock.png"
-        "img/panteleev.jpg"
 )
 
 
