@@ -8,15 +8,14 @@ import QtQuick.Timeline 1.0
 Window {
     id: window
 
+    x: -1000
+
     width: loader_screen01.width
     height: loader_screen01.height
 
-    color: "#000000"
+    color: "#00000000"
 
-    //enable: false
-    // modality: Qt.ApplicationModal
-    visible: false
-    //color: "#00ffff"
+    visible: true
     title: "PanCrack"
 
     Loader {
