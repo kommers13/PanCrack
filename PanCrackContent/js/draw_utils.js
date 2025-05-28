@@ -1,123 +1,62 @@
 .pragma library
 
+const RADIUS = 18;
+const EDGE_WIDTH = 2.5;
+const GLOW_COLOR = "#00FF41";
+const ERROR_COLOR = "#FF0033";
 
-// эта переменная зависит от переменной от переменной в области имен graphdraw
-const RADIUS = 15;
-
-// шаг для цвета, мы поделили весь диапазон цветов на 30 частей и равномерно
-// распределили его, это шаг для одного цвета
-const COLOR_STEP = 559240;
-
-// толщина ребер
-const EDGE_WIDTH = 2.0;
-
-// цвет ребер
-const EDGE_COLOR = "#00FF00";
-
-
-// Тридцать цветов для вершин
-// первый цвет - цвет фона вершины
-// второй цвет - цвет текста вершины
-const distinctColors = [
-  ["#FF0000", "#FFFFFF"], // Красный → Белый
-  ["#00FF00", "#000000"], // Ярко-зелёный → Чёрный
-  ["#0000FF", "#FFFFFF"], // Синий → Белый
-  ["#FFFF00", "#000000"], // Жёлтый → Чёрный
-  ["#FF00FF", "#000000"], // Пурпурный → Чёрный
-  ["#00FFFF", "#000000"], // Голубой → Чёрный
-  ["#FF8000", "#000000"], // Оранжевый → Чёрный
-  ["#8000FF", "#FFFFFF"], // Фиолетовый → Белый
-  ["#008000", "#FFFFFF"], // Тёмно-зелёный → Белый
-  ["#FF0080", "#FFFFFF"], // Розово-малиновый → Белый
-  ["#00FF80", "#000000"], // Изумрудный → Чёрный
-  ["#800000", "#FFFFFF"], // Тёмно-красный → Белый
-  ["#008080", "#FFFFFF"], // Бирюзовый → Белый
-  ["#808000", "#FFFFFF"], // Оливковый → Белый
-  ["#000080", "#FFFFFF"], // Тёмно-синий → Белый
-  ["#FF6347", "#000000"], // Томатный → Чёрный
-  ["#7CFC00", "#000000"], // Травяной → Чёрный
-  ["#9400D3", "#FFFFFF"], // Тёмно-фиолетовый → Белый
-  ["#FFD700", "#000000"], // Золотой → Чёрный
-  ["#4B0082", "#FFFFFF"], // Индиго → Белый
-  ["#FF69B4", "#000000"], // Ярко-розовый → Чёрный
-  ["#00CED1", "#000000"], // Бирюзово-голубой → Чёрный
-  ["#32CD32", "#000000"], // Лаймовый → Чёрный
-  ["#8A2BE2", "#FFFFFF"], // Сине-фиолетовый → Белый
-  ["#DC143C", "#FFFFFF"], // Малиновый → Белый
-  ["#20B2AA", "#000000"], // Светло-морской → Чёрный
-  ["#FF4500", "#FFFFFF"], // Красно-оранжевый → Белый
-  ["#6A5ACD", "#FFFFFF"], // Сланцевый → Белый
-  ["#FFA500", "#000000"], // Классический оранжевый → Чёрный
-  ["#2E8B57", "#FFFFFF"]  // Морской зелёный → Белый
+const cyberColors = [
+    ["#00FF41", "#001F0D"],  // Неоново-зеленый с темно-зеленым текстом
+    ["#FF0033", "#1F000A"],  // Ярко-красный с темно-бордовым текстом
+    ["#FF6600", "#1F0A00"],  // Оранжевый с темно-коричневым текстом
+    ["#00CCFF", "#00101F"],  // Голубой с темно-синим текстом
+    ["#9900FF", "#0F001F"],  // Фиолетовый с темно-фиолетовым текстом
+    ["#FF00FF", "#1F001F"],  // Розовый с темно-пурпурным текстом
+    ["#00FF99", "#001F10"],  // Аквамарин с темно-бирюзовым текстом
+    ["#00FFCC", "#001F14"],  // Бирюзовый с темно-бирюзовым текстом
+    ["#FF3399", "#1F000A"],  // Малиновый с темно-бордовым текстом
+    ["#33FF00", "#0A1F00"]   // Лаймовый с темно-зеленым текстом
 ];
 
+const edgeStyles = [
+    {color: "#00FF41", width: 2.5}, // Основной хакерский
+    {color: "#FF0033", width: 2.5}, // Вирусный
+    {color: "#FF6600", width: 2.0}, // Оранжевый угроза
+    {color: "#9900FF", width: 2.0}, // Фиолетовый взлом
+    {color: "#00CCFF", width: 1.8}  // Голубой сигнал
+];
 
-
-// граф в переменной graph всегда ПРАВИЛЬНЫЙ
-// canvas_gd - объект Canvas для рисования графа
 function draw_graph(graph, canvas_gd) {
-
     let ctx = canvas_gd.getContext("2d");
 
-    // CLEANING
-    // перед тем как рисовать, мы должны очистить Canvas
-    ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1);
+    // Очистка canvas - темный фон с едва заметным паттерном
+    ctx.fillStyle = "#000B0B";
     ctx.fillRect(0, 0, canvas_gd.width, canvas_gd.height);
 
-    // DRAWING
-    // рисуем graph
-
-    ctx.strokeStyle = EDGE_COLOR;            // set the color for the circle to 'green'
-    ctx.lineWidth = EDGE_WIDTH;              // set the lineWidth for the circle to 5.0
-
-
-    // рисуем ребра
-    for (let e in graph["edges"]) {
-        let edge = graph["edges"][e]
-        let v1 = edge[0];
-        let v2 = edge[1];
-        let w = edge[2];
-        let x1 = graph["vertices"][v1][0];
-        let y1 = graph["vertices"][v1][1];
-        let x2 = graph["vertices"][v2][0];
-        let y2 = graph["vertices"][v2][1]
-
-        // рисуем ребро
+    // Добавляем едва заметный сетчатый паттерн
+    ctx.strokeStyle = "#001010";
+    ctx.lineWidth = 0.5;
+    for (let x = 0; x < canvas_gd.width; x += 20) {
         ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas_gd.height);
         ctx.stroke();
-        ctx.closePath();
+    }
+    for (let y = 0; y < canvas_gd.height; y += 20) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas_gd.width, y);
+        ctx.stroke();
     }
 
-    // рисуем вершины
-    for (let v in graph["vertices"]) {
-        let x = graph["vertices"][v][0];
-        let y = graph["vertices"][v][1];
-        let color = graph["colors"][v];      // номер цвета вершины
+    // Сброс всех эффектов
+    ctx.shadowBlur = 0;
+    ctx.setLineDash([]);
+    ctx.globalAlpha = 1.0;
 
-        // рисуем круг
-        ctx.beginPath();
-        ctx.fillStyle = distinctColors[color][0];
-        ctx.strokeStyle = 'green';
-        ctx.arc(x, y, RADIUS, 0, 2 * Math.PI);  // a circle with center point (100,100) and radius RADIUS
-        ctx.stroke();                           // draw the path; in this case only the circle
-        ctx.fill();
-        ctx.closePath();
-
-        // рисуем имя вершины
-        ctx.beginPath();
-        ctx.font = "19pt serif";
-        ctx.fillStyle = distinctColors[color][1];
-        let text_m = ctx.measureText(v);
-        ctx.fillText(v, x - text_m.width / 2, y + text_m.width / 2);
-        ctx.closePath();
-    }
-
-
-    // рисуем веса
-    for (let e1 in graph["edges"]) {
-        let edge = graph["edges"][e1]
+    // Рисуем ребра
+    for (let e in graph["edges"]) {
+        let edge = graph["edges"][e];
         let v1 = edge[0];
         let v2 = edge[1];
         let w = edge[2];
@@ -125,21 +64,83 @@ function draw_graph(graph, canvas_gd) {
         let y1 = graph["vertices"][v1][1];
         let x2 = graph["vertices"][v2][0];
         let y2 = graph["vertices"][v2][1];
-        let text_m = ctx.measureText(w);
 
-        // рисование веса
+        let style = edgeStyles[e % edgeStyles.length];
+
         ctx.beginPath();
-        ctx.font = "19pt serif";
-        ctx.fillStyle = 'red';
-        ctx.fillText(w,
-                     (x1 + x2 - text_m.width) / 2,
-                     (y1 + y2) / 2,
-                     );
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = style.color;
+        ctx.lineWidth = style.width;
+        ctx.stroke();
         ctx.closePath();
     }
 
+    // Рисуем вершины с обводкой того же цвета
+    for (let v in graph["vertices"]) {
+        let x = graph["vertices"][v][0];
+        let y = graph["vertices"][v][1];
+        let colorIndex = graph["colors"][v] % cyberColors.length;
+        let [fillColor, textColor] = cyberColors[colorIndex];
 
-    // UPDATING
-    canvas_gd.requestPaint();  // Важно для обновления
+        // Основной круг с обводкой цвета вершины
+        ctx.beginPath();
+        ctx.arc(x, y, RADIUS, 0, 2 * Math.PI);
+        ctx.fillStyle = fillColor;
+        ctx.strokeStyle = fillColor; // Обводка того же цвета, что и заливка
+        ctx.lineWidth = 2.5;
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+
+        // Внутренняя темная обводка (цвет текста)
+        ctx.beginPath();
+        ctx.arc(x, y, RADIUS-1, 0, 2 * Math.PI);
+        ctx.strokeStyle = textColor;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.closePath();
+
+        // Текст вершины
+        ctx.beginPath();
+        ctx.font = "bold 16px 'Courier New', monospace";
+        ctx.fillStyle = textColor;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(v, x, y);
+        ctx.closePath();
+    }
+
+    // Рисуем веса
+    for (let e in graph["edges"]) {
+        let edge = graph["edges"][e];
+        let v1 = edge[0];
+        let v2 = edge[1];
+        let w = edge[2];
+        let x1 = graph["vertices"][v1][0];
+        let y1 = graph["vertices"][v1][1];
+        let x2 = graph["vertices"][v2][0];
+        let y2 = graph["vertices"][v2][1];
+
+        let midX = (x1 + x2) / 2;
+        let midY = (y1 + y2) / 2;
+
+        // Фон для текста веса
+        ctx.beginPath();
+        ctx.font = "bold 14px 'Courier New', monospace";
+        let textWidth = ctx.measureText(w).width;
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(midX - textWidth/2 - 2, midY - 10, textWidth + 4, 20);
+        ctx.closePath();
+
+        // Текст веса цветом ребра
+        ctx.beginPath();
+        ctx.fillStyle = edgeStyles[e % edgeStyles.length].color;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(w, midX, midY);
+        ctx.closePath();
+    }
+
+    canvas_gd.requestPaint();
 }
-
