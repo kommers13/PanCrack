@@ -139,7 +139,8 @@ Item {
     // Таймер показа (каждые 20 секунд)
     Timer {
         id: showTimer
-        interval: 60000//20000
+        // interval: 60000//20000
+        interval: 600000
         running: true
         repeat: true
         onTriggered: {

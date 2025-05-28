@@ -2,10 +2,17 @@
 
 
 // эта переменная зависит от переменной в области имен graphdraw
+// при увеличении масштаба радиус будет уменьшаться
+// при уменьшении - наоборот
 let RADIUS = 15;
 
 // толщина ребер
+// при увеличении масштаба толщина будет изменяться
+// при уменьшении - наоборот
 let EDGE_WIDTH = 2.0;
+
+// размер шрифта
+let FONT_PT = 19;
 
 // цвет ребер
 const EDGE_COLOR = "#00FF00";
@@ -15,13 +22,16 @@ const EDGE_COLOR = "#00FF00";
 // т. е. тогда, когда GRAPH != null
 // когда canvas очищается, то GRAPH становится равным null
 // Т. Е. точкой входа в canvas является draw_graph
-// Таким образом, пока GRAPH != null, он находится на экране, иначе, когда он исчезает с экрана, получаем
-// GRAPH = null
+// Таким образом, пока GRAPH != null, он находится на экране, иначе, когда он исчезает с экрана,
+// получаем GRAPH = null
 let GRAPH = null            // НЕ ИСПОЛЬЗУЙТЕ ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ, ДА ЛАДНО, ВЫ ЧТО, ИЗДЕВАЕТЕСЬ
 
 
 // коэффициент масштабирования canvas-а
 let k_scale = 1;
+// сдвиг
+let offsetx = 0;
+let offsety = 0;
 
 // Тридцать цветов для вершин
 // первый цвет - цвет фона вершины
@@ -64,10 +74,17 @@ const distinctColors = [
 function clean_canvas(canvas_gd, ctx, clean_graph) {    // clean_graph - 1 - очистка, 0 - оставляем как есть
     // CLEANING
     ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1);
-    console.log("WIDTH, HEIGHT", canvas_gd.width, canvas_gd.height)
+
     ctx.setTransform(1, 0, 0, 1, 0, 0);     // сбрасываем масштаб до изначального
     ctx.fillRect(0, 0, canvas_gd.width, canvas_gd.height);  // очищаем canvas
+
+    // делаем смещение, чтобы казалось, что масштабирование идет из центра картинки
+    ctx.translate((canvas_gd.width - k_scale * canvas_gd.width) / 2,
+                  (canvas_gd.height - k_scale * canvas_gd.height) / 2);
     ctx.scale(k_scale, k_scale);    // возвращаем масштаб
+
+    ctx.translate(offsetx, offsety);        // свдигаем картинку, как положено
+
     GRAPH = (clean_graph ? null : GRAPH);       // очищаем граф
     canvas_gd.requestPaint();  // Важно для обновления
 }
@@ -125,7 +142,7 @@ function draw_graph(graph, canvas_gd, ctx) {
 
         // рисуем имя вершины
         ctx.beginPath();
-        ctx.font = "19pt serif";
+        ctx.font = `${FONT_PT}pt serif`;
         ctx.fillStyle = distinctColors[color][1];
         let text_m = ctx.measureText(v);
         ctx.fillText(v, x - text_m.width / 2, y + text_m.width / 2);
@@ -147,7 +164,7 @@ function draw_graph(graph, canvas_gd, ctx) {
 
         // рисование веса
         ctx.beginPath();
-        ctx.font = "19pt serif";
+        ctx.font = `${FONT_PT}pt serif`;
         ctx.fillStyle = 'red';
         ctx.fillText(w,
                      (x1 + x2 - text_m.width) / 2,
@@ -166,15 +183,35 @@ function draw_graph(graph, canvas_gd, ctx) {
 }
 
 // изменение масштаба графа
-// при это нужно делать так, чтобы Canvas всегда находится по центру своей области
+// при это нужно делать так, чтобы Canvas всегда находился по центру своей области
 function scale_canvas(scale, canvas_gd, ctx) {
     if (GRAPH != null) {
         // EDGE_WIDTH = EDGE_WIDTH * scale;
         // RADIUS = RADIUS * scale;
         k_scale *= scale;        // домножаем на множитель scale коэффициент масштабирования
-        clean_canvas(canvas_gd, ctx, 0) // просто очищаем Canvas, но оставляем GRAPH
+
+        FONT_PT /= scale;
+
+        EDGE_WIDTH /= scale;
+
+        RADIUS /= scale;
+
+        // clean_canvas(canvas_gd, ctx, 0) // просто очищаем Canvas, но оставляем GRAPH
         draw_graph(GRAPH, canvas_gd, ctx);
-        console.log("HELLO I AM SCALED CANVAS, my scale equals", scale)
+        // console.log("HELLO I AM SCALED CANVAS, my scale equals", scale)
+    }
+}
+
+// смещение Canvas-а по оси X или оси Y
+function translate_canvas(offset_axis, axis, canvas_gd, ctx) {
+    if (GRAPH != null) {
+        if (axis === 'X') {
+            offsetx += offset_axis / k_scale;
+        }
+        else {
+            offsety += offset_axis / k_scale;
+        }
+        draw_graph(GRAPH, canvas_gd, ctx)
     }
 }
 
