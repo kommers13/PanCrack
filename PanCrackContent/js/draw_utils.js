@@ -12,7 +12,7 @@ let RADIUS = 15;
 let EDGE_WIDTH = 2.0;
 
 // размер шрифта
-let FONT_PT = 19;
+let FONT_PX = 24;
 
 // цвет ребер
 const EDGE_COLOR = "#00FF00";
@@ -71,7 +71,7 @@ const distinctColors = [
 
 
 // функция для очистки Canvas-а
-function clean_canvas(canvas_gd, ctx, clean_graph) {    // clean_graph - 1 - очистка, 0 - оставляем как есть
+function clean_canvas(canvas_gd, cx, cy, ctx, clean_graph) {    // clean_graph - 1 - очистка, 0 - оставляем как есть
     // CLEANING
     ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1);
 
@@ -80,22 +80,23 @@ function clean_canvas(canvas_gd, ctx, clean_graph) {    // clean_graph - 1 - о�
 
     // делаем смещение, чтобы казалось, что масштабирование идет из центра картинки
     ctx.translate((canvas_gd.width - k_scale * canvas_gd.width) / 2,
-                  (canvas_gd.height - k_scale * canvas_gd.height) / 2);
+                   (canvas_gd.height - k_scale * canvas_gd.height) / 2);
+    // сдвигаем картинку в соответствии с курсором
+    // ctx.translate(cx * (1 - k_scale), cy * (1 - k_scale));
+    ctx.translate(offsetx, offsety);        // свдигаем картинку, как было до этого
     ctx.scale(k_scale, k_scale);    // возвращаем масштаб
 
-    ctx.translate(offsetx, offsety);        // свдигаем картинку, как положено
-
     GRAPH = (clean_graph ? null : GRAPH);       // очищаем граф
-    canvas_gd.requestPaint();  // Важно для обновления
+    canvas_gd.requestPaint();               // Важно для обновления
 }
 
 
 // граф в переменной graph всегда ПРАВИЛЬНЫЙ
 // canvas_gd - объект Canvas для рисования графа
-function draw_graph(graph, canvas_gd, ctx) {
+function draw_graph(graph, cx, cy, canvas_gd, ctx) {
 
     // очищаем Canvas
-    clean_canvas(canvas_gd, ctx, 1)
+    clean_canvas(canvas_gd, cx, cy, ctx, 1)
 
     GRAPH = graph;  // обозначаем, что на экране сейчас находится граф
 
@@ -115,7 +116,7 @@ function draw_graph(graph, canvas_gd, ctx) {
         let x1 = graph["vertices"][v1][0];
         let y1 = graph["vertices"][v1][1];
         let x2 = graph["vertices"][v2][0];
-        let y2 = graph["vertices"][v2][1]
+        let y2 = graph["vertices"][v2][1];
 
         // рисуем ребро
         ctx.beginPath();
@@ -142,7 +143,7 @@ function draw_graph(graph, canvas_gd, ctx) {
 
         // рисуем имя вершины
         ctx.beginPath();
-        ctx.font = `${FONT_PT}pt serif`;
+        ctx.font = `${FONT_PX}px serif`;
         ctx.fillStyle = distinctColors[color][1];
         let text_m = ctx.measureText(v);
         ctx.fillText(v, x - text_m.width / 2, y + text_m.width / 2);
@@ -164,7 +165,7 @@ function draw_graph(graph, canvas_gd, ctx) {
 
         // рисование веса
         ctx.beginPath();
-        ctx.font = `${FONT_PT}pt serif`;
+        ctx.font = `${FONT_PX}px serif`;
         ctx.fillStyle = 'red';
         ctx.fillText(w,
                      (x1 + x2 - text_m.width) / 2,
@@ -184,20 +185,21 @@ function draw_graph(graph, canvas_gd, ctx) {
 
 // изменение масштаба графа
 // при это нужно делать так, чтобы Canvas всегда находился по центру своей области
-function scale_canvas(scale, canvas_gd, ctx) {
+function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
     if (GRAPH != null) {
         // EDGE_WIDTH = EDGE_WIDTH * scale;
         // RADIUS = RADIUS * scale;
         k_scale *= scale;        // домножаем на множитель scale коэффициент масштабирования
 
-        FONT_PT /= scale;
+        FONT_PX /= scale;
 
         EDGE_WIDTH /= scale;
 
         RADIUS /= scale;
 
         // clean_canvas(canvas_gd, ctx, 0) // просто очищаем Canvas, но оставляем GRAPH
-        draw_graph(GRAPH, canvas_gd, ctx);
+        draw_graph(GRAPH, cx, cy, canvas_gd, ctx);
+
         // console.log("HELLO I AM SCALED CANVAS, my scale equals", scale)
     }
 }
@@ -206,12 +208,18 @@ function scale_canvas(scale, canvas_gd, ctx) {
 function translate_canvas(offset_axis, axis, canvas_gd, ctx) {
     if (GRAPH != null) {
         if (axis === 'X') {
-            offsetx += offset_axis / k_scale;
+            offsetx += offset_axis;
+            // offsetx += offset_axis;
         }
         else {
-            offsety += offset_axis / k_scale;
+            offsety += offset_axis;
+            // offsety += offset_axis;
         }
-        draw_graph(GRAPH, canvas_gd, ctx)
+        draw_graph(GRAPH, 0, 0, canvas_gd, ctx)
     }
+}
+
+function transform_mouse_coords(cx, cy) {
+    return [cx, cy];
 }
 

@@ -29,11 +29,11 @@ Canvas {
             // увеличение/уменьшение масштаба      
             if (event.modifiers & Qt.ShiftModifier) {
                 if (event.angleDelta.y > 0) {
-                    DrawingUtils.scale_canvas(1.05, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.scale_canvas(1.05, event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
                     console.log("CANVAS ZOOM")
                 }
                 else if (event.angleDelta.y < 0) {
-                    DrawingUtils.scale_canvas(0.95, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.scale_canvas(0.95, event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
                     console.log("CANVAS ZOOM OUT")
                 }
             }

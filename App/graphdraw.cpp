@@ -331,9 +331,9 @@ unordered_map<int, pair<double, double>> gen_vertices_coords(const Graph& G) {
     }
 
     // температура
-    double temp = 100;
+    double temp = 20;
     // количество итераций
-    int cnt_iters = 200;
+    int cnt_iters = 150;
     // шаг температуры
     double step_temp = temp / cnt_iters;
     while (cnt_iters-->0) {
