@@ -47,8 +47,8 @@ let GRAPH = null            // НЕ ИСПОЛЬЗУЙТЕ ГЛОБАЛЬНЫЕ 
 // коэффициент масштабирования canvas-а
 let k_scale = 1;
 // сдвиг
-let offsetx = 0;
-let offsety = 0;
+let OFFSETX = 0;
+let OFFSETY = 0;
 
 const edgeStyles = [
     {color: "#00FF41", width: EDGE_WIDTH}, // Основной хакерский
@@ -68,11 +68,10 @@ function clean_canvas(canvas_gd, cx, cy, ctx, clean_graph) {    // clean_graph -
     ctx.fillRect(0, 0, canvas_gd.width, canvas_gd.height);  // очищаем canvas
 
     // делаем смещение, чтобы казалось, что масштабирование идет из центра картинки
-    ctx.translate((canvas_gd.width - k_scale * canvas_gd.width) / 2,
-                   (canvas_gd.height - k_scale * canvas_gd.height) / 2);
+    // ctx.translate((canvas_gd.width - k_scale * canvas_gd.width) / 2,
+    //               (canvas_gd.height - k_scale * canvas_gd.height) / 2);
     // сдвигаем картинку в соответствии с курсором
-    // ctx.translate(cx * (1 - k_scale), cy * (1 - k_scale));
-    ctx.translate(offsetx, offsety);        // свдигаем картинку, как было до этого
+    ctx.translate(OFFSETX, OFFSETY);        // свдигаем картинку, как было до этого
     ctx.scale(k_scale, k_scale);    // возвращаем масштаб
 
     GRAPH = (clean_graph ? null : GRAPH);       // очищаем граф
@@ -82,10 +81,7 @@ function clean_canvas(canvas_gd, cx, cy, ctx, clean_graph) {    // clean_graph -
 
 // граф в переменной graph всегда ПРАВИЛЬНЫЙ
 // canvas_gd - объект Canvas для рисования графа
-function draw_graph(graph, cx, cy, canvas_gd, ctx) {
-
-    // очищаем Canvas
-    clean_canvas(canvas_gd, cx, cy, ctx, 1)
+function draw_graph(graph, cx, cy, offsetx, offsety, canvas_gd, ctx) {
 
     GRAPH = graph;  // обозначаем, что на экране сейчас находится граф
 
@@ -107,10 +103,10 @@ function draw_graph(graph, cx, cy, canvas_gd, ctx) {
         let v1 = edge[0];
         let v2 = edge[1];
         let w = edge[2];
-        let x1 = graph["vertices"][v1][0];
-        let y1 = graph["vertices"][v1][1];
-        let x2 = graph["vertices"][v2][0];
-        let y2 = graph["vertices"][v2][1];
+        let x1 = graph["vertices"][v1][0] - offsetx;
+        let y1 = graph["vertices"][v1][1] - offsety;
+        let x2 = graph["vertices"][v2][0] - offsetx;
+        let y2 = graph["vertices"][v2][1] - offsety;
 
         let style = edgeStyles[e % edgeStyles.length];
 
@@ -125,8 +121,8 @@ function draw_graph(graph, cx, cy, canvas_gd, ctx) {
 
     // Рисуем вершины с обводкой того же цвета
     for (let v in graph["vertices"]) {
-        let x = graph["vertices"][v][0];
-        let y = graph["vertices"][v][1];
+        let x = graph["vertices"][v][0] - offsetx;
+        let y = graph["vertices"][v][1] - offsety;
         let colorIndex = graph["colors"][v] % cyberColors.length;
         let [fillColor, textColor] = cyberColors[colorIndex];
 
@@ -164,10 +160,10 @@ function draw_graph(graph, cx, cy, canvas_gd, ctx) {
         let v1 = edge[0];
         let v2 = edge[1];
         let w = edge[2];
-        let x1 = graph["vertices"][v1][0];
-        let y1 = graph["vertices"][v1][1];
-        let x2 = graph["vertices"][v2][0];
-        let y2 = graph["vertices"][v2][1];
+        let x1 = graph["vertices"][v1][0] - offsetx;
+        let y1 = graph["vertices"][v1][1] - offsety;
+        let x2 = graph["vertices"][v2][0] - offsetx;
+        let y2 = graph["vertices"][v2][1] - offsety;
 
         let midX = (x1 + x2) / 2;
         let midY = (y1 + y2) / 2;
@@ -176,9 +172,10 @@ function draw_graph(graph, cx, cy, canvas_gd, ctx) {
         ctx.beginPath();
         ctx.font = `bold ${FONT_PX}px 'Courier New', monospace`;
         let textWidth = ctx.measureText(w).width;
-        // let textHeight = ctx.measureText(w).height;
+
+        // console.log("metrics:", ctx.measureText(w));
         ctx.fillStyle = "#000000";
-        ctx.fillRect(midX - textWidth / 2, midY - textWidth / 2, textWidth, textWidth);
+        ctx.fillRect(midX - textWidth / 2, midY - FONT_PX / 2, textWidth * 1.1, FONT_PX * 1.1);
         ctx.closePath();
 
         // Текст веса цветом ребра
@@ -189,6 +186,13 @@ function draw_graph(graph, cx, cy, canvas_gd, ctx) {
         ctx.fillText(w, midX, midY);
         ctx.closePath();
     }
+
+    // квадрат для отладки
+    ctx.beginPath();
+    ctx.strokeStyle = "white";
+    ctx.strokeWidth = 2.5;
+    ctx.strokeRect(0, 0, canvas_gd.width, canvas_gd.height);
+    ctx.closePath();
 
     canvas_gd.requestPaint();
 }
@@ -202,7 +206,7 @@ function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
 
         console.log("K_scale: ", k_scale * scale);
 
-        if (k_scale * scale < 9) {
+        if (0.312 < k_scale * scale && k_scale * scale < 6) {
             k_scale *= scale;        // домножаем на множитель scale коэффициент масштабирования
 
             FONT_PX /= scale;
@@ -211,8 +215,18 @@ function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
 
             RADIUS /= scale;
 
-            // clean_canvas(canvas_gd, ctx, 0) // просто очищаем Canvas, но оставляем GRAPH
-            draw_graph(GRAPH, cx, cy, canvas_gd, ctx);
+            clean_canvas(canvas_gd, cx, cy, ctx, 0);
+
+            // преобразуем координаты мыши в координаты Canvas-а
+            let [nx, ny] = transform_mouse_coords(cx, cy, ctx);
+
+            console.log("CX, CY: ", cx, cy);
+            console.log("NX, NY: ", nx, ny);
+
+            ctx.translate(nx, ny);
+
+            draw_graph(GRAPH, cx, cy, nx, ny, canvas_gd, ctx);
+
             // console.log("HELLO I AM SCALED CANVAS, my scale equals", scale)
         }
 
@@ -224,17 +238,31 @@ function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
 function translate_canvas(offset_axis, axis, canvas_gd, ctx) {
     if (GRAPH != null) {
         if (axis === 'X') {
-            offsetx += offset_axis;
+            OFFSETX += offset_axis;
             // offsetx += offset_axis;
         }
         else {
-            offsety += offset_axis;
+            OFFSETY += offset_axis;
             // offsety += offset_axis;
         }
-        draw_graph(GRAPH, 0, 0, canvas_gd, ctx)
+        // очищаем Canvas
+        clean_canvas(canvas_gd, 0, 0, ctx, 0)
+        draw_graph(GRAPH, 0, 0, 0, 0, canvas_gd, ctx)
     }
 }
 
-function transform_mouse_coords(cx, cy) {
-    return [cx, cy];
+// координаты мыши трансформировались в координаты Canvas-а
+function transform_mouse_coords(cx, cy, ctx) {
+    let nx, ny;
+    nx = (cx - OFFSETX) / k_scale;
+    ny = (cy - OFFSETY) / k_scale;
+
+    // для отладки
+    ctx.beginPath();
+    ctx.arc(nx, ny, RADIUS, 0, 2 * Math.PI);
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.closePath();
+
+    return [nx, ny];
 }

@@ -45,7 +45,8 @@ Item {
          }
          onGraphDraw: (graph) => {
              // graph - QVariantMap
-             DrawingUtils.draw_graph(graph, 0, 0, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+             DrawingUtils.clean_canvas(canvas_graphdraw, 0, 0, canvas_graphdraw.getContext("2d"), 1);
+             DrawingUtils.draw_graph(graph, 0, 0, 0, 0, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
          }
     }
 
