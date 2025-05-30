@@ -97,7 +97,7 @@ unordered_map<int, pair<double, double>> FR_algorithm(
                                                     ) {
     auto graph = G.get_graph();
     const double L = sqrt(HEIGHT * WIDTH / graph.size());
-    // const double L = 340;
+    // const double L = 1000;
     // qDebug() << "L: " << L;
 
 
@@ -207,6 +207,7 @@ unordered_map<int, pair<double, double>> FR_algorithm(
                                          );
         // проверяем, чтобы вершины не вышли за пределы экрана
         // если вершины вышли за границы, то они просто прилипают к границе области
+        // ТЕПЕРЬ ОНИ ВЫХОДЯТ ЗА ПРЕДЕЛЫ
         // vertices_coords[v].first = min<double>(WIDTH, max<double>(MARGIN, vertices_coords[v].first));      // от MARGIN до WIDTH
         // vertices_coords[v].second = min<double>(HEIGHT, max<double>(MARGIN, vertices_coords[v].second));
     }
@@ -238,8 +239,8 @@ unordered_map<int, pair<double, double>> Eades_algorithm(
 
     // нужно помнить, чтобы вершины не вышли за пределы Canvas-а
     auto graph = G.get_graph();
-    // const double L = sqrt(WIDTH * HEIGHT) / graph.size();
-    const double L = 25 * RADIUS;
+    const double L = sqrt(WIDTH * HEIGHT) / graph.size();
+    // const double L = 1000 * RADIUS;
 
     // qDebug() << "vertices_coords AT THE BEGINNING OF ITERATION";
     // for (auto v_x_y: vertices_coords) {
@@ -330,9 +331,9 @@ unordered_map<int, pair<double, double>> gen_vertices_coords(const Graph& G) {
     }
 
     // температура
-    double temp = 100;
+    double temp = 20;
     // количество итераций
-    int cnt_iters = 200;
+    int cnt_iters = 150;
     // шаг температуры
     double step_temp = temp / cnt_iters;
     while (cnt_iters-->0) {

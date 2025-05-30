@@ -6,7 +6,7 @@ import "js/console_utils.js" as ConsoleUtils
 import "js/draw_utils.js" as DrawingUtils
 
 // plugs
-//import "plugs"
+// import "plugs"
 // real
 import signals
 
@@ -45,7 +45,7 @@ Item {
          }
          onGraphDraw: (graph) => {
              // graph - QVariantMap
-             DrawingUtils.draw_graph(graph, canvas_graphdraw)
+             DrawingUtils.draw_graph(graph, 0, 0, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
          }
     }
 
@@ -131,55 +131,6 @@ Item {
                 onTriggered: parent.opacity = 0.05 + Math.random() * 0.1
             }
         }
-
-        // Hex grid overlay
-        // // Canvas {
-        // //     anchors.fill: parent
-        // //     opacity: 0.03
-        // //     onPaint: {
-        // //         var ctx = getContext("2d");
-        // //         ctx.strokeStyle = "#00ff00";
-        // //         ctx.lineWidth = 1;
-
-        // //         var size = 30;
-        // //         var width = this.width;
-        // //         var height = this.height;
-
-        // //         for (var y = 0; y < height; y += size * Math.sqrt(3)/2) {
-        // //             for (var x = 0; x < width; x += size * 1.5) {
-        // //                 drawHexagon(ctx, x, y, size);
-        // //             }
-
-        // //             for (var x = size * 0.75; x < width; x += size * 1.5) {
-        // //                 drawHexagon(ctx, x, y + size * Math.sqrt(3)/4, size);
-        // //             }
-        // //         }
-        // //     }
-
-        //     function drawHexagon(ctx, x, y, size) {
-        //         ctx.beginPath();
-        //         for (var i = 0; i < 6; i++) {
-        //             var angle = 2 * Math.PI / 6 * i;
-        //             var x_i = x + size * Math.cos(angle);
-        //             var y_i = y + size * Math.sin(angle);
-        //             if (i === 0) {
-        //                 ctx.moveTo(x_i, y_i);
-        //             } else {
-        //                 ctx.lineTo(x_i, y_i);
-        //             }
-        //         }
-        //         ctx.closePath();
-        //         ctx.stroke();
-        //     }
-
-        //     Timer {
-        //         interval: 5000
-        //         running: true
-        //         repeat: true
-        //         onTriggered: parent.requestPaint()
-        //     }
-        // }
-
         // Static effect for glitches
         Rectangle {
             id: staticEffect
@@ -399,6 +350,7 @@ Item {
                             historyIndex++;
                             nextLine.text = "PanCrack>" + commandHistory[commandHistory.length - 1 - historyIndex];
                         }
+                        nextLine.cursorPosition = nextLine.text.length
                     })
 
                     nextLine.Keys.onDownPressed.connect(() => {
@@ -409,6 +361,7 @@ Item {
                             historyIndex = -1;
                             nextLine.text = "PanCrack>";
                         }
+                        nextLine.cursorPosition = nextLine.text.length
                     })
 
                     nextLine.Keys.onPressed.connect((event) => {

@@ -1,9 +1,6 @@
 .pragma library
 
-const RADIUS = 18;
-const EDGE_WIDTH = 2.5;
-const GLOW_COLOR = "#00FF41";
-const ERROR_COLOR = "#FF0033";
+
 
 const cyberColors = [
     ["#00FF41", "#001F0D"],  // Неоново-зеленый с темно-зеленым текстом
@@ -18,36 +15,86 @@ const cyberColors = [
     ["#33FF00", "#0A1F00"]   // Лаймовый с темно-зеленым текстом
 ];
 
+const GLOW_COLOR = "#00FF41";
+const ERROR_COLOR = "#FF0033";
+
+// эта переменная зависит от переменной в области имен graphdraw
+// при увеличении масштаба радиус будет уменьшаться
+// при уменьшении - наоборот
+let RADIUS = 15;
+
+// толщина ребер
+// при увеличении масштаба толщина будет изменяться
+// при уменьшении - наоборот
+let EDGE_WIDTH = 2.0;
+
+// размер шрифта
+let FONT_PX = 20;
+
+// цвет ребер
+const EDGE_COLOR = "#00FF00";
+
+// глобальная переменная с координатами графа
+// граф рисуется, и тогда, он находится на экране, его можно МАСШТАБИРОВАТЬ, ПЕРЕМЕЩАТЬ, ДВИГАТЬ ВЕРШИНЫ,
+// т. е. тогда, когда GRAPH != null
+// когда canvas очищается, то GRAPH становится равным null
+// Т. Е. точкой входа в canvas является draw_graph
+// Таким образом, пока GRAPH != null, он находится на экране, иначе, когда он исчезает с экрана,
+// получаем GRAPH = null
+let GRAPH = null            // НЕ ИСПОЛЬЗУЙТЕ ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ, ДА ЛАДНО, ВЫ ЧТО, ИЗДЕВАЕТЕСЬ
+
+
+// коэффициент масштабирования canvas-а
+let k_scale = 1;
+// сдвиг
+let offsetx = 0;
+let offsety = 0;
+
 const edgeStyles = [
-    {color: "#00FF41", width: 2.5}, // Основной хакерский
-    {color: "#FF0033", width: 2.5}, // Вирусный
-    {color: "#FF6600", width: 2.0}, // Оранжевый угроза
-    {color: "#9900FF", width: 2.0}, // Фиолетовый взлом
-    {color: "#00CCFF", width: 1.8}  // Голубой сигнал
+    {color: "#00FF41", width: EDGE_WIDTH}, // Основной хакерский
+    {color: "#FF0033", width: EDGE_WIDTH}, // Вирусный
+    {color: "#FF6600", width: EDGE_WIDTH}, // Оранжевый угроза
+    {color: "#9900FF", width: EDGE_WIDTH}, // Фиолетовый взлом
+    {color: "#00CCFF", width: EDGE_WIDTH}  // Голубой сигнал
 ];
 
-function draw_graph(graph, canvas_gd) {
-    let ctx = canvas_gd.getContext("2d");
 
-    // Очистка canvas - темный фон с едва заметным паттерном
-    ctx.fillStyle = "#000B0B";
-    ctx.fillRect(0, 0, canvas_gd.width, canvas_gd.height);
+// функция для очистки Canvas-а
+function clean_canvas(canvas_gd, cx, cy, ctx, clean_graph) {    // clean_graph - 1 - очистка, 0 - оставляем как есть
+    // CLEANING
+    ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1);
 
-    // Добавляем едва заметный сетчатый паттерн
-    ctx.strokeStyle = "#001010";
-    ctx.lineWidth = 0.5;
-    for (let x = 0; x < canvas_gd.width; x += 20) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas_gd.height);
-        ctx.stroke();
-    }
-    for (let y = 0; y < canvas_gd.height; y += 20) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas_gd.width, y);
-        ctx.stroke();
-    }
+    ctx.setTransform(1, 0, 0, 1, 0, 0);     // сбрасываем масштаб до изначального
+    ctx.fillRect(0, 0, canvas_gd.width, canvas_gd.height);  // очищаем canvas
+
+    // делаем смещение, чтобы казалось, что масштабирование идет из центра картинки
+    ctx.translate((canvas_gd.width - k_scale * canvas_gd.width) / 2,
+                   (canvas_gd.height - k_scale * canvas_gd.height) / 2);
+    // сдвигаем картинку в соответствии с курсором
+    // ctx.translate(cx * (1 - k_scale), cy * (1 - k_scale));
+    ctx.translate(offsetx, offsety);        // свдигаем картинку, как было до этого
+    ctx.scale(k_scale, k_scale);    // возвращаем масштаб
+
+    GRAPH = (clean_graph ? null : GRAPH);       // очищаем граф
+    canvas_gd.requestPaint();               // Важно для обновления
+}
+
+
+// граф в переменной graph всегда ПРАВИЛЬНЫЙ
+// canvas_gd - объект Canvas для рисования графа
+function draw_graph(graph, cx, cy, canvas_gd, ctx) {
+
+    // очищаем Canvas
+    clean_canvas(canvas_gd, cx, cy, ctx, 1)
+
+    GRAPH = graph;  // обозначаем, что на экране сейчас находится граф
+
+    // DRAWING
+    // рисуем graph
+
+    ctx.strokeStyle = EDGE_COLOR;            // set the color for the circle to 'green'
+    ctx.lineWidth = EDGE_WIDTH;              // set the lineWidth for the circle to 5.0
+
 
     // Сброс всех эффектов
     ctx.shadowBlur = 0;
@@ -71,7 +118,7 @@ function draw_graph(graph, canvas_gd) {
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
         ctx.strokeStyle = style.color;
-        ctx.lineWidth = style.width;
+        ctx.lineWidth = EDGE_WIDTH;
         ctx.stroke();
         ctx.closePath();
     }
@@ -87,23 +134,23 @@ function draw_graph(graph, canvas_gd) {
         ctx.beginPath();
         ctx.arc(x, y, RADIUS, 0, 2 * Math.PI);
         ctx.fillStyle = fillColor;
-        ctx.strokeStyle = fillColor; // Обводка того же цвета, что и заливка
-        ctx.lineWidth = 2.5;
+        // ctx.strokeStyle = fillColor; // Обводка того же цвета, что и заливка
+        // ctx.lineWidth = EDGE_WIDTH;
         ctx.fill();
-        ctx.stroke();
+        // ctx.stroke();
         ctx.closePath();
 
         // Внутренняя темная обводка (цвет текста)
         ctx.beginPath();
-        ctx.arc(x, y, RADIUS-1, 0, 2 * Math.PI);
+        ctx.arc(x, y, RADIUS * 0.9, 0, 2 * Math.PI);
         ctx.strokeStyle = textColor;
-        ctx.lineWidth = 1.5;
+        ctx.lineWidth = EDGE_WIDTH / 1.5;
         ctx.stroke();
         ctx.closePath();
 
         // Текст вершины
         ctx.beginPath();
-        ctx.font = "bold 16px 'Courier New', monospace";
+        ctx.font = `bold ${FONT_PX}px "Courier New", monospace`;
         ctx.fillStyle = textColor;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
@@ -127,10 +174,11 @@ function draw_graph(graph, canvas_gd) {
 
         // Фон для текста веса
         ctx.beginPath();
-        ctx.font = "bold 14px 'Courier New', monospace";
+        ctx.font = `bold ${FONT_PX}px 'Courier New', monospace`;
         let textWidth = ctx.measureText(w).width;
+        // let textHeight = ctx.measureText(w).height;
         ctx.fillStyle = "#000000";
-        ctx.fillRect(midX - textWidth/2 - 2, midY - 10, textWidth + 4, 20);
+        ctx.fillRect(midX - textWidth / 2, midY - textWidth / 2, textWidth, textWidth);
         ctx.closePath();
 
         // Текст веса цветом ребра
@@ -143,4 +191,50 @@ function draw_graph(graph, canvas_gd) {
     }
 
     canvas_gd.requestPaint();
+}
+
+// изменение масштаба графа
+// при это нужно делать так, чтобы Canvas всегда находился по центру своей области
+function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
+    if (GRAPH != null) {
+        // EDGE_WIDTH = EDGE_WIDTH * scale;
+        // RADIUS = RADIUS * scale;
+
+        console.log("K_scale: ", k_scale * scale);
+
+        if (k_scale * scale < 9) {
+            k_scale *= scale;        // домножаем на множитель scale коэффициент масштабирования
+
+            FONT_PX /= scale;
+
+            EDGE_WIDTH /= scale;
+
+            RADIUS /= scale;
+
+            // clean_canvas(canvas_gd, ctx, 0) // просто очищаем Canvas, но оставляем GRAPH
+            draw_graph(GRAPH, cx, cy, canvas_gd, ctx);
+            // console.log("HELLO I AM SCALED CANVAS, my scale equals", scale)
+        }
+
+
+    }
+}
+
+// смещение Canvas-а по оси X или оси Y
+function translate_canvas(offset_axis, axis, canvas_gd, ctx) {
+    if (GRAPH != null) {
+        if (axis === 'X') {
+            offsetx += offset_axis;
+            // offsetx += offset_axis;
+        }
+        else {
+            offsety += offset_axis;
+            // offsety += offset_axis;
+        }
+        draw_graph(GRAPH, 0, 0, canvas_gd, ctx)
+    }
+}
+
+function transform_mouse_coords(cx, cy) {
+    return [cx, cy];
 }

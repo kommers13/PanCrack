@@ -51,24 +51,24 @@ Window {
             opacity: 0.05
             radius: parent.radius - 2
             layer.enabled: true
-            layer.effect: ShaderEffect {
-                property real time: 0
-                fragmentShader: "
-                    uniform lowp float qt_Opacity;
-                    uniform highp float time;
-                    varying highp vec2 qt_TexCoord0;
-                    void main() {
-                        highp vec2 uv = qt_TexCoord0;
-                        highp float noise = fract(sin(dot(uv, vec2(12.9898, 78.233)) * 43758.5453 + time));
-                        gl_FragColor = vec4(vec3(noise), 1.0) * qt_Opacity;
-                    }"
-                NumberAnimation on time {
-                    from: 0
-                    to: 1000
-                    duration: 10000
-                    loops: Animation.Infinite
-                }
-            }
+            // layer.effect: ShaderEffect {
+            //     property real time: 0
+            //     fragmentShader: "
+            //         uniform lowp float qt_Opacity;
+            //         uniform highp float time;
+            //         varying highp vec2 qt_TexCoord0;
+            //         void main() {
+            //             highp vec2 uv = qt_TexCoord0;
+            //             highp float noise = fract(sin(dot(uv, vec2(12.9898, 78.233)) * 43758.5453 + time));
+            //             gl_FragColor = vec4(vec3(noise), 1.0) * qt_Opacity;
+            //         }"
+            //     NumberAnimation on time {
+            //         from: 0
+            //         to: 1000
+            //         duration: 10000
+            //         loops: Animation.Infinite
+            //     }
+            // }
         }
 
         // Сканирующая линия
