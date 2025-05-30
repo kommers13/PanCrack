@@ -140,7 +140,7 @@ Item {
     Timer {
         id: showTimer
         // interval: 60000//20000
-        interval: 6000
+        interval: 600000
         running: true
         repeat: true
         onTriggered: {

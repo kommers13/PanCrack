@@ -5,6 +5,7 @@ build
 *.drawio
 *.bkp
 .idea
-CMakeLists.txt.*
+CMakeLists.txt.user.
+CMakeLists.txt.user.*
 PanCrack.qmlproject.*
 *.xlsx
