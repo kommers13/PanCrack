@@ -66,6 +66,8 @@ function clean_canvas(canvas_gd, ctx, clean_graph) {
     ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1);
     ctx.fillRect(0, 0, canvas_gd.width, canvas_gd.height);
 
+    // console.log(OFFSETX, OFFSETY);
+
     // применяем текущие трансформации
     ctx.translate(OFFSETX, OFFSETY);
     ctx.scale(k_scale, k_scale);
@@ -228,6 +230,8 @@ function translate_canvas(offset_axis, axis, canvas_gd, ctx) {
         else {
             OFFSETY += offset_axis;
         }
+
+        // console.log("TRANSLATE");
 
         // очищаем Canvas
         clean_canvas(canvas_gd, ctx, 0);
