@@ -19,7 +19,7 @@ Canvas {
         acceptedButtons: Qt.LeftButton
         onClicked: (mouse) => {
             if (mouse.button === Qt.LeftButton) {
-                console.log("ЫЫЫЫЫЫ COORDS: ", mouse.x, mouse.y)
+                // console.log("ЫЫЫЫЫЫ COORDS: ", mouse.x, mouse.y)
             }
         }
     }
@@ -30,33 +30,33 @@ Canvas {
             if (event.modifiers & Qt.ShiftModifier) {
                 if (event.angleDelta.y > 0) {
                     DrawingUtils.scale_canvas(1.05, event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
-                    console.log("CANVAS ZOOM")
+                    // console.log("CANVAS ZOOM")
                 }
                 else if (event.angleDelta.y < 0) {
                     DrawingUtils.scale_canvas(0.95, event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
-                    console.log("CANVAS ZOOM OUT")
+                    // console.log("CANVAS ZOOM OUT")
                 }
             }
             // влево-вправо
             else if (event.modifiers & Qt.ControlModifier){
                 if (event.angleDelta.y > 0) {
-                    DrawingUtils.translate_canvas(50, 'X', event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
-                    console.log("CANVAS LEFT")
+                    DrawingUtils.translate_canvas(50, 'X', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    // console.log("CANVAS LEFT")
                 }
                 else if (event.angleDelta.y < 0) {
-                    DrawingUtils.translate_canvas(-50, 'X', event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
-                    console.log("CANVAS RIGHT")
+                    DrawingUtils.translate_canvas(-50, 'X', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    // console.log("CANVAS RIGHT")
                 }
             }
             // вверх-вниз
             else {
                 if (event.angleDelta.y > 0) {
-                    DrawingUtils.translate_canvas(50, 'Y', event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
-                    console.log("CANVAS UP")
+                    DrawingUtils.translate_canvas(50, 'Y', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    // console.log("CANVAS UP")
                 }
                 else if (event.angleDelta.y < 0) {
-                    DrawingUtils.translate_canvas(-50, 'Y', event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
-                    console.log("CANVAS DOWN")
+                    DrawingUtils.translate_canvas(-50, 'Y', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    // console.log("CANVAS DOWN")
                 }
             }
         }
