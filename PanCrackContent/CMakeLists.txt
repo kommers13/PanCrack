@@ -20,6 +20,7 @@ qt6_add_qml_module(PanCrackContent
         "Bsod.qml"
         "plugs/Signals.qml"
         "GraphCanvas.qml"
+        "AntivirusTerminal.qml"
     RESOURCES
         "img/logo.png"
         "img/lock.png"
@@ -29,3 +30,4 @@ qt6_add_qml_module(PanCrackContent
         "js/console_utils.js"
         "js/draw_utils.js"
 )
+
