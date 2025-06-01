@@ -25,7 +25,7 @@ tuple<string,       // имя команды
                        options);
 }
 
-// проверка существование команды
+// проверка существования команды
 bool list_commands::exist_file(const string& path,
                                const string& command,
                                const string& ext

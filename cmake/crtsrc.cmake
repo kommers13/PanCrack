@@ -9,7 +9,9 @@ set(GRAPH_BNR_DIR ${CMAKE_CURRENT_BINARY_DIR}/graphs)
 file(MAKE_DIRECTORY ${COMINF_BNR_DIR})
 file(MAKE_DIRECTORY ${GRAPH_BNR_DIR})
 
+
 add_custom_target(copy_jsons ALL
+    COMMAND "D:/PanCrack/utils/constrcom.exe" ${COMINF_SRC_DIR}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${COMINF_BNR_DIR}
     COMMAND ${CMAKE_COMMAND} -E copy
         "${COMINF_SRC_DIR}/clear.json"
