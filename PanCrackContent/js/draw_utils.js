@@ -46,9 +46,12 @@ let GRAPH = null            // НЕ ИСПОЛЬЗУЙТЕ ГЛОБАЛЬНЫЕ 
 
 // коэффициент масштабирования canvas-а
 let k_scale = 1;
-// сдвиг
+// сдвиг canvas-а
 let OFFSETX = 0;
 let OFFSETY = 0;
+// сдвиг графа
+let GOFFSETX = 0;
+let GOFFSETY = 0;
 
 const edgeStyles = [
     {color: "#00FF41", width: EDGE_WIDTH}, // Основной хакерский
@@ -60,7 +63,7 @@ const edgeStyles = [
 
 
 // функция для очистки Canvas-а
-function clean_canvas(canvas_gd, cx, cy, ctx, clean_graph) {    // clean_graph - 1 - очистка, 0 - оставляем как есть
+function clean_canvas(canvas_gd, offsetx, offsety, ctx, clean_graph) {    // clean_graph - 1 - очистка, 0 - оставляем как есть
     // CLEANING
     ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1);
 
@@ -71,6 +74,8 @@ function clean_canvas(canvas_gd, cx, cy, ctx, clean_graph) {    // clean_graph -
     // ctx.translate((canvas_gd.width - k_scale * canvas_gd.width) / 2,
     //               (canvas_gd.height - k_scale * canvas_gd.height) / 2);
     // сдвигаем картинку в соответствии с курсором
+    // ctx.translate(offsetx, offsety);
+    ctx.translate(offsetx, offsety);
     ctx.translate(OFFSETX, OFFSETY);        // свдигаем картинку, как было до этого
     ctx.scale(k_scale, k_scale);    // возвращаем масштаб
 
@@ -84,6 +89,14 @@ function clean_canvas(canvas_gd, cx, cy, ctx, clean_graph) {    // clean_graph -
 function draw_graph(graph, cx, cy, offsetx, offsety, canvas_gd, ctx) {
 
     GRAPH = graph;  // обозначаем, что на экране сейчас находится граф
+
+    // // для отладки
+    // ctx.beginPath();
+    // ctx.arc(0, 0, RADIUS, 0, 2 * Math.PI);
+    // ctx.fillStyle = "red";
+    // ctx.fill();
+    // ctx.closePath();
+
 
     // DRAWING
     // рисуем graph
@@ -207,6 +220,19 @@ function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
         console.log("K_scale: ", k_scale * scale);
 
         if (0.312 < k_scale * scale && k_scale * scale < 6) {
+            // преобразуем координаты мыши в координаты Canvas-а
+            // let [nx, ny] = transform_mouse_coords(cx, cy, ctx);
+
+            // console.log("CX, CY: ", cx, cy);
+            // console.log("NX, NY: ", nx, ny);
+
+            // ctx.translate(nx, ny);
+
+            // OFFSETX += nx;
+            // OFFSETY += ny;
+
+            let [nx, ny] = transform_mouse_coords(cx, cy, ctx);
+
             k_scale *= scale;        // домножаем на множитель scale коэффициент масштабирования
 
             FONT_PX /= scale;
@@ -215,17 +241,23 @@ function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
 
             RADIUS /= scale;
 
-            clean_canvas(canvas_gd, cx, cy, ctx, 0);
+            // ctx.translate(nx / k_scale, ny / k_scale);
 
-            // преобразуем координаты мыши в координаты Canvas-а
-            let [nx, ny] = transform_mouse_coords(cx, cy, ctx);
+            GOFFSETX += nx;
+            GOFFSETY += ny;
 
-            console.log("CX, CY: ", cx, cy);
-            console.log("NX, NY: ", nx, ny);
+            clean_canvas(canvas_gd, nx, ny, ctx, 0);
 
-            ctx.translate(nx, ny);
+            draw_graph(GRAPH, 0, 0, nx, ny, canvas_gd, ctx);
 
-            draw_graph(GRAPH, cx, cy, nx, ny, canvas_gd, ctx);
+            // для отладки
+            ctx.beginPath();
+            ctx.arc(0, 0, RADIUS, 0, 2 * Math.PI);
+            ctx.fillStyle = "red";
+            ctx.fill();
+            ctx.closePath();
+
+            // canvas_gd.requestPaint();
 
             // console.log("HELLO I AM SCALED CANVAS, my scale equals", scale)
         }
@@ -235,7 +267,7 @@ function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
 }
 
 // смещение Canvas-а по оси X или оси Y
-function translate_canvas(offset_axis, axis, canvas_gd, ctx) {
+function translate_canvas(offset_axis, axis, cx, cy, canvas_gd, ctx) {
     if (GRAPH != null) {
         if (axis === 'X') {
             OFFSETX += offset_axis;
@@ -245,24 +277,32 @@ function translate_canvas(offset_axis, axis, canvas_gd, ctx) {
             OFFSETY += offset_axis;
             // offsety += offset_axis;
         }
+
+        // let [nx, ny] = transform_mouse_coords(cx, cy, ctx);
+
         // очищаем Canvas
-        clean_canvas(canvas_gd, 0, 0, ctx, 0)
-        draw_graph(GRAPH, 0, 0, 0, 0, canvas_gd, ctx)
+        clean_canvas(canvas_gd, 0, 0, ctx, 0);
+        draw_graph(GRAPH, 0, 0, 0, 0, canvas_gd, ctx);
     }
 }
 
 // координаты мыши трансформировались в координаты Canvas-а
 function transform_mouse_coords(cx, cy, ctx) {
     let nx, ny;
-    nx = (cx - OFFSETX) / k_scale;
-    ny = (cy - OFFSETY) / k_scale;
+    // nx = (cx - OFFSETX) / k_scale;
+    // ny = (cy - OFFSETY) / k_scale;
+    nx = cx - OFFSETX;
+    ny = cy - OFFSETY;
 
-    // для отладки
-    ctx.beginPath();
-    ctx.arc(nx, ny, RADIUS, 0, 2 * Math.PI);
-    ctx.fillStyle = "white";
-    ctx.fill();
-    ctx.closePath();
+    console.log("CX, CY: ", cx, cy);
+    console.log("NX, NY: ", nx, ny);
+
+    // // для отладки
+    // ctx.beginPath();
+    // ctx.arc(nx, ny, RADIUS, 0, 2 * Math.PI);
+    // ctx.fillStyle = "white";
+    // ctx.fill();
+    // ctx.closePath();
 
     return [nx, ny];
 }

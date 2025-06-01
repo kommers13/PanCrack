@@ -40,22 +40,22 @@ Canvas {
             // влево-вправо
             else if (event.modifiers & Qt.ControlModifier){
                 if (event.angleDelta.y > 0) {
-                    DrawingUtils.translate_canvas(50, 'X', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(50, 'X', event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
                     console.log("CANVAS LEFT")
                 }
                 else if (event.angleDelta.y < 0) {
-                    DrawingUtils.translate_canvas(-50, 'X', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(-50, 'X', event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
                     console.log("CANVAS RIGHT")
                 }
             }
             // вверх-вниз
             else {
                 if (event.angleDelta.y > 0) {
-                    DrawingUtils.translate_canvas(50, 'Y', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(50, 'Y', event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
                     console.log("CANVAS UP")
                 }
                 else if (event.angleDelta.y < 0) {
-                    DrawingUtils.translate_canvas(-50, 'Y', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(-50, 'Y', event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
                     console.log("CANVAS DOWN")
                 }
             }
