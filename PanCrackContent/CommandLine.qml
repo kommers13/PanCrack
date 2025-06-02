@@ -316,8 +316,8 @@ Item {
                 // UNCOMMENT
                 // CLEAR LIMPED FIX
                 if (signals_id.isCleared) {
-                    ConsoleUtils.clear(column)
-                    signals_id.isCleared = false
+                    ConsoleUtils.clear(column);
+                    signals_id.isCleared = false;
                 }
                 // CLEAR LIMPED FIX END
 
