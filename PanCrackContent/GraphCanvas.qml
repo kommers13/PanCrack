@@ -17,10 +17,15 @@ Canvas {
         width: parent.width
         height: parent.height
         acceptedButtons: Qt.LeftButton
+        hoverEnabled: true
         onClicked: (mouse) => {
             if (mouse.button === Qt.LeftButton) {
-                // console.log("ЫЫЫЫЫЫ COORDS: ", mouse.x, mouse.y)
+                console.log("ЫЫЫЫЫЫ COORDS: ", mouse.x, mouse.y)
             }
+        }
+        onPositionChanged: (mouse) => {
+            let [nx, ny] = DrawingUtils.transform_mouse_coords(mouse.x, mouse.y, canvas_graphdraw.getContext("2d"));
+            text_coords.text = `X: ${Math.round(nx)}\nY: ${Math.round(ny)}`;
         }
     }
 
@@ -40,26 +45,37 @@ Canvas {
             // влево-вправо
             else if (event.modifiers & Qt.ControlModifier){
                 if (event.angleDelta.y > 0) {
-                    DrawingUtils.translate_canvas(50, 'X', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(50, 0, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
                     // console.log("CANVAS LEFT")
                 }
                 else if (event.angleDelta.y < 0) {
-                    DrawingUtils.translate_canvas(-50, 'X', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(-50, 0, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
                     // console.log("CANVAS RIGHT")
                 }
             }
             // вверх-вниз
             else {
                 if (event.angleDelta.y > 0) {
-                    DrawingUtils.translate_canvas(50, 'Y', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(0, 50, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
                     // console.log("CANVAS UP")
                 }
                 else if (event.angleDelta.y < 0) {
-                    DrawingUtils.translate_canvas(-50, 'Y', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(0, -50, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
                     // console.log("CANVAS DOWN")
                 }
             }
         }
+    }
+
+    Text {
+        id: text_coords
+        x: parent.width - width
+        y: parent.height - height
+        text: "X: none\nY: none";
+        font.pixelSize: 12
+        font.family: "Courier New"
+        color: "#90ee90"
+        padding: 10
     }
 
     Rectangle {

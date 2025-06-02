@@ -46,7 +46,8 @@ Item {
          onGraphDraw: (graph) => {
              // graph - QVariantMap
              DrawingUtils.clean_canvas(canvas_graphdraw, canvas_graphdraw.getContext("2d"), 1);
-             DrawingUtils.draw_graph(graph, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+             DrawingUtils.init_scale(graph, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
+             DrawingUtils.draw_graph(graph, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
          }
     }
 
@@ -322,7 +323,7 @@ Item {
                 // CLEAR LIMPED FIX END
 
 
-                column.submitInput()
+                column.submitInput();
             }
 
             onSubmitInput: {

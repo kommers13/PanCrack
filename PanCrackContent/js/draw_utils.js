@@ -123,6 +123,8 @@ function draw_graph(graph, canvas_gd, ctx) {
         let colorIndex = graph["colors"][v] % cyberColors.length;
         let [fillColor, textColor] = cyberColors[colorIndex];
 
+        console.log("GRAPH COORDS: ", v, transform_mouse_coords(x, y, ctx));
+
         // Основной круг с обводкой цвета вершины
         ctx.beginPath();
         ctx.arc(x, y, RADIUS, 0, 2 * Math.PI);
@@ -180,19 +182,104 @@ function draw_graph(graph, canvas_gd, ctx) {
         ctx.fillStyle = edgeStyles[e % edgeStyles.length].color;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(w, midX, midY);
+        ctx.fillText(w, midX, midY + FONT_PX / 4);
         ctx.closePath();
     }
 
     // квадрат для отладки
-    // ctx.beginPath();
-    // ctx.strokeStyle = "white";
-    // ctx.strokeWidth = 2.5;
-    // ctx.strokeRect(0, 0, canvas_gd.width, canvas_gd.height);
-    // ctx.closePath();
+    ctx.beginPath();
+    ctx.strokeStyle = "white";
+    ctx.strokeWidth = 2.5;
+    ctx.strokeRect(0, 0, canvas_gd.width, canvas_gd.height);
+    ctx.closePath();
 
     canvas_gd.requestPaint();
 }
+
+// находим начальный масштаб, чтобы поместился весь граф
+function init_scale(graph, canvas_gd, ctx) {
+
+
+    GRAPH = graph;
+
+
+    // находим геометрический центр вершин
+    let center_x, center_y, vsize;
+    vsize = Object.keys(graph["vertices"]).length;
+    center_x = 0;
+    center_y = 0;
+
+    // находим центр
+    for (let v in graph["vertices"]) {
+        let x = graph["vertices"][v][0];
+        let y = graph["vertices"][v][1];
+        center_x += x;
+        center_y += y;
+    }
+
+    center_x /= vsize;
+    center_y /= vsize;
+    console.log("CENTER: ", center_x, center_y);
+
+    let mxv = "";
+    let max_dx = -1;
+    let max_dy = -1;
+
+    // находим самую удаленную вершину от центра
+    for (let v in graph["vertices"]) {
+        let x = graph["vertices"][v][0];
+        let y = graph["vertices"][v][1];
+        // вектор между точкой ЦЕНТР и вершиной графа
+        let vec_x = x - center_x;
+        let vec_y = y - center_y;
+        // вектор между точкой ЦЕНТР и максимально удаленной вершиной графа
+        let vm_x = max_dx - center_x;
+        let vm_y = max_dy - center_y;
+        // длина первого вектора
+        let distc = Math.sqrt(vec_x * vec_x + vec_y * vec_y);
+        // длина второго вектора
+        let distmax = Math.sqrt(vm_x * vm_x + vm_y * vm_y);
+        if (distc > distmax) {
+            mxv = v;
+            max_dx = x;
+            max_dy = y;
+        }
+    }
+
+    console.log("MAX D OF V: ", mxv, max_dx, max_dy);
+
+    // координаты реального центра Canvas-а
+    let real_cx = canvas_gd.width / 2;
+    let real_cy = canvas_gd.height / 2;
+
+    console.log("REAL CENTER: ", real_cx, real_cy);
+
+    // смещение центра графа в реальный центр Canvas-а
+    let dx = real_cx - center_x;
+    let dy = real_cy - center_y;
+
+    console.log("DX DY: ", dx, dy);
+
+    // сдвигаем Canvas соответствующе
+    translate_canvas(dx, dy, canvas_gd, ctx);
+
+    ctx.beginPath();
+    ctx.fillStyle = 'red';
+    ctx.arc(real_cx - dx, real_cy - dy, RADIUS * 0.9, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.closePath();
+
+    // // найдем коэффициент масштабирования
+    // // длина вектора от центра графа до самой удаленной вершины
+    // let len_mx = Math.sqrt((max_dx - center_x) * (max_dx - center_x)
+    //                        +
+    //                        (max_dy - center_y) * (max_dy - center_y));
+
+
+
+
+}
+
 
 // изменение масштаба графа
 // при это нужно делать так, чтобы Canvas всегда находился по центру своей области
@@ -206,6 +293,8 @@ function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
 
             // вычисляем новые координаты
             let [nx, ny] = transform_mouse_coords(cx, cy, ctx);
+
+            console.log("NX, NY: ", nx, ny);
 
             // вычисляем расстояние от координаты мыши до новых координат после масштабирования
             OFFSETX = cx - nx * scale;
@@ -222,14 +311,10 @@ function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
 }
 
 // смещение Canvas-а по оси X или оси Y
-function translate_canvas(offset_axis, axis, canvas_gd, ctx) {
+function translate_canvas(offset_axis_x, offset_axis_y, canvas_gd, ctx) {
     if (GRAPH != null) {
-        if (axis === 'X') {
-            OFFSETX += offset_axis;
-        }
-        else {
-            OFFSETY += offset_axis;
-        }
+        OFFSETX += offset_axis_x;
+        OFFSETY += offset_axis_y;
 
         // console.log("TRANSLATE");
 
@@ -249,4 +334,13 @@ function transform_mouse_coords(cx, cy, ctx) {
     // console.log("NX, NY: ", nx, ny);
 
     return [nx, ny];
+}
+
+// координаты холста трансформировались в координаты мыши
+function transform_canvas_coords(nx, ny, ctx) {
+    let cx, cy;
+    cx = nx + OFFSETX;
+    cy = ny + OFFSETY;
+
+    return [cx, cy];
 }
