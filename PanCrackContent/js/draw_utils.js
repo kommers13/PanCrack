@@ -311,8 +311,10 @@ function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
             OFFSETX = cx - nx * scale;
             OFFSETY = cy - ny * scale;
 
-            // console.log("INV_FONT_PX / scale: ", INV_FONT_PX / scale);
+            // вычисляем размер параметров, чтобы они не были слишком выделяющимися в графе
             FONT_PX = (I_FONT_PX / scale > 58 ? 58 : I_FONT_PX / scale);
+            // невидимый размер шрифта нужен для того, чтобы следить за настоящим размером
+            // но отображать только тот, который нужен
             I_FONT_PX /= scale;
 
             EDGE_WIDTH = (I_EDGE_WIDTH / scale > 12 ? 12 : I_EDGE_WIDTH / scale);

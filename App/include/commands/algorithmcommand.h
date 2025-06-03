@@ -12,6 +12,9 @@
 #include <task9.h>
 #include "../listcommands.h"
 #include "../dataconverse.h"
+
+
+
 class AlgorithmCommand
 {
 public:

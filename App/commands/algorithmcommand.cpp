@@ -80,10 +80,10 @@ string AlgorithmCommand::execute(
                 Graph G = dataconverse::fromJSONfileToGraph(graph_name);
                 string ans = task1::print_DFS(G,args[1][0] - 65);
 
-                if(ans == ""){
+                if (ans == ""){
                     return "Graph <b>" + graph_name + "</b> can't make DFS!!!<br>";
                 }
-                else{
+                else {
                     return ans;
                 }
             }
@@ -97,7 +97,7 @@ string AlgorithmCommand::execute(
                 Graph G = dataconverse::fromJSONfileToGraph(graph_name);
                 auto ans = task3::input(G,args[1]);
 
-                if(ans == ""){
+                if (ans == ""){
                     return "Graph <b>" + graph_name + "</b> can't make BFS!!!<br>";
                 }
                 else{
@@ -119,10 +119,10 @@ string AlgorithmCommand::execute(
                 string a = task2::print_DFS(G, c-64);
                 a = task4::parse(a);
                 if(a != args[1]){
-                    return "You're not right, Mr.Panteleev is very angry!!!<br>";
+                    return "You're not right, think again!<br>";
                 }
                 else{
-                    return "You're right, Mr.Panteleev is proud of you!<br>";
+                    return "You're right!<br>";
                 }
             }
         }
