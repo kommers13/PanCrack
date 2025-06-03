@@ -20,7 +20,7 @@ Canvas {
         hoverEnabled: true
         onClicked: (mouse) => {
             if (mouse.button === Qt.LeftButton) {
-                console.log("ЫЫЫЫЫЫ COORDS: ", mouse.x, mouse.y)
+                // console.log("ЫЫЫЫЫЫ COORDS: ", mouse.x, mouse.y)
             }
         }
         onPositionChanged: (mouse) => {

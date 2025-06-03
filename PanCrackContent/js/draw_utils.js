@@ -22,14 +22,20 @@ const ERROR_COLOR = "#FF0033";
 // при увеличении масштаба радиус будет уменьшаться
 // при уменьшении - наоборот
 let RADIUS = 15;
+// невидимый радиус
+let I_RADIUS = 15;
 
 // толщина ребер
 // при увеличении масштаба толщина будет изменяться
 // при уменьшении - наоборот
 let EDGE_WIDTH = 2.0;
+// невидимая толщина
+let I_EDGE_WIDTH = 2.0;
 
 // размер шрифта
 let FONT_PX = 20;
+// невидимый размер шрифта
+let I_FONT_PX = 20;
 
 // цвет ребер
 const EDGE_COLOR = "#00FF00";
@@ -58,6 +64,20 @@ const edgeStyles = [
     {color: "#00CCFF", width: EDGE_WIDTH}  // Голубой сигнал
 ];
 
+// сброс всех настроек холста к начальным
+function reset_canvas() {
+    GRAPH = null;
+    k_scale = 1;
+    OFFSETX = 0;
+    OFFSETY = 0;
+
+    RADIUS = 15;
+    I_RADIUS = 15;
+    EDGE_WIDTH = 2.0;
+    I_EDGE_WIDTH = 2.0;
+    FONT_PX = 20;
+    I_FONT_PX = 20;
+}
 
 // функция для очистки Canvas-а
 function clean_canvas(canvas_gd, ctx, clean_graph) {
@@ -80,8 +100,6 @@ function clean_canvas(canvas_gd, ctx, clean_graph) {
 // граф в переменной graph всегда ПРАВИЛЬНЫЙ
 // canvas_gd - объект Canvas для рисования графа
 function draw_graph(graph, canvas_gd, ctx) {
-
-    GRAPH = graph;  // обозначаем, что на экране сейчас находится граф
 
     // DRAWING
     // рисуем graph
@@ -123,7 +141,7 @@ function draw_graph(graph, canvas_gd, ctx) {
         let colorIndex = graph["colors"][v] % cyberColors.length;
         let [fillColor, textColor] = cyberColors[colorIndex];
 
-        console.log("GRAPH COORDS: ", v, transform_mouse_coords(x, y, ctx));
+        // console.log("GRAPH COORDS: ", v, transform_mouse_coords(x, y, ctx));
 
         // Основной круг с обводкой цвета вершины
         ctx.beginPath();
@@ -186,12 +204,12 @@ function draw_graph(graph, canvas_gd, ctx) {
         ctx.closePath();
     }
 
-    // квадрат для отладки
-    ctx.beginPath();
-    ctx.strokeStyle = "white";
-    ctx.strokeWidth = 2.5;
-    ctx.strokeRect(0, 0, canvas_gd.width, canvas_gd.height);
-    ctx.closePath();
+    // // квадрат для отладки
+    // ctx.beginPath();
+    // ctx.strokeStyle = "white";
+    // ctx.strokeWidth = 2.5;
+    // ctx.strokeRect(0, 0, canvas_gd.width, canvas_gd.height);
+    // ctx.closePath();
 
     canvas_gd.requestPaint();
 }
@@ -202,78 +220,70 @@ function init_scale(graph, canvas_gd, ctx) {
 
     GRAPH = graph;
 
+    // координаты bounding box
+    let min_x = 1000000;
+    let min_y = 1000000;
+    let max_x = -1;
+    let max_y = -1;
 
-    // находим геометрический центр вершин
-    let center_x, center_y, vsize;
-    vsize = Object.keys(graph["vertices"]).length;
-    center_x = 0;
-    center_y = 0;
-
-    // находим центр
+    // найдем bounding box у графа
     for (let v in graph["vertices"]) {
         let x = graph["vertices"][v][0];
         let y = graph["vertices"][v][1];
-        center_x += x;
-        center_y += y;
+        min_x = Math.min(x - RADIUS, min_x);
+        min_y = Math.min(y - RADIUS, min_y);
+        max_x = Math.max(x + RADIUS, max_x);
+        max_y = Math.max(y + RADIUS, max_y);
     }
 
-    center_x /= vsize;
-    center_y /= vsize;
-    console.log("CENTER: ", center_x, center_y);
+    // console.log("BOUNDING BOX: ", min_x, min_y, max_x, max_y);
 
-    let mxv = "";
-    let max_dx = -1;
-    let max_dy = -1;
+    // найдем коэффициент масштабирования
+    let bb_width = max_x - min_x;
+    let bb_height = max_y - min_y;
+    let k = Math.min((canvas_gd.width - 3 * RADIUS) / bb_width,
+                     (canvas_gd.height - 3 * RADIUS) / bb_height);
 
-    // находим самую удаленную вершину от центра
-    for (let v in graph["vertices"]) {
-        let x = graph["vertices"][v][0];
-        let y = graph["vertices"][v][1];
-        // вектор между точкой ЦЕНТР и вершиной графа
-        let vec_x = x - center_x;
-        let vec_y = y - center_y;
-        // вектор между точкой ЦЕНТР и максимально удаленной вершиной графа
-        let vm_x = max_dx - center_x;
-        let vm_y = max_dy - center_y;
-        // длина первого вектора
-        let distc = Math.sqrt(vec_x * vec_x + vec_y * vec_y);
-        // длина второго вектора
-        let distmax = Math.sqrt(vm_x * vm_x + vm_y * vm_y);
-        if (distc > distmax) {
-            mxv = v;
-            max_dx = x;
-            max_dy = y;
-        }
-    }
-
-    console.log("MAX D OF V: ", mxv, max_dx, max_dy);
 
     // координаты реального центра Canvas-а
     let real_cx = canvas_gd.width / 2;
     let real_cy = canvas_gd.height / 2;
 
-    console.log("REAL CENTER: ", real_cx, real_cy);
+    // console.log("REAL CENTER: ", real_cx, real_cy);
+
+    // координаты центра bounding box
+    let center_x = (max_x + min_x) / 2;
+    let center_y = (max_y + min_y) / 2;
 
     // смещение центра графа в реальный центр Canvas-а
     let dx = real_cx - center_x;
     let dy = real_cy - center_y;
 
-    console.log("DX DY: ", dx, dy);
+    // console.log("DX DY: ", dx, dy);
 
     // сдвигаем Canvas соответствующе
     translate_canvas(dx, dy, canvas_gd, ctx);
 
-    ctx.beginPath();
-    ctx.fillStyle = 'red';
-    ctx.arc(real_cx - dx, real_cy - dy, RADIUS * 0.9, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.closePath();
+    // console.log("K: ", k);
 
-    // // найдем коэффициент масштабирования
-    // // длина вектора от центра графа до самой удаленной вершины
-    // let len_mx = Math.sqrt((max_dx - center_x) * (max_dx - center_x)
-    //                        +
-    //                        (max_dy - center_y) * (max_dy - center_y));
+    // масштабируем Canvas из центра
+    scale_canvas(k, real_cx, real_cy, canvas_gd, ctx);
+
+
+    // // ОТЛАДКА
+    // // отладка центра графа
+    // ctx.beginPath();
+    // ctx.fillStyle = 'red';
+    // ctx.arc(real_cx - dx, real_cy - dy, RADIUS * 0.9, 0, 2 * Math.PI);
+    // ctx.fill();
+    // ctx.closePath();
+
+    // // отладка bounding box
+    // ctx.beginPath();
+    // ctx.strokeStyle = 'red';
+    // ctx.strokeWidth = 2.5;
+    // ctx.strokeRect(min_x, min_y, max_x - min_x, max_y - min_y);
+    // ctx.closePath();
 
 
 
@@ -287,22 +297,29 @@ function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
     if (GRAPH != null) {
         // console.log("K_scale: ", k_scale * scale);
 
-        if (0.312 < k_scale * scale && k_scale * scale < 6) {
+        // if (0.312 < k_scale * scale && k_scale * scale < 6) {
+        if (k_scale * scale < 6) {
 
             k_scale *= scale;
 
             // вычисляем новые координаты
             let [nx, ny] = transform_mouse_coords(cx, cy, ctx);
 
-            console.log("NX, NY: ", nx, ny);
+            // console.log("NX, NY: ", nx, ny);
 
             // вычисляем расстояние от координаты мыши до новых координат после масштабирования
             OFFSETX = cx - nx * scale;
             OFFSETY = cy - ny * scale;
 
-            FONT_PX /= scale;
-            EDGE_WIDTH /= scale;
-            RADIUS /= scale;
+            // console.log("INV_FONT_PX / scale: ", INV_FONT_PX / scale);
+            FONT_PX = (I_FONT_PX / scale > 58 ? 58 : I_FONT_PX / scale);
+            I_FONT_PX /= scale;
+
+            EDGE_WIDTH = (I_EDGE_WIDTH / scale > 12 ? 12 : I_EDGE_WIDTH / scale);
+            I_EDGE_WIDTH /= scale;
+
+            RADIUS = (I_RADIUS / scale > 60 ? 60 : I_RADIUS / scale);
+            I_RADIUS /= scale;
 
             clean_canvas(canvas_gd, ctx, 0);
             draw_graph(GRAPH, canvas_gd, ctx);

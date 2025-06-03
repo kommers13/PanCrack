@@ -45,9 +45,9 @@ Item {
          }
          onGraphDraw: (graph) => {
              // graph - QVariantMap
-             DrawingUtils.clean_canvas(canvas_graphdraw, canvas_graphdraw.getContext("2d"), 1);
+             DrawingUtils.reset_canvas();
              DrawingUtils.init_scale(graph, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
-             DrawingUtils.draw_graph(graph, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
+             // DrawingUtils.draw_graph(graph, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
          }
     }
 
