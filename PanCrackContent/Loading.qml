@@ -34,6 +34,11 @@ Window {
         border.width: 2
         clip: true
 
+        // CustomCursor {
+        //     anchors.fill: parent
+        //     cursorVisible: true
+        // }
+
         // Внутренняя рамка
         Rectangle {
             anchors.fill: parent

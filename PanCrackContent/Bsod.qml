@@ -16,6 +16,12 @@ Item {
     property bool challengeComplete: false
     property var currentChallengeObj: null
 
+
+    // CustomCursor {
+    //     anchors.fill: parent
+    //     cursorVisible: true
+    // }
+
     // Список заданий
     property var challenges: [
         {cmd: "algorithm -d GRAPH_A A", desc: "Perform DFS starting from vertex A for GRAPH_A", solution: "algorithm -d GRAPH_A A"},

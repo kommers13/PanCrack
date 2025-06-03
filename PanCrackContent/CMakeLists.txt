@@ -21,6 +21,8 @@ qt6_add_qml_module(PanCrackContent
         "plugs/Signals.qml"
         "GraphCanvas.qml"
         "AntivirusTerminal.qml"
+        "CustomCursor.qml"
+
     RESOURCES
         "img/logo.png"
         "img/lock.png"
@@ -29,5 +31,5 @@ qt6_add_qml_module(PanCrackContent
         "img/unlock.png"
         "js/console_utils.js"
         "js/draw_utils.js"
-)
 
+)
