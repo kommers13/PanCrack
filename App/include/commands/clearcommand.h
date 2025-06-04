@@ -10,6 +10,8 @@
 #include <string>
 #include <vector>
 
+#include "macros/commacros.h"
+
 // я никогда не умел нормально называть файлы и классы - я знаю
 
 using namespace std;
@@ -21,22 +23,7 @@ class ClearCommand
 public:
 
 
-    /*
-
-    NAME
-
-        CLEAR - clear the terminal screen
-
-    SYNOPSIS
-
-        CLEAR [-h]
-
-    DESCRIPTION
-
-        CLEAR just returns screen to original state.
-        -h, --help - option that shows this text.
-
-    */
+    /* ../cominf/help/clear.html */
 
     // функция возвращает строку результат команды
     // в данном случае, кроме основных имени команды, аргументов и опций, нам понадобился

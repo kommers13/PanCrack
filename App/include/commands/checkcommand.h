@@ -9,10 +9,14 @@
 #include <task6.h>
 #include "../listcommands.h"
 #include "../dataconverse.h"
+
+#include "macros/commacros.h"
+
 using namespace std;
-class CheckCommand
-{
+class CheckCommand {
+
 public:
+
     static string execute(
         const string& command,      // имя команды
         const vector<string>& args, // вектор строк-аргументов

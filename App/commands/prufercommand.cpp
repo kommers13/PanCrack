@@ -3,22 +3,15 @@
 string PruferCommand::execute(const string& command,
                                  const vector<string>& args,
                                  const vector<string>& opts) {
-    string output = "<br>You may input <b>" + command + " --help</b> for more information.";
-    auto com_inf = list_commands::get(command);
+    // вывод команды
+    string output;
 
-    // записываем в переменную описание команды
-    string description = get<1>(com_inf);
-    // записываем все опции, которые имеет команда
-    unordered_map<string, string> got_opts = get<2>(com_inf);
+    // документация команды
+    string description;
 
-    // если хотя бы один флаг не совпадает, команда НЕ ВЫПОЛНЯЕТСЯ
-    for (string opt: opts) {
-        // если флаг не найден (ни короткий, ни полный)
-        if (got_opts[opt] == "") {
-            output = "Flag <b>" + opt + "</b> wasn`t found." + output;
-            return output;
-        }
-    }
+    VALIDATE_COMMAND_FLAGS(command, opts);
+
+    // =================== your business logic ===================
 
     // к этому моменту мы знаем, что если мы оказались здесь, то все опции правильные
     // prufer -h

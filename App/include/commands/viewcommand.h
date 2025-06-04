@@ -9,6 +9,8 @@
 #include "../listcommands.h"
 #include "../dataconverse.h"
 
+#include "macros/commacros.h"
+
 using namespace std;
 
 

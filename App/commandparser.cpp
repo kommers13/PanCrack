@@ -92,6 +92,9 @@ tuple<string,
 string CommandParser::execute_command(const string& command,
                                        const vector<string>& args,
                                        const vector<string>& opts) {
+
+    // qDebug() << "COMMAND: " << (command == "create");
+
     if (command == "algorithm") {
         return AlgorithmCommand::execute(command, args, opts);
     }

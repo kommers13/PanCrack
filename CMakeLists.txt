@@ -39,6 +39,7 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
     App/include/commands/algorithmcommand.h App/commands/algorithmcommand.cpp
     App/include/commands/checkcommand.h App/commands/checkcommand.cpp
     App/include/commands/helpcommand.h App/commands/helpcommand.cpp
+    App/include/commands/macros/commacros.h
 
 )
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"

@@ -14,6 +14,8 @@
 
 #include "../graphdraw.h"
 
+#include "macros/commacros.h"
+
 
 namespace fs = std::filesystem;
 using namespace std;
