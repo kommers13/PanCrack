@@ -22,14 +22,6 @@ const int HEIGHT = RHEIGHT - 2 * MARGIN;
 // расстояние чуть больше, чем RADIUS (в пикселях)
 const int GAP = RADIUS / 2;
 
-// коэффициент притяжения
-// const int Ka = 2 * RADIUS;
-// коэффициент отталкивания
-// const int Kr = 10 * RADIUS;
-// нормальная длина пружины
-// const int L = 7 * RADIUS + GAP;
-// const int L = sqrt(WIDTH * HEIGHT / 3);
-
 /*
 Данная функция создает QVariantMap, на основе которого JS-функция нарисует граф на Canvas
 Пример:

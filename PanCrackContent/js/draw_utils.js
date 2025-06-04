@@ -24,6 +24,8 @@ const ERROR_COLOR = "#FF0033";
 let RADIUS = 15;
 // невидимый радиус
 let I_RADIUS = 15;
+// предельный размер радиуса
+const L_RADIUS = 60;
 
 // толщина ребер
 // при увеличении масштаба толщина будет изменяться
@@ -48,6 +50,8 @@ const EDGE_COLOR = "#00FF00";
 // Таким образом, пока GRAPH != null, он находится на экране, иначе, когда он исчезает с экрана,
 // получаем GRAPH = null
 let GRAPH = null            // НЕ ИСПОЛЬЗУЙТЕ ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ, ДА ЛАДНО, ВЫ ЧТО, ИЗДЕВАЕТЕСЬ
+
+let CURRENT_VERTEX = null;
 
 
 // коэффициент масштабирования canvas-а
@@ -80,6 +84,8 @@ function reset_canvas() {
 }
 
 // функция для очистки Canvas-а
+// 1 - очистить только холст
+// 0 - очистить граф
 function clean_canvas(canvas_gd, ctx, clean_graph) {
     // очищаем холст
     ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -92,7 +98,7 @@ function clean_canvas(canvas_gd, ctx, clean_graph) {
     ctx.translate(OFFSETX, OFFSETY);
     ctx.scale(k_scale, k_scale);
 
-    GRAPH = (clean_graph ? null : GRAPH);
+    GRAPH = (!clean_graph ? null : GRAPH);
     canvas_gd.requestPaint();
 }
 
@@ -141,7 +147,7 @@ function draw_graph(graph, canvas_gd, ctx) {
         let colorIndex = graph["colors"][v] % cyberColors.length;
         let [fillColor, textColor] = cyberColors[colorIndex];
 
-        // console.log("GRAPH COORDS: ", v, transform_mouse_coords(x, y, ctx));
+        // console.log("GRAPH COORDS: ", v, transform_mouse_coords(x, y));
 
         // Основной круг с обводкой цвета вершины
         ctx.beginPath();
@@ -204,12 +210,12 @@ function draw_graph(graph, canvas_gd, ctx) {
         ctx.closePath();
     }
 
-    // // квадрат для отладки
-    // ctx.beginPath();
-    // ctx.strokeStyle = "white";
-    // ctx.strokeWidth = 2.5;
-    // ctx.strokeRect(0, 0, canvas_gd.width, canvas_gd.height);
-    // ctx.closePath();
+    // квадрат для отладки
+    ctx.beginPath();
+    ctx.strokeStyle = "white";
+    ctx.strokeWidth = 2.5;
+    ctx.strokeRect(0, 0, canvas_gd.width, canvas_gd.height);
+    ctx.closePath();
 
     canvas_gd.requestPaint();
 }
@@ -303,7 +309,7 @@ function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
             k_scale *= scale;
 
             // вычисляем новые координаты
-            let [nx, ny] = transform_mouse_coords(cx, cy, ctx);
+            let [nx, ny] = transform_mouse_coords(cx, cy);
 
             // console.log("NX, NY: ", nx, ny);
 
@@ -320,12 +326,61 @@ function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
             EDGE_WIDTH = (I_EDGE_WIDTH / scale > 12 ? 12 : I_EDGE_WIDTH / scale);
             I_EDGE_WIDTH /= scale;
 
-            RADIUS = (I_RADIUS / scale > 60 ? 60 : I_RADIUS / scale);
+            RADIUS = (I_RADIUS / scale > L_RADIUS ? L_RADIUS : I_RADIUS / scale);
             I_RADIUS /= scale;
 
-            clean_canvas(canvas_gd, ctx, 0);
+            clean_canvas(canvas_gd, ctx, 1);
             draw_graph(GRAPH, canvas_gd, ctx);
         }
+    }
+}
+
+// передвижение вершины при помощи ЛКМ
+// эта функция всего лишь ОПРЕДЕЛЯЕТ, ГДЕ СТОИТ КУРСОР
+// и ПЕРЕДВИГАЕТ ТУДА ВЕРШИНУ, после этого все перерисовавывается
+// эта функция вызывается тогда, КОГДА ИЗВЕСТНО, ЧТО НАЖАТА ЛКМ
+function move_vertex(mx, my, canvas_gd, ctx) {
+    if (GRAPH != null) {        // если граф нарисован
+        for (let v in GRAPH["vertices"]) {
+            // берем координаты вершины
+            let x = GRAPH["vertices"][v][0];
+            let y = GRAPH["vertices"][v][1];
+            // преобразуем координаты вершины в координаты холста
+            // мы это делаем для того, чтобы сравнивать положение мыши и вершин в одной системе координат
+            // у нас точка (nx, ny) относительно БЕЛОГО КВАДРАТА, и все точки (x, y) относительно БЕЛОГО КВАДРАТА
+            // однако они без масштабирования, поэтому нужно масштабировать эту точку, домножив на коэффициент
+            let [gx, gy] = [k_scale * x, k_scale * y];
+            // переводим координаты мыши в координаты холста
+            let [nx, ny] = transform_mouse_coords(mx, my);
+            // console.log("================ V: ", v);
+            // console.log("K: ", k_scale);
+            // console.log("X, Y: ", x, y);
+            // console.log("K * X, K * Y: ", k_scale * x, k_scale * y);
+            // console.log("GX, GY: ", gx, gy);
+            // console.log("NX, NY: ", nx, ny);
+            // узнаем, лежит ли точка (nx, ny) внутри окружности с радиусом RADIUS
+            // и центром в точке (gx, gy)
+            // узнаем расстояние от (nx, ny) до (gx, gy)
+            let r = Math.sqrt((nx - gx) * (nx - gx) + (ny - gy) * (ny - gy));
+            // console.log("r: ", r);
+            // console.log("RADIUS: ", RADIUS);
+            // console.log("I_RADIUS: ", I_RADIUS);
+            // console.log("K * I_RADIUS: ", I_RADIUS * k_scale);
+            // если точка (nx, ny) входит в вершину
+            // Это радиус, который видно через систему координат ОКНА
+            if (r <= RADIUS * k_scale) {
+
+                // тогда передвигаем вершину
+                GRAPH["vertices"][v][0] = nx / k_scale;
+                GRAPH["vertices"][v][1] = ny / k_scale;
+                // GRAPH["vertices"][v][0] += (nx - gx);
+                // GRAPH["vertices"][v][1] += (ny - gy);
+                break;
+            }
+        }
+        // перерисовываем граф
+        clean_canvas(canvas_gd, ctx, 1);
+        draw_graph(GRAPH, canvas_gd, ctx);
     }
 }
 
@@ -338,13 +393,13 @@ function translate_canvas(offset_axis_x, offset_axis_y, canvas_gd, ctx) {
         // console.log("TRANSLATE");
 
         // очищаем Canvas
-        clean_canvas(canvas_gd, ctx, 0);
+        clean_canvas(canvas_gd, ctx, 1);
         draw_graph(GRAPH, canvas_gd, ctx);
     }
 }
 
 // координаты мыши трансформировались в координаты Canvas-а
-function transform_mouse_coords(cx, cy, ctx) {
+function transform_mouse_coords(cx, cy) {
     let nx, ny;
     nx = cx - OFFSETX;
     ny = cy - OFFSETY;

@@ -14,18 +14,32 @@ Canvas {
 
     // области для работы курсора мыши
     MouseArea {
+        id: canvas_mouse_area
         width: parent.width
         height: parent.height
         acceptedButtons: Qt.LeftButton
         hoverEnabled: true
-        onClicked: (mouse) => {
-            if (mouse.button === Qt.LeftButton) {
-                // console.log("ЫЫЫЫЫЫ COORDS: ", mouse.x, mouse.y)
-            }
-        }
+        drag.threshold: 0
         onPositionChanged: (mouse) => {
             let [nx, ny] = DrawingUtils.transform_mouse_coords(mouse.x, mouse.y, canvas_graphdraw.getContext("2d"));
             text_coords.text = `X: ${Math.round(nx)}\nY: ${Math.round(ny)}`;
+
+            // проверяем, что была нажата левая кнопка мыши при изменении позиции курсора
+            if (canvas_mouse_area.pressedButtons == Qt.LeftButton) {
+                // находим вершины, на которых находится курсор (мы должны перевести координаты
+                // курсора в координаты холста) и передвинуть их на то место, где сейчас находится курсор,
+                // затем перерисовать граф и сохранить координаты этого графа на время его редактирования
+                DrawingUtils.move_vertex(mouse.x, mouse.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
+                // console.log("GRAPH: ", DrawingUtils.GRAPH["vertices"]["A"]);
+            }
+            else {
+                // DrawingUtils.CURRENT_VERTEX = null;
+            }
+
+            // console.log(Qt.LeftButton);
+            // if (mouse.button === Qt.LeftButton) {
+            //     console.log("ЫЫЫЫЫЫ COORDS: ", mouse.x, mouse.y)
+            // }
         }
     }
 
