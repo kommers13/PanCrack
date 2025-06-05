@@ -49,33 +49,33 @@ Canvas {
             // увеличение/уменьшение масштаба      
             if (event.modifiers & Qt.ShiftModifier) {
                 if (event.angleDelta.y > 0) {
-                    DrawingUtils.scale_canvas(1.05, event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.scale_canvas(1.05, event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
                     // console.log("CANVAS ZOOM")
                 }
                 else if (event.angleDelta.y < 0) {
-                    DrawingUtils.scale_canvas(0.95, event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.scale_canvas(0.95, event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
                     // console.log("CANVAS ZOOM OUT")
                 }
             }
             // влево-вправо
             else if (event.modifiers & Qt.ControlModifier){
                 if (event.angleDelta.y > 0) {
-                    DrawingUtils.translate_canvas(50, 0, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(50, 0, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
                     // console.log("CANVAS LEFT")
                 }
                 else if (event.angleDelta.y < 0) {
-                    DrawingUtils.translate_canvas(-50, 0, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(-50, 0, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
                     // console.log("CANVAS RIGHT")
                 }
             }
             // вверх-вниз
             else {
                 if (event.angleDelta.y > 0) {
-                    DrawingUtils.translate_canvas(0, 50, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(0, 50, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
                     // console.log("CANVAS UP")
                 }
                 else if (event.angleDelta.y < 0) {
-                    DrawingUtils.translate_canvas(0, -50, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(0, -50, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
                     // console.log("CANVAS DOWN")
                 }
             }
@@ -150,11 +150,11 @@ Canvas {
     }
     onAvailableChanged: {
         if (canvas_graphdraw.available) {
-            let ctx = canvas_graphdraw.getContext("2d")
-            ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1)
+            let ctx = canvas_graphdraw.getContext("2d");
+            ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1);
             ctx.fillRect(0, 0, canvas_graphdraw.width,
-                         canvas_graphdraw.height)
-            canvas_graphdraw.requestPaint()
+                         canvas_graphdraw.height);
+            canvas_graphdraw.requestPaint();
         }
     }
 }

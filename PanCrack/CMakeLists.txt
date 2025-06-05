@@ -7,7 +7,6 @@ set_source_files_properties(Constants.qml
 )
 
 
-
 qt_add_library(PanCrack STATIC)
 qt6_add_qml_module(PanCrack
     URI "PanCrack"
@@ -18,5 +17,3 @@ qt6_add_qml_module(PanCrack
         "Constants.qml"
         "EventListSimulator.qml"
 )
-
-

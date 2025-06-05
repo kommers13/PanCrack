@@ -11,22 +11,25 @@ qt6_add_qml_module(PanCrackContent
     QML_FILES
         "CommandLine.qml"
         "DuplicateWindow.qml"
-        "CommandSingleOutput.qml"
-        "App.qml"
         "Screen01.ui.qml"
-        "Cursor.qml"
-        "Loading.qml"
         "CommandSingleLine.qml"
         "Bsod.qml"
-        "plugs/Signals.qml"
-        "GraphCanvas.qml"
+        "CommandSingleOutput.qml"
+        "Cursor.qml"
         "CustomCursor.qml"
+        "Loading.qml"
+        "GraphCanvas.qml"
+        "App.qml"
+        "plugs/Signals.qml"
     RESOURCES
+        "img/logo1.png"
         "img/logo.png"
         "img/lock.png"
-        "img/qr.png"
-        "img/logo1.png"
         "img/unlock.png"
+        "img/qr.png"
         "js/console_utils.js"
         "js/draw_utils.js"
+        "ai/assets/logo1.png"
 )
+
+

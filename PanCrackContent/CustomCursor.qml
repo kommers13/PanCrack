@@ -208,7 +208,7 @@ Item {
     }
 
     Component.onCompleted: {
-        cursorCross.x = parent.width/2 - cursorCross.width/2
-        cursorCross.y = parent.height/2 - cursorCross.height/2
+        cursorCross.x = parent.width/2 - cursorCross.width / 2
+        cursorCross.y = parent.height/2 - cursorCross.height / 2
     }
 }

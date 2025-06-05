@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
 
 import QtQuick
-import PanCrack
 import QtQuick.Timeline 1.0
+import PanCrack
 
 Window {
     id: window
@@ -82,8 +82,8 @@ Window {
         enabled: false
     }
     Timer {
-        // interval: 14000
-        interval: 1000
+        interval: 14000
+        // interval: 1000
         running: true
         onTriggered: {
             stateGroup.state = "MainScreenState"

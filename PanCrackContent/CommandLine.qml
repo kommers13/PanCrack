@@ -25,6 +25,7 @@ Item {
     property int historyIndex: -1
     property string lastValidCommand: ""
     property real glitchIntensity: 100
+    property alias column: column
 
 
 
@@ -48,6 +49,10 @@ Item {
              DrawingUtils.reset_canvas();
              DrawingUtils.init_scale(graph, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
              // DrawingUtils.draw_graph(graph, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
+         }
+         onLevelStart: (level) => {
+             // console.log("HELLO LEVEL");
+             bsod.startTimer();
          }
     }
 

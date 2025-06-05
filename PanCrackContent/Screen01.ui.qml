@@ -519,13 +519,13 @@ Rectangle {
         id: canvas_graphdraw
     }
 
-    CustomCursor {
-           id: customCursor
-           z: 99999
-           anchors.fill: parent
-           //cursorImage: "img/kursor.png"
-           //cursorWidth: 24
-           //cursorHeight: 24
-           cursorVisible: loader_screen01.active // Показывать только при активном экране
-       }
+    // CustomCursor {
+    //    id: customCursor
+    //    z: 99999
+    //    anchors.fill: parent
+    //    //cursorImage: "img/kursor.png"
+    //    //cursorWidth: 24
+    //    //cursorHeight: 24
+    //    cursorVisible: loader_screen01.active // Показывать только при активном экране
+    // }
 }

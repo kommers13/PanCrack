@@ -2,6 +2,13 @@ import QtQuick 2.15
 import PanCrack
 import QtQuick.Controls 2.15
 
+
+// plugs
+// import "plugs"
+// real
+// import signals
+
+
 Item {
     id: root
     width: Constants.width
@@ -31,6 +38,17 @@ Item {
         {cmd: "view -d GRAPH_E", desc: "Show vertex degrees for GRAPH_E", solution: "view -d GRAPH_E"}
     ]
 
+    // Signals {
+
+    //     id: signals_id
+    //     objectName: "signals_id_"
+
+    //     onLevelStart: (level) => {
+    //         startGame();
+    //         console.log("HELLO FROM LEVEL");
+    //     }
+    // }
+
     // Основной экран смерти
     Rectangle {
         id: bsodScreen
@@ -39,81 +57,81 @@ Item {
         visible: true
 
         Column {
-                    anchors {
-                        left: parent.left
-                        leftMargin: 80
-                        right: parent.right
-                        rightMargin: 80
-                        verticalCenter: parent.verticalCenter
-                    }
-                    spacing: 20
+            anchors {
+                left: parent.left
+                leftMargin: 80
+                right: parent.right
+                rightMargin: 80
+                verticalCenter: parent.verticalCenter
+            }
+            spacing: 20
 
-                    Text {
-                        text: ":("
-                        color: "white"
-                        font.family: "Segoe UI"
-                        font.pixelSize: 120
-                        font.weight: Font.Light
-                    }
+            Text {
+                text: ":("
+                color: "white"
+                font.family: "Segoe UI"
+                font.pixelSize: 120
+                font.weight: Font.Light
+            }
 
-                    Text {
-                        width: parent.width
-                        text: "Your graph system ran into a problem and needs to restart."
-                        color: "white"
-                        font.family: "Segoe UI"
-                        font.pixelSize: 28
-                        font.weight: Font.Light
-                        wrapMode: Text.WordWrap
-                        lineHeight: 1.2
-                    }
+            Text {
+                width: parent.width
+                text: "Your graph system ran into a problem and needs to restart."
+                color: "white"
+                font.family: "Segoe UI"
+                font.pixelSize: 28
+                font.weight: Font.Light
+                wrapMode: Text.WordWrap
+                lineHeight: 1.2
+            }
 
-                    Text {
-                        width: parent.width
-                        text: "We're just collecting some error info, and then we'll restart for you."
-                        color: "white"
-                        font.family: "Segoe UI"
-                        font.pixelSize: 24
-                        font.weight: Font.Light
-                        wrapMode: Text.WordWrap
-                    }
+            Text {
+                width: parent.width
+                text: "We're just collecting some error info, and then we'll restart for you."
+                color: "white"
+                font.family: "Segoe UI"
+                font.pixelSize: 24
+                font.weight: Font.Light
+                wrapMode: Text.WordWrap
+            }
 
-                    Text {
-                        width: parent.width
-                        text: progress + "% complete"
-                        color: "white"
-                        font.family: "Segoe UI"
-                        font.pixelSize: 20
-                        font.weight: Font.Light
-                        bottomPadding: 30
-                    }
+            Text {
+                width: parent.width
+                text: progress + "% complete"
+                color: "white"
+                font.family: "Segoe UI"
+                font.pixelSize: 20
+                font.weight: Font.Light
+                bottomPadding: 30
+            }
 
-                    Row {
-                        width: parent.width
-                        spacing: 40
+            Row {
+                width: parent.width
+                spacing: 40
 
-                        Image {
-                            source: "img/qr.png"
-                            width: 160
-                            height: 160
-                            fillMode: Image.PreserveAspectFit
-                        }
+                Image {
+                    source: "img/qr.png"
+                    width: 160
+                    height: 160
+                    fillMode: Image.PreserveAspectFit
+                }
 
-                        Text {
-                            width: parent.width - 200
-                            text: "For more information about this issue and possible fixes, visit https://graphsecurity.com/stopcode\n\n" +
-                                  "If you call a support person, give them this info:\n" +
-                                  "Stop code: GRAPH_CORRUPTION_ERROR\n" +
-                                  "Virus signature: 0x" + Math.random().toString(16).substr(2,8).toUpperCase()
-                            color: "white"
-                            font.family: "Segoe UI"
-                            font.pixelSize: 18
-                            font.weight: Font.Light
-                            wrapMode: Text.WordWrap
-                            lineHeight: 1.3
-                        }
-                    }
+                Text {
+                    width: parent.width - 200
+                    text: "For more information about this issue and possible fixes, visit https://graphsecurity.com/stopcode\n\n" +
+                          "If you call a support person, give them this info:\n" +
+                          "Stop code: GRAPH_CORRUPTION_ERROR\n" +
+                          "Virus signature: 0x" + Math.random().toString(16).substr(2,8).toUpperCase()
+                    color: "white"
+                    font.family: "Segoe UI"
+                    font.pixelSize: 18
+                    font.weight: Font.Light
+                    wrapMode: Text.WordWrap
+                    lineHeight: 1.3
                 }
             }
+        }
+    }
 
     // Антивирусный терминал (изначально скрыт)
     Rectangle {
@@ -258,12 +276,13 @@ Item {
         }
     }
 
+
+
     Timer {
         id: showTimer
         interval: 4000//30000
-        running: true
-        repeat: true
         onTriggered: {
+            // console.log("START TIMER");
             if (!root.visible) {
                 startGame();
             }
@@ -295,12 +314,22 @@ Item {
                 bsodScreen.visible = false;
                 terminalScreen.visible = false;
 
+                root.z = -100;
+
+                let len = commandLine.column.children.length;
+                commandLine.column.children[len - 2].forceActiveFocus();
+
                 // Останавливаем все таймеры, чтобы не было повторных запусков
                 showTimer.stop();
                 bsodTimer.stop();
                 resultTimer.stop();
             }
         }
+    }
+
+    function startTimer() {
+        showTimer.start();
+        // startGame();
     }
 
     function startGame() {
