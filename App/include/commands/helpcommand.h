@@ -6,6 +6,10 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+
+#include "macros/commacros.h"
+
+
 using namespace std;
 class HelpCommand
 {

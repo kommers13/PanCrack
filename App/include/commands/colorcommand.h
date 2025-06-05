@@ -15,10 +15,13 @@
 #include <string>
 #include <vector>
 
+#include "macros/commacros.h"
+
+
 using namespace std;
 
-class ColorCommand
-{
+class ColorCommand {
+
 public:
     static string execute(
         const string& command,      // имя команды

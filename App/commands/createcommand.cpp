@@ -64,31 +64,23 @@ string construct(int type, const vector<string>& args) {
 string CreateCommand::execute(const string& command,
                               const vector<string>& args,
                               const vector<string>& opts) {
-    string output = "<br>You may input <b>create --help</b> for more information.";
-    // command name
-    // description
-    // {-h: --help} and so on
-    auto com_inf = list_commands::get(command);
+    // вывод команды
+    string output;
 
-    string description = get<1>(com_inf);
-    unordered_map<string, string> got_opts = get<2>(com_inf);
+    // документация команды
+    string description;
 
-    // CHECKING OPTIONS
+    VALIDATE_COMMAND_FLAGS(command, opts);
+
+    // =================== your business logic ===================
+
+
     // в данном случае всегда одна опция в create
-    // проверка, существуют ли введенные флаги
     // если количество опций больше, чем может быть для этой команды
     // в данном случае, всего 1 опция
     if (opts.size() < 1 || 1 < opts.size()) {
         output = "<b>create</b> can get only one necessary option of the three." + output;
         return output;
-    }
-    // если хотя бы одна не совпадает, команда НЕ ВЫПОЛНЯЕТСЯ
-    for (string opt: opts) {
-        // если опция не найдена (ни короткая, ни полная)
-        if (got_opts[opt] == "") {
-            output = "Flag <b>" + opt + "</b> wasn`t found." + output;
-            return output;
-        }
     }
 
     // для create [-h]

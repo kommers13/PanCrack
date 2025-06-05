@@ -25,6 +25,7 @@ add_custom_target(copy_jsons ALL
         "${COMINF_SRC_DIR}/prufer.json"
         "${COMINF_SRC_DIR}/view.json"
         "${COMINF_SRC_DIR}/color.json"
+        "${COMINF_SRC_DIR}/game.json"
         "${COMINF_BNR_DIR}/"
     DEPENDS ${CMAKE_PROJECT_NAME}
 )

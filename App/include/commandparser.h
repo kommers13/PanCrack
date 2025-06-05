@@ -25,6 +25,7 @@
 #include "commands/checkcommand.h"
 #include "commands/helpcommand.h"
 #include "commands/colorcommand.h"
+#include "commands/gamecommand.h"
 
 
 using namespace std;

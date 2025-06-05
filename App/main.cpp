@@ -37,7 +37,8 @@ int main(int argc, char *argv[])
         return -1;
 
 
-    // связывание сигналов с слотами
+    // связывание сигналов со слотами
+    // берем объект из QML в C++
     Signals* all_signals = engine.rootObjects().first()->findChild<Signals*>("signals_id_");
 
     // класс CommandParser, предоставляющий функциональность парсера вводимых строк

@@ -1,30 +1,21 @@
 #include "../include/commands/algorithmcommand.h"
+
+
 string AlgorithmCommand::execute(
                                 const string& command,      // имя команды
                                 const vector<string>& args, // вектор строк-аргументов
                                 const vector<string>& opts  // вектор опций
                                 ){
-    // дефолтная строка, которая говорит о том, что пользователю нужно почитать МАНУАЛ
-    string output = "<br>You may input <b>" + command + " --help</b> for more information.";
-    // command name
-    // description
-    // {-h: --help} and so on
-    // достаем информацию о команде command из json-файла
-    auto com_inf = list_commands::get(command);
 
-    // записываем в переменную описание команды
-    string description = get<1>(com_inf);
-    // записываем все опции, которые имеет команда
-    unordered_map<string, string> got_opts = get<2>(com_inf);
+    // вывод команды
+    string output;
 
-    // если хотя бы один флаг не совпадает, команда НЕ ВЫПОЛНЯЕТСЯ
-    for (string opt: opts) {
-        // если флаг не найден (ни короткий, ни полный)
-        if (got_opts[opt] == "") {
-            output = "Flag <b>" + opt + "</b> wasn`t found." + output;
-            return output;
-        }
-    }
+    // документация команды
+    string description;
+
+    VALIDATE_COMMAND_FLAGS(command, opts);
+
+    // =================== your business logic ===================
 
     // algorithm -h
     if (args.size() == 0 && opts.size() == 1) {
@@ -33,7 +24,7 @@ string AlgorithmCommand::execute(
         }
 
     }
-    if(args.size() == 1 && opts.size() == 1){
+    if (args.size() == 1 && opts.size() == 1) {
 
         if(opts[0] == "-s" || opts[0] == "--shortest_path"){
             string graph_name = args[0];
@@ -80,10 +71,10 @@ string AlgorithmCommand::execute(
                 Graph G = dataconverse::fromJSONfileToGraph(graph_name);
                 string ans = task1::print_DFS(G,args[1][0] - 65);
 
-                if(ans == ""){
+                if (ans == ""){
                     return "Graph <b>" + graph_name + "</b> can't make DFS!!!<br>";
                 }
-                else{
+                else {
                     return ans;
                 }
             }
@@ -97,7 +88,7 @@ string AlgorithmCommand::execute(
                 Graph G = dataconverse::fromJSONfileToGraph(graph_name);
                 auto ans = task3::input(G,args[1]);
 
-                if(ans == ""){
+                if (ans == ""){
                     return "Graph <b>" + graph_name + "</b> can't make BFS!!!<br>";
                 }
                 else{
@@ -119,10 +110,10 @@ string AlgorithmCommand::execute(
                 string a = task2::print_DFS(G, c-64);
                 a = task4::parse(a);
                 if(a != args[1]){
-                    return "You're not right, Mr.Panteleev is very angry!!!<br>";
+                    return "You're not right, think again!<br>";
                 }
                 else{
-                    return "You're right, Mr.Panteleev is proud of you!<br>";
+                    return "You're right!<br>";
                 }
             }
         }

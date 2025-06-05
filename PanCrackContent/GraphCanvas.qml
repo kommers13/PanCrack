@@ -14,13 +14,33 @@ Canvas {
 
     // области для работы курсора мыши
     MouseArea {
+        id: canvas_mouse_area
         width: parent.width
         height: parent.height
         acceptedButtons: Qt.LeftButton
-        onClicked: (mouse) => {
-            if (mouse.button === Qt.LeftButton) {
-                // console.log("ЫЫЫЫЫЫ COORDS: ", mouse.x, mouse.y)
+        hoverEnabled: true
+        drag.threshold: 0
+        onPositionChanged: (mouse) => {
+            let [nx, ny] = DrawingUtils.transform_mouse_coords(mouse.x, mouse.y, canvas_graphdraw.getContext("2d"));
+            text_coords.text = `X: ${Math.round(nx)}\nY: ${Math.round(ny)}`;
+
+            // проверяем, что была нажата левая кнопка мыши при изменении позиции курсора
+            if (canvas_mouse_area.pressedButtons == Qt.LeftButton) {
+                canvas_mouse_area.focus = true; // Отдаем фокус клавиатуры для MouseArea
+                // находим вершины, на которых находится курсор (мы должны перевести координаты
+                // курсора в координаты холста) и передвинуть их на то место, где сейчас находится курсор,
+                // затем перерисовать граф и сохранить координаты этого графа на время его редактирования
+                DrawingUtils.move_vertex(mouse.x, mouse.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
+
             }
+            else {
+                DrawingUtils.set_CURRENT_VERTEX(null);
+            }
+
+            // console.log(Qt.LeftButton);
+            // if (mouse.button === Qt.LeftButton) {
+            //     console.log("ЫЫЫЫЫЫ COORDS: ", mouse.x, mouse.y)
+            // }
         }
     }
 
@@ -29,37 +49,48 @@ Canvas {
             // увеличение/уменьшение масштаба      
             if (event.modifiers & Qt.ShiftModifier) {
                 if (event.angleDelta.y > 0) {
-                    DrawingUtils.scale_canvas(1.05, event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.scale_canvas(1.05, event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
                     // console.log("CANVAS ZOOM")
                 }
                 else if (event.angleDelta.y < 0) {
-                    DrawingUtils.scale_canvas(0.95, event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.scale_canvas(0.95, event.x, event.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
                     // console.log("CANVAS ZOOM OUT")
                 }
             }
             // влево-вправо
             else if (event.modifiers & Qt.ControlModifier){
                 if (event.angleDelta.y > 0) {
-                    DrawingUtils.translate_canvas(50, 'X', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(50, 0, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
                     // console.log("CANVAS LEFT")
                 }
                 else if (event.angleDelta.y < 0) {
-                    DrawingUtils.translate_canvas(-50, 'X', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(-50, 0, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
                     // console.log("CANVAS RIGHT")
                 }
             }
             // вверх-вниз
             else {
                 if (event.angleDelta.y > 0) {
-                    DrawingUtils.translate_canvas(50, 'Y', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(0, 50, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
                     // console.log("CANVAS UP")
                 }
                 else if (event.angleDelta.y < 0) {
-                    DrawingUtils.translate_canvas(-50, 'Y', canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+                    DrawingUtils.translate_canvas(0, -50, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
                     // console.log("CANVAS DOWN")
                 }
             }
         }
+    }
+
+    Text {
+        id: text_coords
+        x: parent.width - width
+        y: parent.height - height
+        text: "X: none\nY: none";
+        font.pixelSize: 12
+        font.family: "Courier New"
+        color: "#90ee90"
+        padding: 10
     }
 
     Rectangle {
@@ -119,11 +150,11 @@ Canvas {
     }
     onAvailableChanged: {
         if (canvas_graphdraw.available) {
-            let ctx = canvas_graphdraw.getContext("2d")
-            ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1)
+            let ctx = canvas_graphdraw.getContext("2d");
+            ctx.fillStyle = Qt.rgba(0.007, 0.03, 0.03, 1);
             ctx.fillRect(0, 0, canvas_graphdraw.width,
-                         canvas_graphdraw.height)
-            canvas_graphdraw.requestPaint()
+                         canvas_graphdraw.height);
+            canvas_graphdraw.requestPaint();
         }
     }
 }

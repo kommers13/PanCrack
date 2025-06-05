@@ -25,6 +25,7 @@ Item {
     property int historyIndex: -1
     property string lastValidCommand: ""
     property real glitchIntensity: 100
+    property alias column: column
 
 
 
@@ -45,8 +46,13 @@ Item {
          }
          onGraphDraw: (graph) => {
              // graph - QVariantMap
-             DrawingUtils.clean_canvas(canvas_graphdraw, canvas_graphdraw.getContext("2d"), 1);
-             DrawingUtils.draw_graph(graph, canvas_graphdraw, canvas_graphdraw.getContext("2d"))
+             DrawingUtils.reset_canvas();
+             DrawingUtils.init_scale(graph, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
+             // DrawingUtils.draw_graph(graph, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
+         }
+         onLevelStart: (level) => {
+             // console.log("HELLO LEVEL");
+             bsod.startTimer();
          }
     }
 
@@ -316,13 +322,13 @@ Item {
                 // UNCOMMENT
                 // CLEAR LIMPED FIX
                 if (signals_id.isCleared) {
-                    ConsoleUtils.clear(column)
-                    signals_id.isCleared = false
+                    ConsoleUtils.clear(column);
+                    signals_id.isCleared = false;
                 }
                 // CLEAR LIMPED FIX END
 
 
-                column.submitInput()
+                column.submitInput();
             }
 
             onSubmitInput: {
@@ -385,14 +391,20 @@ Item {
                 id: commandSingleLine
                 width: parent.width
                 text:
-                    "______                _____                     _\n" +
-                    "| ___ \\              /  __ \\                   | |\n" +
-                    "| |_/ /  __ _  _ __  | /  \\/ _ __   __ _   ___ | | __\n" +
-                    "|  __/  / _` || '_ \\ | |    | '__| / _` | / __|| |/ /\n" +
-                    "| |    | (_| || | | || \\__/\\| |   | (_| || (__ |   <\n" +
-                    "\\_|     \\__,_||_| |_| \\____/|_|    \\__,_| \\___||_|\\_\\\n" +
+                    "██████╗  █████╗ ███╗   ██╗ ██████╗██████╗  █████╗  ██████╗██╗  ██╗\n" +
+                    "██╔══██╗██╔══██╗████╗  ██║██╔════╝██╔══██╗██╔══██╗██╔════╝██║ ██╔╝\n" +
+                    "██████╔╝███████║██╔██╗ ██║██║     ██████╔╝███████║██║     █████╔╝ \n" +
+                    "██╔═══╝ ██╔══██║██║╚██╗██║██║     ██╔══██╗██╔══██║██║     ██╔═██╗ \n" +
+                    "██║     ██║  ██║██║ ╚████║╚██████╗██║  ██║██║  ██║╚██████╗██║  ██╗\n" +
+                    "╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝\n" +
+                    // "______                _____                     _\n" +
+                    // "| ___ \\              /  __ \\                   | |\n" +
+                    // "| |_/ /  __ _  _ __  | /  \\/ _ __   __ _   ___ | | __\n" +
+                    // "|  __/  / _` || '_ \\ | |    | '__| / _` | / __|| |/ /\n" +
+                    // "| |    | (_| || | | || \\__/\\| |   | (_| || (__ |   <\n" +
+                    // "\\_|     \\__,_||_| |_| \\____/|_|    \\__,_| \\___||_|\\_\\\n" +
                     "\nWARNING: SYSTEM LOCKED\n" +
-                    "SOLVE 12 GRAPH PROBLEMS TO UNLOCK\n" +
+                    "SOLVE 3 GRAPH PROBLEMS TO UNLOCK\n" +
                     "Type 'help' for available commands\n" +
                     "Press ENTER to begin..."
                 readOnly: true

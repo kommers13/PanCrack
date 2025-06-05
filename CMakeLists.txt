@@ -23,11 +23,12 @@ qt_standard_project_setup()
 
 qt_add_executable(${CMAKE_PROJECT_NAME}
     App/include/signals.h App/signals.cpp
+
     App/include/commandparser.h App/commandparser.cpp
     App/include/listcommands.h App/listcommands.cpp
     App/include/json.hpp # библиотека для обработки JSON
     App/include/dataconverse.h App/dataconverse.cpp
-        App/include/graphdraw.h App/graphdraw.cpp
+    App/include/graphdraw.h App/graphdraw.cpp
     # команды
     App/include/commands/clearcommand.h App/commands/clearcommand.cpp
     App/include/commands/prufercommand.h App/commands/prufercommand.cpp
@@ -39,6 +40,9 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
     App/include/commands/algorithmcommand.h App/commands/algorithmcommand.cpp
     App/include/commands/checkcommand.h App/commands/checkcommand.cpp
     App/include/commands/helpcommand.h App/commands/helpcommand.cpp
+    App/include/commands/macros/commacros.h
+    App/include/commands/gamecommand.h App/commands/gamecommand.cpp
+
 
 )
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"

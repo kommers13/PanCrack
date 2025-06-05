@@ -22,14 +22,22 @@ const ERROR_COLOR = "#FF0033";
 // при увеличении масштаба радиус будет уменьшаться
 // при уменьшении - наоборот
 let RADIUS = 15;
+// невидимый радиус
+let I_RADIUS = 15;
+// предельный размер радиуса
+const L_RADIUS = 60;
 
 // толщина ребер
 // при увеличении масштаба толщина будет изменяться
 // при уменьшении - наоборот
 let EDGE_WIDTH = 2.0;
+// невидимая толщина
+let I_EDGE_WIDTH = 2.0;
 
 // размер шрифта
 let FONT_PX = 20;
+// невидимый размер шрифта
+let I_FONT_PX = 20;
 
 // цвет ребер
 const EDGE_COLOR = "#00FF00";
@@ -42,6 +50,9 @@ const EDGE_COLOR = "#00FF00";
 // Таким образом, пока GRAPH != null, он находится на экране, иначе, когда он исчезает с экрана,
 // получаем GRAPH = null
 let GRAPH = null            // НЕ ИСПОЛЬЗУЙТЕ ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ, ДА ЛАДНО, ВЫ ЧТО, ИЗДЕВАЕТЕСЬ
+
+// текущая передвигаемая вершина
+let CURRENT_VERTEX = null;
 
 
 // коэффициент масштабирования canvas-а
@@ -58,8 +69,24 @@ const edgeStyles = [
     {color: "#00CCFF", width: EDGE_WIDTH}  // Голубой сигнал
 ];
 
+// сброс всех настроек холста к начальным
+function reset_canvas() {
+    GRAPH = null;
+    k_scale = 1;
+    OFFSETX = 0;
+    OFFSETY = 0;
+
+    RADIUS = 15;
+    I_RADIUS = 15;
+    EDGE_WIDTH = 2.0;
+    I_EDGE_WIDTH = 2.0;
+    FONT_PX = 20;
+    I_FONT_PX = 20;
+}
 
 // функция для очистки Canvas-а
+// 1 - очистить только холст
+// 0 - очистить граф
 function clean_canvas(canvas_gd, ctx, clean_graph) {
     // очищаем холст
     ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -72,16 +99,17 @@ function clean_canvas(canvas_gd, ctx, clean_graph) {
     ctx.translate(OFFSETX, OFFSETY);
     ctx.scale(k_scale, k_scale);
 
-    GRAPH = (clean_graph ? null : GRAPH);
+    GRAPH = (!clean_graph ? null : GRAPH);
     canvas_gd.requestPaint();
 }
 
 
 // граф в переменной graph всегда ПРАВИЛЬНЫЙ
 // canvas_gd - объект Canvas для рисования графа
+// changed - в этом массиве имена вершин, которые изменили свое положение,
+// поэтому рисовать нужно только их
+// если граф ТОЛЬКО рисуется, то changed состоит из всех вершин графа (changed = GRAPH["vertices"]
 function draw_graph(graph, canvas_gd, ctx) {
-
-    GRAPH = graph;  // обозначаем, что на экране сейчас находится граф
 
     // DRAWING
     // рисуем graph
@@ -122,6 +150,8 @@ function draw_graph(graph, canvas_gd, ctx) {
         let y = graph["vertices"][v][1];
         let colorIndex = graph["colors"][v] % cyberColors.length;
         let [fillColor, textColor] = cyberColors[colorIndex];
+
+        // console.log("GRAPH COORDS: ", v, transform_mouse_coords(x, y));
 
         // Основной круг с обводкой цвета вершины
         ctx.beginPath();
@@ -180,11 +210,11 @@ function draw_graph(graph, canvas_gd, ctx) {
         ctx.fillStyle = edgeStyles[e % edgeStyles.length].color;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(w, midX, midY);
+        ctx.fillText(w, midX, midY + FONT_PX / 4);
         ctx.closePath();
     }
 
-    // квадрат для отладки
+    // // квадрат для отладки
     // ctx.beginPath();
     // ctx.strokeStyle = "white";
     // ctx.strokeWidth = 2.5;
@@ -194,53 +224,228 @@ function draw_graph(graph, canvas_gd, ctx) {
     canvas_gd.requestPaint();
 }
 
+// находим начальный масштаб, чтобы поместился весь граф
+function init_scale(graph, canvas_gd, ctx) {
+
+    GRAPH = graph;
+
+    // координаты bounding box
+    let min_x = 1000000;
+    let min_y = 1000000;
+    let max_x = -1;
+    let max_y = -1;
+
+    // найдем bounding box у графа
+    for (let v in graph["vertices"]) {
+        let x = graph["vertices"][v][0];
+        let y = graph["vertices"][v][1];
+        min_x = Math.min(x - RADIUS, min_x);
+        min_y = Math.min(y - RADIUS, min_y);
+        max_x = Math.max(x + RADIUS, max_x);
+        max_y = Math.max(y + RADIUS, max_y);
+    }
+
+    // console.log("BOUNDING BOX: ", min_x, min_y, max_x, max_y);
+
+    // найдем коэффициент масштабирования
+    let bb_width = max_x - min_x;
+    let bb_height = max_y - min_y;
+    let k = Math.min((canvas_gd.width - 3 * RADIUS) / bb_width,
+                     (canvas_gd.height - 3 * RADIUS) / bb_height);
+
+
+    // координаты реального центра Canvas-а
+    let real_cx = canvas_gd.width / 2;
+    let real_cy = canvas_gd.height / 2;
+
+    // console.log("REAL CENTER: ", real_cx, real_cy);
+
+    // координаты центра bounding box
+    let center_x = (max_x + min_x) / 2;
+    let center_y = (max_y + min_y) / 2;
+
+    // смещение центра графа в реальный центр Canvas-а
+    let dx = real_cx - center_x;
+    let dy = real_cy - center_y;
+
+    // console.log("DX DY: ", dx, dy);
+
+    // сдвигаем Canvas соответствующе
+    translate_canvas(dx, dy, canvas_gd, ctx);
+
+    // console.log("K: ", k);
+
+    // масштабируем Canvas из центра
+    scale_canvas(k, real_cx, real_cy, canvas_gd, ctx);
+
+
+    // // ОТЛАДКА
+    // // отладка центра графа
+    // ctx.beginPath();
+    // ctx.fillStyle = 'red';
+    // ctx.arc(real_cx - dx, real_cy - dy, RADIUS * 0.9, 0, 2 * Math.PI);
+    // ctx.fill();
+    // ctx.closePath();
+
+    // // отладка bounding box
+    // ctx.beginPath();
+    // ctx.strokeStyle = 'red';
+    // ctx.strokeWidth = 2.5;
+    // ctx.strokeRect(min_x, min_y, max_x - min_x, max_y - min_y);
+    // ctx.closePath();
+
+
+
+
+}
+
+
 // изменение масштаба графа
 // при это нужно делать так, чтобы Canvas всегда находился по центру своей области
 function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
     if (GRAPH != null) {
         // console.log("K_scale: ", k_scale * scale);
 
-        if (0.312 < k_scale * scale && k_scale * scale < 6) {
+        // if (0.312 < k_scale * scale && k_scale * scale < 6) {
+        if (k_scale * scale < 6) {
 
             k_scale *= scale;
 
             // вычисляем новые координаты
-            let [nx, ny] = transform_mouse_coords(cx, cy, ctx);
+            let [nx, ny] = transform_mouse_coords(cx, cy);
+
+            // console.log("NX, NY: ", nx, ny);
 
             // вычисляем расстояние от координаты мыши до новых координат после масштабирования
             OFFSETX = cx - nx * scale;
             OFFSETY = cy - ny * scale;
 
-            FONT_PX /= scale;
-            EDGE_WIDTH /= scale;
-            RADIUS /= scale;
+            // вычисляем размер параметров, чтобы они не были слишком выделяющимися в графе
+            FONT_PX = (I_FONT_PX / scale > 58 ? 58 : I_FONT_PX / scale);
+            // невидимый размер шрифта нужен для того, чтобы следить за настоящим размером
+            // но отображать только тот, который нужен
+            I_FONT_PX /= scale;
 
-            clean_canvas(canvas_gd, ctx, 0);
+            EDGE_WIDTH = (I_EDGE_WIDTH / scale > 12 ? 12 : I_EDGE_WIDTH / scale);
+            I_EDGE_WIDTH /= scale;
+
+            RADIUS = (I_RADIUS / scale > L_RADIUS ? L_RADIUS : I_RADIUS / scale);
+            I_RADIUS /= scale;
+
+            clean_canvas(canvas_gd, ctx, 1);
             draw_graph(GRAPH, canvas_gd, ctx);
         }
     }
 }
 
-// смещение Canvas-а по оси X или оси Y
-function translate_canvas(offset_axis, axis, canvas_gd, ctx) {
-    if (GRAPH != null) {
-        if (axis === 'X') {
-            OFFSETX += offset_axis;
+// передвижение вершины при помощи ЛКМ
+// эта функция всего лишь ОПРЕДЕЛЯЕТ, ГДЕ СТОИТ КУРСОР
+// и ПЕРЕДВИГАЕТ ТУДА ВЕРШИНУ, после этого все перерисовавывается
+// эта функция вызывается тогда, КОГДА ИЗВЕСТНО, ЧТО НАЖАТА ЛКМ
+function move_vertex(mx, my, canvas_gd, ctx) {
+    if (GRAPH != null) {        // если граф нарисован
+        if (CURRENT_VERTEX === null) {
+            // тогда ищем вершину, которую нужно передвигать
+            for (let v in GRAPH["vertices"]) {
+                // берем координаты вершины
+                let x = GRAPH["vertices"][v][0];
+                let y = GRAPH["vertices"][v][1];
+                // преобразуем координаты вершины в координаты холста
+                // мы это делаем для того, чтобы сравнивать положение мыши и вершин в одной системе координат
+                // у нас точка (nx, ny) относительно БЕЛОГО КВАДРАТА, и все точки (x, y) относительно БЕЛОГО КВАДРАТА
+                // однако они без масштабирования, поэтому нужно масштабировать эту точку, домножив на коэффициент
+                let [gx, gy] = [k_scale * x, k_scale * y];
+                // переводим координаты мыши в координаты холста
+                let [nx, ny] = transform_mouse_coords(mx, my);
+                // console.log("================ V: ", v);
+                // console.log("K: ", k_scale);
+                // console.log("X, Y: ", x, y);
+                // console.log("K * X, K * Y: ", k_scale * x, k_scale * y);
+                // console.log("GX, GY: ", gx, gy);
+                // console.log("NX, NY: ", nx, ny);
+                // узнаем, лежит ли точка (nx, ny) внутри окружности с радиусом RADIUS
+                // и центром в точке (gx, gy)
+                // узнаем расстояние от (nx, ny) до (gx, gy)
+                let r = Math.sqrt((nx - gx) * (nx - gx) + (ny - gy) * (ny - gy));
+                // console.log("r: ", r);
+                // console.log("RADIUS: ", RADIUS);
+                // console.log("I_RADIUS: ", I_RADIUS);
+                // console.log("K * I_RADIUS: ", I_RADIUS * k_scale);
+                // если точка (nx, ny) входит в вершину
+                // Это радиус, который видно через систему координат ОКНА
+                if (r <= RADIUS * k_scale) {
+                    set_CURRENT_VERTEX(v);
+                    // тогда передвигаем вершину
+                    GRAPH["vertices"][v][0] = nx / k_scale;
+                    GRAPH["vertices"][v][1] = ny / k_scale;
+                    // GRAPH["vertices"][v][0] += (nx - gx) / k_scale;
+                    // GRAPH["vertices"][v][1] += (ny - gy) / k_scale;
+                    break;
+                }
+            }
         }
         else {
-            OFFSETY += offset_axis;
+            // если вершина уже известна, то мы продолжаем перетаскивать ее
+            let x = GRAPH["vertices"][CURRENT_VERTEX][0];
+            let y = GRAPH["vertices"][CURRENT_VERTEX][1];
+            // преобразуем координаты вершины в координаты холста
+            // мы это делаем для того, чтобы сравнивать положение мыши и вершин в одной системе координат
+            // у нас точка (nx, ny) относительно БЕЛОГО КВАДРАТА, и все точки (x, y) относительно БЕЛОГО КВАДРАТА
+            // однако они без масштабирования, поэтому нужно масштабировать эту точку, домножив на коэффициент
+            let [gx, gy] = [k_scale * x, k_scale * y];
+            // переводим координаты мыши в координаты холста
+            let [nx, ny] = transform_mouse_coords(mx, my);
+            // console.log("================ V: ", v);
+            // console.log("K: ", k_scale);
+            // console.log("X, Y: ", x, y);
+            // console.log("K * X, K * Y: ", k_scale * x, k_scale * y);
+            // console.log("GX, GY: ", gx, gy);
+            // console.log("NX, NY: ", nx, ny);
+            // узнаем, лежит ли точка (nx, ny) внутри окружности с радиусом RADIUS
+            // и центром в точке (gx, gy)
+            // узнаем расстояние от (nx, ny) до (gx, gy)
+            let r = Math.sqrt((nx - gx) * (nx - gx) + (ny - gy) * (ny - gy));
+            // console.log("r: ", r);
+            // console.log("RADIUS: ", RADIUS);
+            // console.log("I_RADIUS: ", I_RADIUS);
+            // console.log("K * I_RADIUS: ", I_RADIUS * k_scale);
+            // если точка (nx, ny) входит в вершину
+            // Это радиус, который видно через систему координат ОКНА
+            if (r <= RADIUS * k_scale) {
+                // тогда передвигаем вершину
+                GRAPH["vertices"][CURRENT_VERTEX][0] = nx / k_scale;
+                GRAPH["vertices"][CURRENT_VERTEX][1] = ny / k_scale;
+                // GRAPH["vertices"][CURRENT_VERTEX][0] += (nx - gx) / k_scale;
+                // GRAPH["vertices"][CURRENT_VERTEX][1] += (ny - gy) / k_scale;
+            }
         }
+
+        // перерисовываем граф
+        clean_canvas(canvas_gd, ctx, 1);
+        draw_graph(GRAPH, canvas_gd, ctx);
+    }
+}
+
+function set_CURRENT_VERTEX(value) {
+    CURRENT_VERTEX = value;
+}
+
+// смещение Canvas-а по оси X или оси Y
+function translate_canvas(offset_axis_x, offset_axis_y, canvas_gd, ctx) {
+    if (GRAPH != null) {
+        OFFSETX += offset_axis_x;
+        OFFSETY += offset_axis_y;
 
         // console.log("TRANSLATE");
 
         // очищаем Canvas
-        clean_canvas(canvas_gd, ctx, 0);
+        clean_canvas(canvas_gd, ctx, 1);
         draw_graph(GRAPH, canvas_gd, ctx);
     }
 }
 
 // координаты мыши трансформировались в координаты Canvas-а
-function transform_mouse_coords(cx, cy, ctx) {
+function transform_mouse_coords(cx, cy) {
     let nx, ny;
     nx = cx - OFFSETX;
     ny = cy - OFFSETY;
@@ -249,4 +454,13 @@ function transform_mouse_coords(cx, cy, ctx) {
     // console.log("NX, NY: ", nx, ny);
 
     return [nx, ny];
+}
+
+// координаты холста трансформировались в координаты мыши
+function transform_canvas_coords(nx, ny, ctx) {
+    let cx, cy;
+    cx = nx + OFFSETX;
+    cy = ny + OFFSETY;
+
+    return [cx, cy];
 }

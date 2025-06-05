@@ -6,29 +6,15 @@ string DrawCommand::execute(const string& command,
                             const vector<string>& opts,
                             Signals* my_signals) {
 
-    string output = "<br>You may input <b>" + command + " --help</b> for more information.";
-    // command name
-    // description
-    // {-h: --help} and so on
-    auto com_inf = list_commands::get(command);
+    // вывод команды
+    string output;
 
-    string description = get<1>(com_inf);
-    unordered_map<string, string> got_opts = get<2>(com_inf);
+    // документация команды
+    string description;
 
-    // CHECKING OPTS
-    if (opts.size() > 1) {
-        output = "<b>draw</b> can get only one unnecessary option." + output;
-        return output;
-    }
+    VALIDATE_COMMAND_FLAGS(command, opts);
 
-    // если хотя бы один не совпадает, команда НЕ ВЫПОЛНЯЕТСЯ
-    for (string opt: opts) {
-        // если флаг не найден (ни короткий, ни полный)
-        if (got_opts[opt] == "") {
-            output = "Flag <b>" + opt + "</b> wasn`t found." + output;
-            return output;
-        }
-    }
+    // =================== your business logic ===================
 
     // CHECKING AMOUNT OF ARGS
     if (args.size() > 1) {

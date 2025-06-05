@@ -29,23 +29,15 @@ string get_list_of_graphs(const string& path) {
 string ShowCommand::execute(const string& command,
                             const vector<string>& args,
                             const vector<string>& opts) {
-    string output = "<br>You may input <b>" + command + " --help</b> for more information.";
-    // command name
-    // description
-    // {-h: --help} and so on
-    auto com_inf = list_commands::get(command);
+    // вывод команды
+    string output;
 
-    string description = get<1>(com_inf);
-    unordered_map<string, string> got_opts = get<2>(com_inf);
+    // документация команды
+    string description;
 
-    // если хотя бы один не совпадает, команда НЕ ВЫПОЛНЯЕТСЯ
-    for (string opt: opts) {
-        // если флаг не найден (ни короткий, ни полный)
-        if (got_opts[opt] == "") {
-            output = "Flag <b>" + opt + "</b> wasn`t found." + output;
-            return output;
-        }
-    }
+    VALIDATE_COMMAND_FLAGS(command, opts);
+
+    // =================== your business logic ===================
 
     // show GRAPH_NAME
     // show -a (show --all)
