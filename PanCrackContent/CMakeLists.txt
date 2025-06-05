@@ -20,6 +20,7 @@ qt6_add_qml_module(PanCrackContent
         "Bsod.qml"
         "plugs/Signals.qml"
         "GraphCanvas.qml"
+        "CustomCursor.qml"
     RESOURCES
         "img/logo.png"
         "img/lock.png"
