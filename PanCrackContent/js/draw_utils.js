@@ -214,19 +214,18 @@ function draw_graph(graph, canvas_gd, ctx) {
         ctx.closePath();
     }
 
-    // квадрат для отладки
-    ctx.beginPath();
-    ctx.strokeStyle = "white";
-    ctx.strokeWidth = 2.5;
-    ctx.strokeRect(0, 0, canvas_gd.width, canvas_gd.height);
-    ctx.closePath();
+    // // квадрат для отладки
+    // ctx.beginPath();
+    // ctx.strokeStyle = "white";
+    // ctx.strokeWidth = 2.5;
+    // ctx.strokeRect(0, 0, canvas_gd.width, canvas_gd.height);
+    // ctx.closePath();
 
     canvas_gd.requestPaint();
 }
 
 // находим начальный масштаб, чтобы поместился весь граф
 function init_scale(graph, canvas_gd, ctx) {
-
 
     GRAPH = graph;
 
@@ -377,10 +376,10 @@ function move_vertex(mx, my, canvas_gd, ctx) {
                 if (r <= RADIUS * k_scale) {
                     set_CURRENT_VERTEX(v);
                     // тогда передвигаем вершину
-                    // GRAPH["vertices"][v][0] = nx / k_scale;
-                    // GRAPH["vertices"][v][1] = ny / k_scale;
-                    GRAPH["vertices"][v][0] += (nx - gx) / k_scale;
-                    GRAPH["vertices"][v][1] += (ny - gy) / k_scale;
+                    GRAPH["vertices"][v][0] = nx / k_scale;
+                    GRAPH["vertices"][v][1] = ny / k_scale;
+                    // GRAPH["vertices"][v][0] += (nx - gx) / k_scale;
+                    // GRAPH["vertices"][v][1] += (ny - gy) / k_scale;
                     break;
                 }
             }
@@ -414,10 +413,10 @@ function move_vertex(mx, my, canvas_gd, ctx) {
             // Это радиус, который видно через систему координат ОКНА
             if (r <= RADIUS * k_scale) {
                 // тогда передвигаем вершину
-                // GRAPH["vertices"][v][0] = nx / k_scale;
-                // GRAPH["vertices"][v][1] = ny / k_scale;
-                GRAPH["vertices"][CURRENT_VERTEX][0] += (nx - gx) / k_scale;
-                GRAPH["vertices"][CURRENT_VERTEX][1] += (ny - gy) / k_scale;
+                GRAPH["vertices"][CURRENT_VERTEX][0] = nx / k_scale;
+                GRAPH["vertices"][CURRENT_VERTEX][1] = ny / k_scale;
+                // GRAPH["vertices"][CURRENT_VERTEX][0] += (nx - gx) / k_scale;
+                // GRAPH["vertices"][CURRENT_VERTEX][1] += (ny - gy) / k_scale;
             }
         }
 

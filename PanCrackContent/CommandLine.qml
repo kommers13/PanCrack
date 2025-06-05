@@ -399,7 +399,7 @@ Item {
                     // "| |    | (_| || | | || \\__/\\| |   | (_| || (__ |   <\n" +
                     // "\\_|     \\__,_||_| |_| \\____/|_|    \\__,_| \\___||_|\\_\\\n" +
                     "\nWARNING: SYSTEM LOCKED\n" +
-                    "SOLVE 12 GRAPH PROBLEMS TO UNLOCK\n" +
+                    "SOLVE 3 GRAPH PROBLEMS TO UNLOCK\n" +
                     "Type 'help' for available commands\n" +
                     "Press ENTER to begin..."
                 readOnly: true
