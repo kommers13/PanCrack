@@ -51,6 +51,7 @@ const EDGE_COLOR = "#00FF00";
 // получаем GRAPH = null
 let GRAPH = null            // НЕ ИСПОЛЬЗУЙТЕ ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ, ДА ЛАДНО, ВЫ ЧТО, ИЗДЕВАЕТЕСЬ
 
+// текущая передвигаемая вершина
 let CURRENT_VERTEX = null;
 
 
@@ -105,6 +106,9 @@ function clean_canvas(canvas_gd, ctx, clean_graph) {
 
 // граф в переменной graph всегда ПРАВИЛЬНЫЙ
 // canvas_gd - объект Canvas для рисования графа
+// changed - в этом массиве имена вершин, которые изменили свое положение,
+// поэтому рисовать нужно только их
+// если граф ТОЛЬКО рисуется, то changed состоит из всех вершин графа (changed = GRAPH["vertices"]
 function draw_graph(graph, canvas_gd, ctx) {
 
     // DRAWING
@@ -341,10 +345,50 @@ function scale_canvas(scale, cx, cy, canvas_gd, ctx) {
 // эта функция вызывается тогда, КОГДА ИЗВЕСТНО, ЧТО НАЖАТА ЛКМ
 function move_vertex(mx, my, canvas_gd, ctx) {
     if (GRAPH != null) {        // если граф нарисован
-        for (let v in GRAPH["vertices"]) {
-            // берем координаты вершины
-            let x = GRAPH["vertices"][v][0];
-            let y = GRAPH["vertices"][v][1];
+        if (CURRENT_VERTEX === null) {
+            // тогда ищем вершину, которую нужно передвигать
+            for (let v in GRAPH["vertices"]) {
+                // берем координаты вершины
+                let x = GRAPH["vertices"][v][0];
+                let y = GRAPH["vertices"][v][1];
+                // преобразуем координаты вершины в координаты холста
+                // мы это делаем для того, чтобы сравнивать положение мыши и вершин в одной системе координат
+                // у нас точка (nx, ny) относительно БЕЛОГО КВАДРАТА, и все точки (x, y) относительно БЕЛОГО КВАДРАТА
+                // однако они без масштабирования, поэтому нужно масштабировать эту точку, домножив на коэффициент
+                let [gx, gy] = [k_scale * x, k_scale * y];
+                // переводим координаты мыши в координаты холста
+                let [nx, ny] = transform_mouse_coords(mx, my);
+                // console.log("================ V: ", v);
+                // console.log("K: ", k_scale);
+                // console.log("X, Y: ", x, y);
+                // console.log("K * X, K * Y: ", k_scale * x, k_scale * y);
+                // console.log("GX, GY: ", gx, gy);
+                // console.log("NX, NY: ", nx, ny);
+                // узнаем, лежит ли точка (nx, ny) внутри окружности с радиусом RADIUS
+                // и центром в точке (gx, gy)
+                // узнаем расстояние от (nx, ny) до (gx, gy)
+                let r = Math.sqrt((nx - gx) * (nx - gx) + (ny - gy) * (ny - gy));
+                // console.log("r: ", r);
+                // console.log("RADIUS: ", RADIUS);
+                // console.log("I_RADIUS: ", I_RADIUS);
+                // console.log("K * I_RADIUS: ", I_RADIUS * k_scale);
+                // если точка (nx, ny) входит в вершину
+                // Это радиус, который видно через систему координат ОКНА
+                if (r <= RADIUS * k_scale) {
+                    set_CURRENT_VERTEX(v);
+                    // тогда передвигаем вершину
+                    // GRAPH["vertices"][v][0] = nx / k_scale;
+                    // GRAPH["vertices"][v][1] = ny / k_scale;
+                    GRAPH["vertices"][v][0] += (nx - gx) / k_scale;
+                    GRAPH["vertices"][v][1] += (ny - gy) / k_scale;
+                    break;
+                }
+            }
+        }
+        else {
+            // если вершина уже известна, то мы продолжаем перетаскивать ее
+            let x = GRAPH["vertices"][CURRENT_VERTEX][0];
+            let y = GRAPH["vertices"][CURRENT_VERTEX][1];
             // преобразуем координаты вершины в координаты холста
             // мы это делаем для того, чтобы сравнивать положение мыши и вершин в одной системе координат
             // у нас точка (nx, ny) относительно БЕЛОГО КВАДРАТА, и все точки (x, y) относительно БЕЛОГО КВАДРАТА
@@ -369,19 +413,22 @@ function move_vertex(mx, my, canvas_gd, ctx) {
             // если точка (nx, ny) входит в вершину
             // Это радиус, который видно через систему координат ОКНА
             if (r <= RADIUS * k_scale) {
-
                 // тогда передвигаем вершину
-                GRAPH["vertices"][v][0] = nx / k_scale;
-                GRAPH["vertices"][v][1] = ny / k_scale;
-                // GRAPH["vertices"][v][0] += (nx - gx);
-                // GRAPH["vertices"][v][1] += (ny - gy);
-                break;
+                // GRAPH["vertices"][v][0] = nx / k_scale;
+                // GRAPH["vertices"][v][1] = ny / k_scale;
+                GRAPH["vertices"][CURRENT_VERTEX][0] += (nx - gx) / k_scale;
+                GRAPH["vertices"][CURRENT_VERTEX][1] += (ny - gy) / k_scale;
             }
         }
+
         // перерисовываем граф
         clean_canvas(canvas_gd, ctx, 1);
         draw_graph(GRAPH, canvas_gd, ctx);
     }
+}
+
+function set_CURRENT_VERTEX(value) {
+    CURRENT_VERTEX = value;
 }
 
 // смещение Canvas-а по оси X или оси Y

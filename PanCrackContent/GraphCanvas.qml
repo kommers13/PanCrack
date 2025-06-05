@@ -30,10 +30,10 @@ Canvas {
                 // курсора в координаты холста) и передвинуть их на то место, где сейчас находится курсор,
                 // затем перерисовать граф и сохранить координаты этого графа на время его редактирования
                 DrawingUtils.move_vertex(mouse.x, mouse.y, canvas_graphdraw, canvas_graphdraw.getContext("2d"));
-                // console.log("GRAPH: ", DrawingUtils.GRAPH["vertices"]["A"]);
+
             }
             else {
-                // DrawingUtils.CURRENT_VERTEX = null;
+                DrawingUtils.set_CURRENT_VERTEX(null);
             }
 
             // console.log(Qt.LeftButton);
