@@ -60,8 +60,24 @@ string AlgorithmCommand::execute(
                 }
             }
         }
+        // гамильтонов граф
+        if (opts[0] == "-g" || opts[0] == "--hamilton") {
+            string graph_name = args[0];
+            bool exist = list_commands::exist_file("graphs", graph_name, ".json");
+            // если такой граф существует
+            if (exist) {
+                // создаем граф из JSON-файла
+                Graph G = dataconverse::fromJSONfileToGraph(graph_name);
+                vector<string> ans = hamilton::hamilton_cycles(G);
+                string answer = "";
+                for (auto chain: ans) {
+                    answer += (chain + "<br>");
+                }
+                return "Quantity hamilton cycles: " + to_string(ans.size()) + "<br>" + "Hamilton cycles:<br>" + "\t" + answer;
+            }
+        }
     }
-    if(args.size() == 2 && opts.size() == 1){
+    if (args.size() == 2 && opts.size() == 1) {
         if(opts[0] == "-d" || opts[0] == "--dfs"){
             string graph_name = args[0];
             bool exist = list_commands::exist_file("graphs", graph_name, ".json");
@@ -98,7 +114,7 @@ string AlgorithmCommand::execute(
         }
 
     }
-    if(args.size() == 3 && opts.size() == 1){
+    if (args.size() == 3 && opts.size() == 1) {
         if(opts[0] == "-d" || opts[0] == "--dfs"){
             string graph_name = args[0];
             bool exist = list_commands::exist_file("graphs", graph_name, ".json");

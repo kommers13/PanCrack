@@ -15,6 +15,7 @@ add_library(taskslib STATIC graph.cpp include/graph.h
                             task3.cpp include/task3.h
                             task9.cpp include/task9.h
                             task12.cpp include/task12.h
+                            hamilton.cpp include/hamilton.h
                         )
 
 target_include_directories(taskslib PUBLIC include)

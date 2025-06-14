@@ -11,6 +11,7 @@
 #include <task4.h>
 #include <task7.h>
 #include <task9.h>
+#include <hamilton.h>
 
 #include "../listcommands.h"
 #include "../dataconverse.h"

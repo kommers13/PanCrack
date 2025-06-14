@@ -297,9 +297,9 @@ Item {
 
             function commandAccepted(command_line, command_answer) {
                 command_line.readOnly = true
-                command_line.enabled = false
+                // command_line.enabled = false
                 command_line.cursorDelegate = null
-                command_answer.enabled = false
+                // command_answer.enabled = false
 
                 var cmd = command_line.text.replace(/^PanCrack>\s*/g, "").trim();
                 if (cmd.length > 0) {

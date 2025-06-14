@@ -214,6 +214,7 @@ bool Graph::is_undirected() {
     for (const auto [v, neighbours]: graph) {
         for (const auto [u, w]: neighbours) {
             // если из v в u вес не равен из u в v, то граф ориентированный
+            // BUG с 0
             if (graph[v][u] != graph[u][v]) {
                 return false;
             }
